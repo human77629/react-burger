@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    position: relative;
+}
+
+.illustration {
+    width: 240px;
+    height: 120px;
+}
+
+.price {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.name {
+    flex: none;
+    align-self: stretch;
+    flex-grow: 1;
+    text-align: center;
+    width: 272px;
+    height: 48px;    
+}

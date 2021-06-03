@@ -1,6 +1,34 @@
 .container {
     width: 600px;
     height: 912px;
-    border-color: aqua;
-    border-style: dashed;
+    display: flex;
+    flex-flow: column;
+}
+
+.tabContainer {
+    display: flex;
+    flex-flow: row;
+}
+
+.ingredients {
+    height: 717px;
+    overflow: auto;    
+}
+
+.ingredientsContainer {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.ingredients::-webkit-scrollbar {
+    width: 8px;
+    background: #2F2F37;
+}
+
+.ingredients::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.ingredients::-webkit-scrollbar-thumb {
+    background: #8585AD;
 }

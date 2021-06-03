@@ -1,0 +1,72 @@
+.container {
+    width: 600px;
+    height: 912px;
+
+}
+
+.components {
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+    align-content:stretch;
+    gap: 16px;
+    flex: none;
+    width: 568px;
+    height: 656px;  
+    overflow: auto;
+          
+}
+
+.components::-webkit-scrollbar {
+    width: 8px;
+    background: #2F2F37;
+}
+   
+.components::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+   
+.components::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}
+
+.component {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    position: relative;
+    justify-content: space-evenly;
+}
+
+.dragIcon {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 0px;
+    top: calc(50% - 24px/2);    
+}
+
+.ingredientFix {
+    flex: 2;
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+}
+.ingredientFix span:first-of-type {
+    flex: 2;
+}
+
+.priceInfo {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.price {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0px;    
+}
