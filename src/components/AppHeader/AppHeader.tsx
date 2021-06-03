@@ -6,20 +6,21 @@ import headerStyles from './AppHeader.module.css'
 class AppHeader extends React.Component {
     render=()=>(
         <header className={headerStyles.navPanel}>
-            <nav className={headerStyles.navPanelContent}>
-                <ol className={headerStyles.navLeft}>
+            <nav className={`${headerStyles.navPanelContent} mt-4 mb-4`}>
+                <ul className={headerStyles.navLeft}>
                     <NavMenuItem label="Конструктор" icon={BurgerIcon} selected/>
                     <NavMenuItem label="Лента заказов" icon={ListIcon} />
-                </ol>
+                </ul>
 
                 <Logo />
 
-                <ol className={headerStyles.navRight}>
+                <ul className={headerStyles.navRight}>
                     <NavMenuItem label="Личный Кабинет" icon={ProfileIcon} />
-                </ol>
+                </ul>
             </nav>
         </header>
         
+
             );
 
 }

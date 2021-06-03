@@ -42,7 +42,7 @@ class BurgerConstructor extends React.Component {
 
             </ul>
             <div className={`${burgerConstructorStyles.priceInfo} mr-4`}>
-                <div className={`${burgerConstructorStyles.price} mr-10`}>``
+                <div className={`${burgerConstructorStyles.price} mr-10`}>
             <p className="text text_type_digits-medium mr-2">{[...nonBunComponents, bunComponent].reduce((s,v)=>(s+(v?v:{price:0}).price),0)}</p>
             <CurrencyIcon type='primary' />
             </div>

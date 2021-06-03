@@ -13,16 +13,12 @@
     justify-content: space-between;
     width: 1280px;
     align-items: center;
-    margin-top: 16px;
-    margin-bottom: 16px;
 }
 
 .navLeft {
     justify-content: flex-start;
     display: flex;
     flex-flow: row;
-    margin: 0;  
-    padding: 0;
     flex: 1;
 }
 
@@ -30,7 +26,5 @@
     justify-content: flex-end;
     display: flex;
     flex-flow: row;
-    margin: 0;  
-    padding: 0;
     flex: 1;
 }
