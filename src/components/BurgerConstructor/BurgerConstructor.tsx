@@ -7,10 +7,10 @@ import { ConstructorElement, DragIcon, CurrencyIcon, Button } from "@ya.praktiku
 class BurgerConstructor extends React.Component {
 
     render=()=> {
-        let bunComponentId = sampleOrder.find(component=>(sampleData.find(ingredient=>(ingredient._id===component)&&ingredient.type==='bun')));
-        let bunComponent = sampleData.find(ingredient=>(bunComponentId===ingredient._id));
-        let nonBunComponentIds = sampleOrder.filter(component=>(sampleData.find(ingredient=>(ingredient._id===component)&&!(ingredient.type==='bun'))));
-        let nonBunComponents = nonBunComponentIds.map(componentId=>sampleData.find(ingredient=>ingredient._id===componentId));
+        const bunComponentId = sampleOrder.find(component=>(sampleData.find(ingredient=>(ingredient._id===component)&&ingredient.type==='bun')));
+        const bunComponent = sampleData.find(ingredient=>(bunComponentId===ingredient._id));
+        const nonBunComponentIds = sampleOrder.filter(component=>(sampleData.find(ingredient=>(ingredient._id===component)&&!(ingredient.type==='bun'))));
+        const nonBunComponents = nonBunComponentIds.map(componentId=>sampleData.find(ingredient=>ingredient._id===componentId));
 
         return (
         <section className={`${burgerConstructorStyles.container} pt-25` }>
