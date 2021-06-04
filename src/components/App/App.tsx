@@ -1,10 +1,10 @@
 import React from 'react';
-import AppHeader from './components/AppHeader/AppHeader'
-import BurgerIngredients from './components/BurgerIngredients/BurgerIngredients'
-import BurgerConstructor from './components/BurgerConstructor/BurgerConstructor'
+import AppHeader from '../AppHeader/AppHeader'
+import BurgerIngredients from '../BurgerIngredients/BurgerIngredients'
+import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
 import './App.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-import {sampleData} from './utils/data';
+import {sampleData} from '../../utils/data';
 
 const sd = sampleData[3];
 
