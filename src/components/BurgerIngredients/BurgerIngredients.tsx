@@ -1,19 +1,30 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import burgerIngredientsStyles from './BurgerIngredients.module.css'
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
-import {sampleData} from '../../utils/data.js'
-import {sampleOrder} from '../../utils/order.js'
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
-function BurgerIngredients () {
+
+interface Props {
+    ingredients: {
+        image: string,
+        price: number,
+        name: string,
+        _id: string,
+        type: string
+    }[],
+    selectedIngredients: string[]
+}
+
+function BurgerIngredients (props:Props) {
 
     const [currentTab, setCurrentTab] = React.useState('bun');
-    const [ingredientTypes, setIngredientTypes] = React.useState(
+    const ingredientTypes =
         [
             {type: 'bun', title: 'Булки'},
             {type: 'sauce', title: 'Соусы'},
             {type: 'main', title: 'Начинки'}
         ]
-    )
+    
 
 
     const tabs = () => (
@@ -38,8 +49,8 @@ function BurgerIngredients () {
                     <React.Fragment key={componentTypeKey}>
                     <h1 className="text text_type_main-medium mt-6 mb-2">{ingredientType.title}</h1>
                     <ul className={burgerIngredientsStyles.ingredientsContainer}>
-                    {sampleData.filter(ingredient=>(ingredient.type===ingredientType.type)).map((ingredient,k)=>(
-                        <BurgerIngredient key={k} ingredient={{...ingredient, count: sampleOrder.filter(o=>ingredient._id===o).length}} />
+                    {props.ingredients.filter(ingredient=>(ingredient.type===ingredientType.type)).map((ingredient,k)=>(
+                        <BurgerIngredient key={k} ingredient={{...ingredient, count: props.selectedIngredients.filter(o=>ingredient._id===o).length}} />
                     ))}
                     </ul>
                     </React.Fragment>
@@ -49,6 +60,31 @@ function BurgerIngredients () {
             </ul>
         </section>
     )
+}
+
+/*
+interface Props {
+    ingredients: {
+        image: string,
+        price: number,
+        name: string,
+        _id: string,
+        type: string
+    }[]
+}
+*/
+
+const ingredientPropTypes = PropTypes.shape({
+    image: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired
+})
+
+BurgerIngredients.propTypes = {
+    ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
+    selectedIngredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 }
 
 export default BurgerIngredients;
