@@ -62,18 +62,6 @@ function BurgerIngredients (props:Props) {
     )
 }
 
-/*
-interface Props {
-    ingredients: {
-        image: string,
-        price: number,
-        name: string,
-        _id: string,
-        type: string
-    }[]
-}
-*/
-
 const ingredientPropTypes = PropTypes.shape({
     image: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,

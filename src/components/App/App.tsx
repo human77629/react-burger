@@ -16,7 +16,7 @@ function App() {
           <main>
             
             <BurgerIngredients ingredients={sampleData} selectedIngredients={sampleOrder} />
-            <BurgerConstructor />
+            <BurgerConstructor ingredients={sampleData} selectedIngredients={sampleOrder} />
           </main>
           </>
   );
