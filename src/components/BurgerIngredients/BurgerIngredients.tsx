@@ -39,15 +39,15 @@ class BurgerIngredients extends React.Component {
             {this.tabs()}
             <ul className={burgerIngredientsStyles.ingredients}>
                 {this.state.ingredientTypes
-                .map((ingredientType,k_type)=>(
-                    <>
-                    <h1 key={k_type} className="text text_type_main-medium mt-6 mb-2">{ingredientType.title}</h1>
+                .map((ingredientType,componentTypeKey)=>(
+                    <React.Fragment key={componentTypeKey}>
+                    <h1 className="text text_type_main-medium mt-6 mb-2">{ingredientType.title}</h1>
                     <ul className={burgerIngredientsStyles.ingredientsContainer}>
                     {sampleData.filter(ingredient=>(ingredient.type===ingredientType.type)).map((ingredient,k)=>(
-                        <BurgerIngredient key={`${k_type}.${k}`} ingredient={{...ingredient, count: sampleOrder.filter(o=>ingredient._id===o).length}} />
+                        <BurgerIngredient key={k} ingredient={{...ingredient, count: sampleOrder.filter(o=>ingredient._id===o).length}} />
                     ))}
                     </ul>
-                    </>
+                    </React.Fragment>
                 ))}
                 
 

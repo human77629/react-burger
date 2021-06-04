@@ -21,9 +21,9 @@ class BurgerConstructor extends React.Component {
             )}
             </li>
             <div className={burgerConstructorStyles.componentsScrollable}>
-            {nonBunComponents.map(component=>component&&
+            {nonBunComponents.map((component, k)=>component&&
                 (
-                <li className={`${burgerConstructorStyles.component} pl-8`}>
+                <li key={k} className={`${burgerConstructorStyles.component} pl-8`}>
                     <div className={burgerConstructorStyles.dragIcon}>
                     <DragIcon type='primary' />
                     </div>

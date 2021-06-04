@@ -3,7 +3,6 @@ import ingredientStyles from './BurgerIngredient.module.css'
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components'
 
 interface Props {
-    key: string,
     ingredient: {
         image: string,
         price: number,
@@ -16,7 +15,7 @@ class BurgerIngredient extends React.Component<Props> {
     render=() => (
         
 
-        <li key={this.props.key} className={`${ingredientStyles.container} mt-4 mb-4 ml-4 mr-2`}>
+        <li className={`${ingredientStyles.container} mt-4 mb-4 ml-4 mr-2`}>
             <img src={this.props.ingredient.image} className={`${ingredientStyles.illustration} mr-4 ml-4`} />
             <span className={`${ingredientStyles.price} mb-1 mt-1`}>
                 <p className="text text_type_digits-default mr-2">
