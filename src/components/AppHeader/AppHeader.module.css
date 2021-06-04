@@ -1,0 +1,30 @@
+.navPanel {
+
+    background: #1c1c21;
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+.navPanelContent {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    width: 1280px;
+    align-items: center;
+}
+
+.navLeft {
+    justify-content: flex-start;
+    display: flex;
+    flex-flow: row;
+    flex: 1;
+}
+
+.navRight {
+    justify-content: flex-end;
+    display: flex;
+    flex-flow: row;
+    flex: 1;
+}
