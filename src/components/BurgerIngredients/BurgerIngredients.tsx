@@ -4,24 +4,22 @@ import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 import {sampleData} from '../../utils/data.js'
 import {sampleOrder} from '../../utils/order.js'
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
-class BurgerIngredients extends React.Component {
+function BurgerIngredients () {
 
-
-    
-
-    state = {
-        currentTab: 'bun',
-        ingredientTypes: [
+    const [currentTab, setCurrentTab] = React.useState('bun');
+    const [ingredientTypes, setIngredientTypes] = React.useState(
+        [
             {type: 'bun', title: 'Булки'},
             {type: 'sauce', title: 'Соусы'},
             {type: 'main', title: 'Начинки'}
         ]
-    }
+    )
 
-    tabs = () => (
+
+    const tabs = () => (
         <div className={`${burgerIngredientsStyles.tabContainer} mt-6 mb-4`}>
-        {this.state.ingredientTypes.map((ingredientType, k)=>(
-        <Tab key={k} value={ingredientType.type} active={this.state.currentTab === ingredientType.type} onClick={this.setTab}>
+        {ingredientTypes.map((ingredientType, k)=>(
+        <Tab key={k} value={ingredientType.type} active={currentTab === ingredientType.type} onClick={setCurrentTab}>
         {ingredientType.title}
         </Tab>
         ))}
@@ -29,16 +27,13 @@ class BurgerIngredients extends React.Component {
     )
 
 
-    setTab=(val: string)=> {
-        this.setState(prevState=>({...prevState, currentTab: val}));
-    }
 
-    render=()=> (
+    return (
         <section className={`${burgerIngredientsStyles.container} ml-5 mr-5`}>
             <h1 className="text text_type_main-large mt-10">Соберите бургер</h1>
-            {this.tabs()}
+            {tabs()}
             <ul className={burgerIngredientsStyles.ingredients}>
-                {this.state.ingredientTypes
+                {ingredientTypes
                 .map((ingredientType,componentTypeKey)=>(
                     <React.Fragment key={componentTypeKey}>
                     <h1 className="text text_type_main-medium mt-6 mb-2">{ingredientType.title}</h1>

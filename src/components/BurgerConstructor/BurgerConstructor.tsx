@@ -4,9 +4,9 @@ import {sampleData} from '../../utils/data.js'
 import {sampleOrder} from '../../utils/order.js'
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
-class BurgerConstructor extends React.Component {
+function BurgerConstructor () {
 
-    render=()=> {
+
         const bunComponentId = sampleOrder.find(component=>(sampleData.find(ingredient=>(ingredient._id===component)&&ingredient.type==='bun')));
         const bunComponent = sampleData.find(ingredient=>(bunComponentId===ingredient._id));
         const nonBunComponentIds = sampleOrder.filter(component=>(sampleData.find(ingredient=>(ingredient._id===component)&&!(ingredient.type==='bun'))));
@@ -51,7 +51,7 @@ class BurgerConstructor extends React.Component {
             </Button>
             </div>
         </section>
-    )}
+    )
 }
 
 export default BurgerConstructor;

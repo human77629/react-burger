@@ -3,8 +3,8 @@ import {Logo, BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-devel
 import NavMenuItem from '../NavMenuItem/NavMenuItem'
 import headerStyles from './AppHeader.module.css'
 
-class AppHeader extends React.Component {
-    render=()=>(
+function AppHeader () {
+    return (
         <header className={headerStyles.navPanel}>
             <nav className={`${headerStyles.navPanelContent} mt-4 mb-4`}>
                 <ul className={headerStyles.navLeft}>
