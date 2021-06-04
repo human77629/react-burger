@@ -14,13 +14,13 @@ class BurgerConstructor extends React.Component {
 
         return (
         <section className={`${burgerConstructorStyles.container} pt-25` }>
-            <ul className={`${burgerConstructorStyles.components} ml-4 pr-4 mb-10`}>
+            <ul className={`${burgerConstructorStyles.components} ml-4 mb-10`}>
             <li className="pl-8">
             {bunComponent && (
                 <ConstructorElement type='top' isLocked={true} text={`${bunComponent.name} (верх)`} thumbnail={bunComponent.image} price={bunComponent.price}/>
             )}
             </li>
-
+            <div className={burgerConstructorStyles.componentsScrollable}>
             {nonBunComponents.map(component=>component&&
                 (
                 <li className={`${burgerConstructorStyles.component} pl-8`}>
@@ -33,7 +33,7 @@ class BurgerConstructor extends React.Component {
                 </li>
                 )
             )}
-
+            </div>
             <li className="pl-8">
             {bunComponent && (
                 <ConstructorElement type='bottom' isLocked={true} text={`${bunComponent.name} (низ)`} thumbnail={bunComponent.image} price={bunComponent.price}/>
