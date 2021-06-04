@@ -16,7 +16,7 @@ class BurgerIngredient extends React.Component<Props> {
         
 
         <li className={`${ingredientStyles.container} mt-4 mb-4 ml-4 mr-2`}>
-            <img src={this.props.ingredient.image} className={`${ingredientStyles.illustration} mr-4 ml-4`} />
+            <img alt={this.props.ingredient.name} src={this.props.ingredient.image} className={`${ingredientStyles.illustration} mr-4 ml-4`} />
             <span className={`${ingredientStyles.price} mb-1 mt-1`}>
                 <p className="text text_type_digits-default mr-2">
                     {this.props.ingredient.price}
