@@ -12,7 +12,8 @@ interface Props {
         _id: string,
         type: string
     }[],
-    selectedIngredients: string[]
+    selectedIngredients: string[],
+    handleIngredientClick: (ingredient:any)=>void,
 }
 
 function BurgerIngredients (props:Props) {
@@ -50,7 +51,7 @@ function BurgerIngredients (props:Props) {
                     <h1 className="text text_type_main-medium mt-6 mb-2">{ingredientType.title}</h1>
                     <ul className={burgerIngredientsStyles.ingredientsContainer}>
                     {props.ingredients.filter(ingredient=>(ingredient.type===ingredientType.type)).map((ingredient,k)=>(
-                        <BurgerIngredient key={k} ingredient={{...ingredient, count: props.selectedIngredients.filter(o=>ingredient._id===o).length}} />
+                        <BurgerIngredient onClick={props.handleIngredientClick} key={k} ingredient={{...ingredient, count: props.selectedIngredients.filter(o=>ingredient._id===o).length}} />
                     ))}
                     </ul>
                     </React.Fragment>
@@ -72,7 +73,8 @@ const ingredientPropTypes = PropTypes.shape({
 
 BurgerIngredients.propTypes = {
     ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
-    selectedIngredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+    selectedIngredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    handleIngredientClick: PropTypes.func,
 }
 
 export default BurgerIngredients;

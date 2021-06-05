@@ -2,6 +2,7 @@ import React from 'react';
 import AppHeader from '../AppHeader/AppHeader'
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients'
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
+import Modal from '../Modal/Modal';
 import './App.css';
 
 const ingredientsApi = 'https://norma.nomoreparties.space/api/ingredients';
@@ -39,6 +40,25 @@ function App() {
   const [ingredients, setIngredients] = React.useState([]);
   const [order, setOrder] = React.useState<string[]>([]);  
 
+  const [isIngredientModalOpen, setIsIngredientModalOpen] = React.useState(false);
+  const [isOrderModalOpen, setIsOrderModalOpen] = React.useState(false);
+
+  const [selectedIngredient, setSelectedIngredient] = React.useState<Ingredient>();
+
+  const handleOpenOrderModal = function () {
+    setIsOrderModalOpen(true);
+  }
+
+  const handleOpenIngredientModal = function (ingredient: Ingredient) {
+    setSelectedIngredient(ingredient);
+    setIsIngredientModalOpen(true);
+  }  
+
+  const closeModals = function () {
+    setIsOrderModalOpen(false);
+    setIsIngredientModalOpen(false);
+  }
+
   React.useEffect(()=>{
     setFetchState({loading: true, loaded: false, error: false});    
 
@@ -55,6 +75,13 @@ function App() {
     .catch((err)=>{
       setFetchState({loading: false, loaded: false, error: true});
     });
+
+    const escapeHandler = (event:KeyboardEvent) => event.key === 'Escape' && closeModals();
+    document.addEventListener('keydown', escapeHandler);
+
+    return () => document.removeEventListener('keydown', escapeHandler);    
+    
+
   },[]);
 
 
@@ -66,16 +93,29 @@ function App() {
           <main>
             {fetchState.loaded && (
               <>
-            <BurgerIngredients ingredients={ingredients} selectedIngredients={order} />
-            <BurgerConstructor ingredients={ingredients} selectedIngredients={order} />
+            <BurgerIngredients ingredients={ingredients} selectedIngredients={order} handleIngredientClick={handleOpenIngredientModal} />
+            <BurgerConstructor ingredients={ingredients} selectedIngredients={order} handleOrderClick={handleOpenOrderModal} />
               </>
             )}
             {fetchState.loading && (
+              
               <h1 className="text text_type_main-large mt-10">Загрузка данных...</h1>
+              
             )}            
             {fetchState.error && (
               <h1 className="text text_type_main-large mt-10">Произошла ошибка!</h1>
-            )}                   
+            )}              
+
+            <Modal isOpen={isOrderModalOpen} closeCallback={closeModals}>    
+              ORDER MODAL
+            </Modal>
+            <Modal isOpen={isIngredientModalOpen} closeCallback={closeModals} header={'Детали ингредиента'}>    
+              
+              <div style={{height: '300px'}}>
+              <h1>INGREDIENT MODAL</h1>
+              <p>{selectedIngredient?.name}</p>
+              </div>
+            </Modal>            
           </main>
           </>
   );
