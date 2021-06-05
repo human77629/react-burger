@@ -5,6 +5,7 @@ import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
 import Modal from '../Modal/Modal';
 import './App.css';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import OrderDetails from '../OrderDetails/OrderDetails';
 
 const ingredientsApi = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -109,7 +110,7 @@ function App() {
             )}              
 
             <Modal isOpen={isOrderModalOpen} closeCallback={closeModals}>    
-              ORDER MODAL
+              <OrderDetails />
             </Modal>
             <Modal isOpen={isIngredientModalOpen} closeCallback={closeModals} header={'Детали ингредиента'}>    
               
