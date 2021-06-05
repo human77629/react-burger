@@ -4,6 +4,7 @@ import BurgerIngredients from '../BurgerIngredients/BurgerIngredients'
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
 import Modal from '../Modal/Modal';
 import './App.css';
+import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
 const ingredientsApi = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -43,7 +44,7 @@ function App() {
   const [isIngredientModalOpen, setIsIngredientModalOpen] = React.useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = React.useState(false);
 
-  const [selectedIngredient, setSelectedIngredient] = React.useState<Ingredient>();
+  const [selectedIngredient, setSelectedIngredient] = React.useState<any>();
 
   const handleOpenOrderModal = function () {
     setIsOrderModalOpen(true);
@@ -71,6 +72,7 @@ function App() {
       setIngredients(res.data);
       setFetchState({loading: false, loaded: true, error: false});
       setOrder(mockupOrder(res.data));
+      console.log(res.data);
     })
     .catch((err)=>{
       setFetchState({loading: false, loaded: false, error: true});
@@ -111,10 +113,11 @@ function App() {
             </Modal>
             <Modal isOpen={isIngredientModalOpen} closeCallback={closeModals} header={'Детали ингредиента'}>    
               
-              <div style={{height: '300px'}}>
-              <h1>INGREDIENT MODAL</h1>
-              <p>{selectedIngredient?.name}</p>
-              </div>
+              
+                {selectedIngredient && (
+              <IngredientDetails ingredient={selectedIngredient} />
+                )}
+              
             </Modal>            
           </main>
           </>
