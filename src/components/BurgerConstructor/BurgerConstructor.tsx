@@ -76,7 +76,7 @@ const ingredientPropTypes = PropTypes.shape({
 BurgerConstructor.propTypes = {
     ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
     selectedIngredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-    handleOrderClick: PropTypes.func
+    handleOrderClick: PropTypes.func.isRequired,
 }
 
 export default BurgerConstructor;

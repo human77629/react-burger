@@ -26,7 +26,7 @@ function NavMenuItem (props:Props) {
 NavMenuItem.propTypes = {
     icon: PropTypes.elementType.isRequired,
     label: PropTypes.string.isRequired,
-    selected: PropTypes.bool
+    selected: PropTypes.bool,
 }
 
 

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import ingredientDetailsStyles from './IngredientDetails.module.css';
 interface Props {
     ingredient: {
@@ -21,6 +22,11 @@ function NutritionValue(props:any) {
     )
 }
 
+NutritionValue.propTypes = {
+    label: PropTypes.string,
+    value: PropTypes.number
+}
+
 function IngredientDetails(props:Props) {
     return (
         <div className={ingredientDetailsStyles.container}>
@@ -37,6 +43,17 @@ function IngredientDetails(props:Props) {
         </ul>
         </div>
     );
+}
+
+IngredientDetails.propTypes = {
+    ingredient: PropTypes.shape({
+        image_large: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        calories: PropTypes.number.isRequired,
+        proteins: PropTypes.number.isRequired,
+        fat: PropTypes.number.isRequired,
+        carbohydrates: PropTypes.number.isRequired,
+    }).isRequired
 }
 
 export default IngredientDetails;

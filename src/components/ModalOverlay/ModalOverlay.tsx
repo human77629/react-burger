@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import PropTypes from 'prop-types';
 import ModalOverlayStyles from './ModalOverlay.module.css';
 const modalRoot = document.getElementById("modal-root");
 
@@ -16,6 +17,11 @@ function ModalOverlay(props:Props) {
     ),
         modalRoot
     ))
+}
+
+ModalOverlay.propTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    onClick: PropTypes.func.isRequired,
 }
 
 
