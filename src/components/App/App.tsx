@@ -7,7 +7,7 @@ import './App.css';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import OrderDetails from '../OrderDetails/OrderDetails';
 
-const ingredientsApi = 'https://norma.nomoreparties.space/api/ingredients';
+const INGREDIENTS_API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 
 
 interface Ingredient {
@@ -64,7 +64,7 @@ function App() {
   React.useEffect(()=>{
     setFetchState({loading: true, loaded: false, error: false});    
 
-    fetch(ingredientsApi)
+    fetch(INGREDIENTS_API_URL)
     .then(res=>res.json())
     .then(res=>{
       if (res.error) {
