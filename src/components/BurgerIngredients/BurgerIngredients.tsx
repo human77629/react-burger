@@ -50,8 +50,8 @@ function BurgerIngredients (props:Props) {
                     <React.Fragment key={componentTypeKey}>
                     <h1 className="text text_type_main-medium mt-6 mb-2">{ingredientType.title}</h1>
                     <ul className={burgerIngredientsStyles.ingredientsContainer}>
-                    {props.ingredients.filter(ingredient=>(ingredient.type===ingredientType.type)).map((ingredient,k)=>(
-                        <BurgerIngredient onClick={props.handleIngredientClick} key={k} ingredient={{...ingredient, count: props.selectedIngredients.filter(o=>ingredient._id===o).length}} />
+                    {props.ingredients.filter(ingredient=>(ingredient.type===ingredientType.type)).map((ingredient)=>(
+                        <BurgerIngredient onClick={props.handleIngredientClick} key={ingredient._id} ingredient={{...ingredient, count: props.selectedIngredients.filter(o=>ingredient._id===o).length}} />
                     ))}
                     </ul>
                     </React.Fragment>
