@@ -73,7 +73,6 @@ function App() {
       setIngredients(res.data);
       setFetchState({loading: false, loaded: true, error: false});
       setOrder(mockupOrder(res.data));
-      console.log(res.data);
     })
     .catch((err)=>{
       setFetchState({loading: false, loaded: false, error: true});

@@ -9,7 +9,7 @@ const modalRoot = document.getElementById("modal-root");
 
 interface Props {
     isOpen: boolean,
-    children: React.ReactNode,
+    children?: React.ReactNode,
     closeCallback: ()=>void,
     header?: string
 }
@@ -17,6 +17,7 @@ interface Props {
 function Modal(props:Props) {
     return (modalRoot && ReactDOM.createPortal(
     (
+        <>
         <section className={props.isOpen?modalStyles.modal:modalStyles.modalHidden}>
             <header className={modalStyles.modalHeader}>
                 <h1 className={`${modalStyles.modalTitle} text text_type_main-large`}>{props.header}</h1>
@@ -25,8 +26,10 @@ function Modal(props:Props) {
                 </button>
             </header>
             {props.children}
-            <ModalOverlay isOpen={props.isOpen} onClick={props.closeCallback} />
         </section>
+
+        <ModalOverlay isOpen={props.isOpen} onClick={props.closeCallback} />
+        </>
     ),
         modalRoot
     ))
@@ -34,7 +37,7 @@ function Modal(props:Props) {
 
 Modal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     closeCallback: PropTypes.func.isRequired,
     header: PropTypes.string
 }
