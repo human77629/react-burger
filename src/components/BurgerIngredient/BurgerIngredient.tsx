@@ -10,14 +10,15 @@ interface Props {
         price: number,
         name: string,
         count: number
-    }
+    },
+    onClick: (ingredient:any)=>void,
 }
 
 function BurgerIngredient (props: Props) {
     return (
         
 
-        <li className={`${ingredientStyles.container} mt-4 mb-4 ml-4 mr-2`}>
+        <li className={`${ingredientStyles.container} mt-4 mb-4 ml-4 mr-2`} onClick={()=>props.onClick(props.ingredient)}>
             <img alt={props.ingredient.name} src={props.ingredient.image} className={`${ingredientStyles.illustration} mr-4 ml-4`} />
             <span className={`${ingredientStyles.price} mb-1 mt-1`}>
                 <p className="text text_type_digits-default mr-2">
@@ -45,7 +46,8 @@ const ingredientPropTypes = PropTypes.shape({
 });
 
 BurgerIngredient.propTypes = {
-    ingredient: ingredientPropTypes.isRequired
+    ingredient: ingredientPropTypes.isRequired,
+    onClick: PropTypes.func.isRequired,
 }
 
 export default BurgerIngredient;

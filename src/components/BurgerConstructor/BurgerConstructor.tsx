@@ -11,7 +11,8 @@ interface Props {
         _id: string,
         type: string
     }[],
-    selectedIngredients: string[]
+    selectedIngredients: string[],
+    handleOrderClick: ()=>void
 }
 
 function BurgerConstructor (props: Props) {
@@ -56,7 +57,7 @@ function BurgerConstructor (props: Props) {
             <p className="text text_type_digits-medium mr-2">{[...nonBunComponents, bunComponent].reduce((s,v)=>(s+(v?v:{price:0}).price),0)}</p>
             <CurrencyIcon type='primary' />
             </div>
-            <Button type='primary' size='medium'>
+            <Button type='primary' size='medium' onClick={props.handleOrderClick}>
                 Оформить заказ
             </Button>
             </div>
@@ -74,7 +75,8 @@ const ingredientPropTypes = PropTypes.shape({
 
 BurgerConstructor.propTypes = {
     ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
-    selectedIngredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+    selectedIngredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    handleOrderClick: PropTypes.func.isRequired,
 }
 
 export default BurgerConstructor;
