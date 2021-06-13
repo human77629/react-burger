@@ -9,7 +9,7 @@ import OrderDetails from '../OrderDetails/OrderDetails';
 import {IngredientsContext, OrderContext} from '../../services/burgerContext';
 
 const INGREDIENTS_API_URL = 'https://norma.nomoreparties.space/api/ingredients';
-
+const ORDER_API_URL = 'https://norma.nomoreparties.space/api/orders';
 
 interface Ingredient {
 
@@ -23,7 +23,7 @@ interface Ingredient {
 
 interface Order {
   bunId?: string,
-  toppingIds?: string[],
+  toppingIds: string[],
   id?: string
 }
 
@@ -48,6 +48,12 @@ function App() {
     loaded: false
   });
 
+  const [orderFetchState, setOrderFetchState] = React.useState({
+    loading: false,
+    error: false,
+    loaded: false
+  });  
+
   const [ingredients, setIngredients] = React.useState<Ingredient[]>([]);
   const [order, setOrder] = React.useState<Order>({toppingIds: []});  
 
@@ -57,6 +63,28 @@ function App() {
   const [selectedIngredient, setSelectedIngredient] = React.useState<any>();
 
   const handleOpenOrderModal = function () {
+
+    setOrderFetchState({loading: true, loaded: false, error: false}); 
+    
+    fetch(ORDER_API_URL, {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ingredients: [order.bunId, ...order.toppingIds]})
+    })
+    .then(res=>res.json())
+    .then(res=>{
+      if (res.error) {
+        throw new Error(res.error);
+      }
+      setOrder({...order, id: res.order.number});
+      setOrderFetchState({loading: false, loaded: true, error: false});
+    })
+    .catch((err)=>{
+      setOrderFetchState({loading: false, loaded: false, error: true});
+    });
+
     setIsOrderModalOpen(true);
   }
 
@@ -120,7 +148,7 @@ function App() {
               )}              
 
               <Modal isOpen={isOrderModalOpen} closeCallback={closeModals}>    
-                <OrderDetails />
+                <OrderDetails orderFetchState={orderFetchState} />
               </Modal>
               <Modal isOpen={isIngredientModalOpen} closeCallback={closeModals} header={'Детали ингредиента'}>    
                   {selectedIngredient && (
