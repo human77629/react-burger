@@ -3,20 +3,46 @@ import PropTypes from 'prop-types';
 import burgerIngredientsStyles from './BurgerIngredients.module.css'
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
+import {IngredientsContext, OrderContext} from '../../services/burgerContext';
+
+
+interface Ingredient {
+
+    image: string,
+    price: number,
+    name: string,
+    _id: string,
+    type: string
+
+}
+
+interface Order {
+    bunId: string,
+    toppingIds: string[],
+    id?: string,
+}
+  
+
+interface IngredientsContextType {
+    ingredients: Ingredient[],
+    setIngredients: ()=>void 
+}
+
+interface OrderContextType {
+    order: Order,
+    setOrder: ()=>void 
+}
 
 interface Props {
-    ingredients: {
-        image: string,
-        price: number,
-        name: string,
-        _id: string,
-        type: string
-    }[],
-    selectedIngredients: string[],
     handleIngredientClick: (ingredient:any)=>void,
 }
 
 function BurgerIngredients (props:Props) {
+
+    const {ingredients} = React.useContext<IngredientsContextType>(IngredientsContext);
+    const {order} = React.useContext<OrderContextType>(OrderContext);
+
+    const selectedIngredients = [order.bunId, ...order.toppingIds];
 
     const [currentTab, setCurrentTab] = React.useState('bun');
     const ingredientTypes =
@@ -25,8 +51,6 @@ function BurgerIngredients (props:Props) {
             {type: 'sauce', title: 'Соусы'},
             {type: 'main', title: 'Начинки'}
         ]
-    
-
 
     const tabs = () => (
         <div className={`${burgerIngredientsStyles.tabContainer} mt-6 mb-4`}>
@@ -50,8 +74,8 @@ function BurgerIngredients (props:Props) {
                     <React.Fragment key={componentTypeKey}>
                     <h1 className="text text_type_main-medium mt-6 mb-2">{ingredientType.title}</h1>
                     <ul className={burgerIngredientsStyles.ingredientsContainer}>
-                    {props.ingredients.filter(ingredient=>(ingredient.type===ingredientType.type)).map((ingredient)=>(
-                        <BurgerIngredient onClick={props.handleIngredientClick} key={ingredient._id} ingredient={{...ingredient, count: props.selectedIngredients.filter(o=>ingredient._id===o).length}} />
+                    {ingredients.filter(ingredient=>(ingredient.type===ingredientType.type)).map((ingredient)=>(
+                        <BurgerIngredient onClick={props.handleIngredientClick} key={ingredient._id} ingredient={{...ingredient, count: selectedIngredients.filter(o=>ingredient._id===o).length}} />
                     ))}
                     </ul>
                     </React.Fragment>
@@ -63,17 +87,8 @@ function BurgerIngredients (props:Props) {
     )
 }
 
-const ingredientPropTypes = PropTypes.shape({
-    image: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    _id: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired
-})
 
 BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
-    selectedIngredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     handleIngredientClick: PropTypes.func.isRequired,
 }
 

@@ -16,7 +16,6 @@ interface Props {
 
 function BurgerIngredient (props: Props) {
     return (
-        
 
         <li className={`${ingredientStyles.container} mt-4 mb-4 ml-4 mr-2`} onClick={()=>props.onClick(props.ingredient)}>
             <img alt={props.ingredient.name} src={props.ingredient.image} className={`${ingredientStyles.illustration} mr-4 ml-4`} />
