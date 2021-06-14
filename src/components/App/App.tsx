@@ -71,7 +71,7 @@ function App() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ingredients: [order.bunId, ...order.toppingIds]})
+      body: JSON.stringify({ingredients: [order.bunId, order.bunId, ...order.toppingIds]}) // one or two buns ???
     })
     .then(res=>res.json())
     .then(res=>{
