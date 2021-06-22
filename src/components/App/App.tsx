@@ -71,13 +71,15 @@ function App() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ingredients: [order.bunId, order.bunId, ...order.toppingIds]}) // one or two buns ???
+      body: JSON.stringify({ingredients: [order.bunId, order.bunId, ...order.toppingIds]})
     })
-    .then(res=>res.json())
-    .then(res=>{
-      if (res.error) {
-        throw new Error(res.error);
+    .then(res=> {
+      if (res.ok) {
+        return res.json();
       }
+      return Promise.reject(`Ошибка ${res.status}`);
+    })
+    .then(res=>{
       setOrder({...order, id: res.order.number});
       setOrderFetchState({loading: false, loaded: true, error: false});
     })
@@ -102,11 +104,14 @@ function App() {
     setFetchState({loading: true, loaded: false, error: false});    
 
     fetch(INGREDIENTS_API_URL)
-    .then(res=>res.json())
-    .then(res=>{
-      if (res.error) {
-        throw new Error(res.error);
+    .then(res=> {
+      console.log(res);
+      if (res.ok) {
+        return res.json();
       }
+      return Promise.reject(`Ошибка ${res.status}`);
+    })
+    .then(res=>{
       setIngredients(res.data);
       setFetchState({loading: false, loaded: true, error: false});
       setOrder(mockupOrder(res.data));
