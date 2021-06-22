@@ -105,7 +105,6 @@ function App() {
 
     fetch(INGREDIENTS_API_URL)
     .then(res=> {
-      console.log(res);
       if (res.ok) {
         return res.json();
       }
