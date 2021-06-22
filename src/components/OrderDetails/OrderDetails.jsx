@@ -2,15 +2,7 @@ import React from 'react';
 import orderDetailsStyles from './OrderDetails.module.css';
 import {OrderContext} from '../../services/burgerContext';
 
-interface Props {
-    orderFetchState: {
-        loading: boolean,
-        loaded: boolean,
-        error: boolean
-    }
-}
-
-function OrderDetails(props: Props) {
+function OrderDetails(props) {
 
     const {order} = React.useContext(OrderContext);
     

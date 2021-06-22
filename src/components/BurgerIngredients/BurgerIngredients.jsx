@@ -2,60 +2,30 @@ import React from "react";
 import PropTypes from 'prop-types';
 import burgerIngredientsStyles from './BurgerIngredients.module.css'
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
-import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
+import BurgerIngredient from "../BurgerIngredient/BurgerIngredient.jsx";
 import {IngredientsContext, OrderContext} from '../../services/burgerContext';
 
 
-interface Ingredient {
 
-    image: string,
-    price: number,
-    name: string,
-    _id: string,
-    type: string
+function BurgerIngredients (props) {
 
-}
-
-interface Order {
-    bunId: string,
-    toppingIds: string[],
-    id?: string,
-}
-  
-
-interface IngredientsContextType {
-    ingredients: Ingredient[],
-    setIngredients: ()=>void 
-}
-
-interface OrderContextType {
-    order: Order,
-    setOrder: ()=>void 
-}
-
-interface Props {
-    handleIngredientClick: (ingredient:any)=>void,
-}
-
-function BurgerIngredients (props:Props) {
-
-    const {ingredients} = React.useContext<IngredientsContextType>(IngredientsContext);
-    const {order} = React.useContext<OrderContextType>(OrderContext);
+    const {ingredients} = React.useContext(IngredientsContext);
+    const {order} = React.useContext(OrderContext);
 
     const selectedIngredients = [order.bunId, ...order.toppingIds];
 
     const [currentTab, setCurrentTab] = React.useState('bun');
-    const selectTab = (t:any) => {
+    const selectTab = (t) => {
         setCurrentTab(t);
         const ref = ingredientTypes.find(type=>type.type===t)?.labelRef;
         if (ref) ref.current?.scrollIntoView();
-
     }
+
     const ingredientTypes =
         [
-            {type: 'bun', title: 'Булки', labelRef: React.useRef<HTMLDivElement>(null)},
-            {type: 'sauce', title: 'Соусы', labelRef: React.useRef<HTMLDivElement>(null)},
-            {type: 'main', title: 'Начинки', labelRef: React.useRef<HTMLDivElement>(null)}
+            {type: 'bun', title: 'Булки', labelRef: React.useRef(null)},
+            {type: 'sauce', title: 'Соусы', labelRef: React.useRef(null)},
+            {type: 'main', title: 'Начинки', labelRef: React.useRef(null)}
         ]
 
     const tabs = () => (

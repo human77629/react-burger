@@ -4,40 +4,12 @@ import burgerConstructorStyles from './BurgerConstructor.module.css'
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import {IngredientsContext, OrderContext} from '../../services/burgerContext';
 
-interface Props {
-    handleOrderClick: ()=>void
-}
 
-interface Ingredient {
 
-    image: string,
-    price: number,
-    name: string,
-    _id: string,
-    type: string
+function BurgerConstructor (props) {
 
-}
-
-interface Order {
-    bunId: string,
-    toppingIds: string[],
-    id?: string,
-  }
-
-interface IngredientsContextType {
-    ingredients: Ingredient[],
-    setIngredients: ()=>void 
-}
-
-interface OrderContextType {
-    order: Order,
-    setOrder: ()=>void 
-}
-
-function BurgerConstructor (props: Props) {
-
-    const {ingredients} = React.useContext<IngredientsContextType>(IngredientsContext);
-    const {order} = React.useContext<OrderContextType>(OrderContext);
+    const {ingredients} = React.useContext(IngredientsContext);
+    const {order} = React.useContext(OrderContext);
 
 
         const bun = ingredients.find(ingredient=>(order.bunId===ingredient._id));

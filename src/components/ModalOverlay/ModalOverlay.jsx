@@ -2,12 +2,8 @@ import React from "react";
 import PropTypes from 'prop-types';
 import ModalOverlayStyles from './ModalOverlay.module.css';
 
-interface Props {
-    isOpen: boolean,
-    onClick: ()=>void
-}
 
-function ModalOverlay(props:Props) {
+function ModalOverlay(props) {
     return (
         <div className={props.isOpen?ModalOverlayStyles.overlay:ModalOverlayStyles.overlayHidden} onClick={props.onClick}>
         </div>

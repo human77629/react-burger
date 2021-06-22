@@ -1,35 +1,17 @@
 import React from 'react';
-import AppHeader from '../AppHeader/AppHeader'
-import BurgerIngredients from '../BurgerIngredients/BurgerIngredients'
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
-import Modal from '../Modal/Modal';
+import AppHeader from '../AppHeader/AppHeader.jsx'
+import BurgerIngredients from '../BurgerIngredients/BurgerIngredients.jsx'
+import BurgerConstructor from '../BurgerConstructor/BurgerConstructor.jsx'
+import Modal from '../Modal/Modal.jsx';
 import './App.css';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
-import OrderDetails from '../OrderDetails/OrderDetails';
+import IngredientDetails from '../IngredientDetails/IngredientDetails.jsx';
+import OrderDetails from '../OrderDetails/OrderDetails.jsx';
 import {IngredientsContext, OrderContext} from '../../services/burgerContext';
 
 const INGREDIENTS_API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 const ORDER_API_URL = 'https://norma.nomoreparties.space/api/orders';
 
-interface Ingredient {
-
-      image: string,
-      price: number,
-      name: string,
-      _id: string,
-      type: string
-
-}
-
-interface Order {
-  bunId?: string,
-  toppingIds: string[],
-  id?: string
-}
-
-
-
-const mockupOrder = (ingredients:Ingredient[]) => {
+const mockupOrder = (ingredients) => {
   const buns = ingredients.filter(ingredient=>(ingredient.type==='bun'));
   const nonBuns = ingredients.filter(ingredient=>!(ingredient.type==='bun'));
   const selectedBun = buns[Math.floor(Math.random() * buns.length)]._id;
@@ -54,13 +36,13 @@ function App() {
     loaded: false
   });  
 
-  const [ingredients, setIngredients] = React.useState<Ingredient[]>([]);
-  const [order, setOrder] = React.useState<Order>({toppingIds: []});  
+  const [ingredients, setIngredients] = React.useState([]);
+  const [order, setOrder] = React.useState({toppingIds: []});  
 
   const [isIngredientModalOpen, setIsIngredientModalOpen] = React.useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = React.useState(false);
 
-  const [selectedIngredient, setSelectedIngredient] = React.useState<any>();
+  const [selectedIngredient, setSelectedIngredient] = React.useState();
 
   const handleOpenOrderModal = function () {
 
@@ -90,7 +72,7 @@ function App() {
     setIsOrderModalOpen(true);
   }
 
-  const handleOpenIngredientModal = function (ingredient: Ingredient) {
+  const handleOpenIngredientModal = function (ingredient) {
     setSelectedIngredient(ingredient);
     setIsIngredientModalOpen(true);
   }  
@@ -119,7 +101,7 @@ function App() {
       setFetchState({loading: false, loaded: false, error: true});
     });
 
-    const escapeHandler = (event:KeyboardEvent) => event.key === 'Escape' && closeModals();
+    const escapeHandler = (event) => event.key === 'Escape' && closeModals();
     document.addEventListener('keydown', escapeHandler);
 
     return () => document.removeEventListener('keydown', escapeHandler);    
