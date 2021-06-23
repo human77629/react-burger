@@ -1,16 +1,16 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import AppHeader from '../AppHeader/AppHeader.jsx'
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients.jsx'
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor.jsx'
 import Modal from '../Modal/Modal.jsx';
-import './App.css';
 import IngredientDetails from '../IngredientDetails/IngredientDetails.jsx';
 import OrderDetails from '../OrderDetails/OrderDetails.jsx';
-import {IngredientsContext, OrderContext} from '../../services/burgerContext';
+import { IngredientsContext, OrderContext } from '../../services/burgerContext';
+import { VIEW_INGREDIENT } from '../../services/actions/burger.js';
 
-import { compose, createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { rootReducer } from '../../services/reducers/index.js'; 
+import './App.css';
 
 const INGREDIENTS_API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 const ORDER_API_URL = 'https://norma.nomoreparties.space/api/orders';
@@ -46,16 +46,9 @@ function App() {
   const [isIngredientModalOpen, setIsIngredientModalOpen] = React.useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = React.useState(false);
 
-  const [selectedIngredient, setSelectedIngredient] = React.useState();
+  const viewedIngredient = useSelector( store => store.burger.viewedIngredient)
 
-  const composeEnhancers =
-  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-    : compose;   
-
-  const enhancer = composeEnhancers(applyMiddleware(thunk));    
-
-  const store = createStore(rootReducer, enhancer)
+  const dispatch = useDispatch();
 
   const handleOpenOrderModal = function () {
 
@@ -86,7 +79,7 @@ function App() {
   }
 
   const handleOpenIngredientModal = function (ingredient) {
-    setSelectedIngredient(ingredient);
+    dispatch({type: VIEW_INGREDIENT, ingredient: ingredient});
     setIsIngredientModalOpen(true);
   }  
 
@@ -150,8 +143,8 @@ function App() {
                 <OrderDetails orderFetchState={orderFetchState} />
               </Modal>
               <Modal isOpen={isIngredientModalOpen} closeCallback={closeModals} header={'Детали ингредиента'}>    
-                  {selectedIngredient && (
-                <IngredientDetails ingredient={selectedIngredient} />
+                  {viewedIngredient && (
+                <IngredientDetails ingredient={viewedIngredient} />
                   )}            
               </Modal>    
               </OrderContext.Provider>

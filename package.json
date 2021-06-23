@@ -48,5 +48,6 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.6"
-  }
+  },
+  "main": "src/index.jsx"
 }
