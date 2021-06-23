@@ -7,22 +7,11 @@ import BurgerConstructor from '../BurgerConstructor/BurgerConstructor.jsx'
 import Modal from '../Modal/Modal.jsx';
 import IngredientDetails from '../IngredientDetails/IngredientDetails.jsx';
 import OrderDetails from '../OrderDetails/OrderDetails.jsx';
-import { OrderContext } from '../../services/burgerContext';
-import { VIEW_INGREDIENT , getIngredients } from '../../services/actions/burger.js';
+import { VIEW_INGREDIENT , getIngredients, ADD_TOPPING, SET_BUN } from '../../services/actions/burger.js';
 
 import './App.css';
 
 const ORDER_API_URL = 'https://norma.nomoreparties.space/api/orders';
-
-const mockupOrder = (ingredients) => {
-  const buns = ingredients.filter(ingredient=>(ingredient.type==='bun'));
-  const nonBuns = ingredients.filter(ingredient=>!(ingredient.type==='bun'));
-  const selectedBun = buns[Math.floor(Math.random() * buns.length)]._id;
-  const selectedToppings = [1,2,3,4,5,6,7,8,9,10].map(
-      ()=>nonBuns[Math.floor(Math.random() * nonBuns.length)]._id
-    );
-  return {bunId: selectedBun, toppingIds: selectedToppings};
-}
 
 
 function App() {
@@ -33,14 +22,15 @@ function App() {
     loaded: false
   });  
 
-  //const [ingredients, setIngredients] = React.useState([]);
+
   const [order, setOrder] = React.useState({toppingIds: []});  
+
+  const selectedIngredients = useSelector(store=>store.burger.selectedIngredients)
 
   const [isIngredientModalOpen, setIsIngredientModalOpen] = React.useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = React.useState(false);
 
   const viewedIngredient = useSelector( store => store.burger.viewedIngredient )
-  const ingredients = useSelector( store=> store.burger.ingredients )
 
   const ingredientsRequest = useSelector ( store => store.burger.ingredientsRequest )
   const ingredientsFailed = useSelector ( store => store.burger.ingredientsFailed )
@@ -50,13 +40,14 @@ function App() {
   const handleOpenOrderModal = function () {
 
     setOrderFetchState({loading: true, loaded: false, error: false}); 
+
     
     fetch(ORDER_API_URL, {
       method: 'POST', 
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ingredients: [order.bunId, order.bunId, ...order.toppingIds]})
+      body: JSON.stringify({ingredients: [selectedIngredients.bunId, selectedIngredients.bunId, ...selectedIngredients.toppingIds]})
     })
     .then(res=> {
       if (res.ok) {
@@ -83,7 +74,8 @@ function App() {
   const closeModals = function () {
     setIsOrderModalOpen(false);
     setIsIngredientModalOpen(false);
-    setOrder(mockupOrder(ingredients));
+    const ingredient = viewedIngredient;
+    dispatch({type: ingredient.type==='bun'?SET_BUN:ADD_TOPPING, id: ingredient._id})
   }
 
   React.useEffect(()=>{
@@ -105,7 +97,6 @@ function App() {
           <AppHeader />
 
           <main>
-            <OrderContext.Provider value={{order, setOrder}}>
               {!ingredientsRequest && !ingredientsFailed && (
                 <>
               <BurgerIngredients handleIngredientClick={handleOpenIngredientModal} />
@@ -128,8 +119,7 @@ function App() {
                   {viewedIngredient && (
                 <IngredientDetails ingredient={viewedIngredient} />
                   )}            
-              </Modal>    
-              </OrderContext.Provider>
+              </Modal>
           </main>
           </>
   );

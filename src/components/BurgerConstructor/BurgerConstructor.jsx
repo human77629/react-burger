@@ -1,18 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import burgerConstructorStyles from './BurgerConstructor.module.css'
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { OrderContext } from '../../services/burgerContext';
+import { REMOVE_TOPPING } from "../../services/actions/burger";
 
 
 
 function BurgerConstructor (props) {
 
+    const dispatch = useDispatch();
 
     const ingredients = useSelector( store => store.burger.ingredients )
-    const {order} = React.useContext(OrderContext);
-
+    const order = useSelector(store=>store.burger.selectedIngredients)
 
         const bun = ingredients.find(ingredient=>(order.bunId===ingredient._id));
         const toppings = order.toppingIds.map(componentId=>ingredients.find(ingredient=>ingredient._id===componentId));
@@ -33,7 +33,7 @@ function BurgerConstructor (props) {
                     <DragIcon type='primary' />
                     </div>
                     <div className={burgerConstructorStyles.ingredientFix}>
-                    <ConstructorElement text={component.name} thumbnail={component.image} price={component.price}/>
+                    <ConstructorElement text={component.name} thumbnail={component.image} price={component.price} handleClose={(e)=>{dispatch({type: REMOVE_TOPPING, index: k})}}/>
                     </div>
                 </li>
                 )

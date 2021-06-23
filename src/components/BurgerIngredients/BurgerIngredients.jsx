@@ -4,13 +4,12 @@ import {useSelector} from 'react-redux';
 import burgerIngredientsStyles from './BurgerIngredients.module.css'
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient.jsx";
-import { OrderContext } from '../../services/burgerContext';
 
 
 
 function BurgerIngredients (props) {
 
-    const {order} = React.useContext(OrderContext);
+    const order = useSelector(store=> store.burger.selectedIngredients)
     const ingredients = useSelector( store => store.burger.ingredients )
 
     const selectedIngredients = [order.bunId, ...order.toppingIds];

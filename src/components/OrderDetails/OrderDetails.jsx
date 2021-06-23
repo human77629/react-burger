@@ -1,10 +1,10 @@
 import React from 'react';
 import orderDetailsStyles from './OrderDetails.module.css';
-import {OrderContext} from '../../services/burgerContext';
+import {useSelector} from 'react-redux';
 
 function OrderDetails(props) {
 
-    const {order} = React.useContext(OrderContext);
+    const order = useSelector(store=>store.burger.selectedIngredients)
     
     return (
         <div className={orderDetailsStyles.container}>
