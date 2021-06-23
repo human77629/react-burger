@@ -6,6 +6,9 @@ import {
     REMOVE_TOPPING,
     ADD_TOPPING,
     SET_BUN,
+    MAKE_ORDER_REQUEST,
+    MAKE_ORDER_SUCCESS,
+    MAKE_ORDER_FAILED,
 } from '../actions/burger.js'
 
 
@@ -13,8 +16,9 @@ const initialState = {
     viewedIngredient: {},
 
     order: {
-        id: '',
+        number: '',
         status: '',
+        generatedBurgerName: '',
         ingredientIds: []
     },
     orderRequest: false,
@@ -47,6 +51,17 @@ export const burgerReducer = (state = initialState, action) => {
         case GET_INGREDIENTS_FAILED: {
             return { ...state, ingredientsFailed: true, ingredientsRequest: false };
         }        
+
+        case MAKE_ORDER_REQUEST: {
+            return { ...state, orderRequest: true };
+        }
+        case MAKE_ORDER_SUCCESS: {
+            return { ...state, orderFailed: false, order: {number: action.data.order.number, generatedBurgerName: action.data.name}, orderRequest: false };
+        }
+        case MAKE_ORDER_FAILED: {
+            return { ...state, orderFailed: true, orderRequest: false };
+        }        
+
 
         case ADD_TOPPING: {
             return { 

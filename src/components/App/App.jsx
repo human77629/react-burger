@@ -7,23 +7,11 @@ import BurgerConstructor from '../BurgerConstructor/BurgerConstructor.jsx'
 import Modal from '../Modal/Modal.jsx';
 import IngredientDetails from '../IngredientDetails/IngredientDetails.jsx';
 import OrderDetails from '../OrderDetails/OrderDetails.jsx';
-import { VIEW_INGREDIENT , getIngredients, ADD_TOPPING, SET_BUN } from '../../services/actions/burger.js';
+import { VIEW_INGREDIENT , getIngredients, makeOrder, ADD_TOPPING, SET_BUN } from '../../services/actions/burger.js';
 
 import './App.css';
 
-const ORDER_API_URL = 'https://norma.nomoreparties.space/api/orders';
-
-
 function App() {
-
-  const [orderFetchState, setOrderFetchState] = React.useState({
-    loading: false,
-    error: false,
-    loaded: false
-  });  
-
-
-  const [order, setOrder] = React.useState({toppingIds: []});  
 
   const selectedIngredients = useSelector(store=>store.burger.selectedIngredients)
 
@@ -39,30 +27,7 @@ function App() {
 
   const handleOpenOrderModal = function () {
 
-    setOrderFetchState({loading: true, loaded: false, error: false}); 
-
-    
-    fetch(ORDER_API_URL, {
-      method: 'POST', 
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ingredients: [selectedIngredients.bunId, selectedIngredients.bunId, ...selectedIngredients.toppingIds]})
-    })
-    .then(res=> {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка ${res.status}`);
-    })
-    .then(res=>{
-      setOrder({...order, id: res.order.number});
-      setOrderFetchState({loading: false, loaded: true, error: false});
-    })
-    .catch((err)=>{
-      setOrderFetchState({loading: false, loaded: false, error: true});
-    });
-
+    dispatch(makeOrder([...selectedIngredients.toppingIds, selectedIngredients.bunId, selectedIngredients.bunId]))
     setIsOrderModalOpen(true);
   }
 
@@ -113,7 +78,7 @@ function App() {
               )}              
 
               <Modal isOpen={isOrderModalOpen} closeCallback={closeModals}>    
-                <OrderDetails orderFetchState={orderFetchState} />
+                <OrderDetails />
               </Modal>
               <Modal isOpen={isIngredientModalOpen} closeCallback={closeModals} header={'Детали ингредиента'}>    
                   {viewedIngredient && (

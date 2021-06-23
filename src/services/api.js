@@ -15,3 +15,13 @@ export const fakeGetIngredientsRequest = async () => {
           })}, 1500)
           ); 
 }
+
+export const makeOrderRequest = async (ingredients) => {
+  return await fetch(ORDER_API_URL, {
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ingredients: ingredients})
+  })
+}
