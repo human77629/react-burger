@@ -1,6 +1,6 @@
 import React from "react";
 import {Logo, BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components'
-import NavMenuItem from '../NavMenuItem/NavMenuItem'
+import NavMenuItem from '../NavMenuItem/NavMenuItem.jsx'
 import headerStyles from './AppHeader.module.css'
 
 function AppHeader () {

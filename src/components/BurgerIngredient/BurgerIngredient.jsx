@@ -4,19 +4,8 @@ import ingredientStyles from './BurgerIngredient.module.css'
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components'
 
 
-interface Props {
-    ingredient: {
-        image: string,
-        price: number,
-        name: string,
-        count: number
-    },
-    onClick: (ingredient:any)=>void,
-}
-
-function BurgerIngredient (props: Props) {
+function BurgerIngredient (props) {
     return (
-        
 
         <li className={`${ingredientStyles.container} mt-4 mb-4 ml-4 mr-2`} onClick={()=>props.onClick(props.ingredient)}>
             <img alt={props.ingredient.name} src={props.ingredient.image} className={`${ingredientStyles.illustration} mr-4 ml-4`} />

@@ -1,19 +1,10 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import ingredientDetailsStyles from './IngredientDetails.module.css';
-interface Props {
-    ingredient: {
-        image_large: string,
-        name: string,
-        calories: number,
-        proteins: number,
-        fat: number,
-        carbohydrates: number,
-    }  
-};
 
 
-function NutritionValue(props:any) {
+
+function NutritionValue(props) {
     return (
         <li className={ingredientDetailsStyles.nutritionValue}>
             <span className='text text_type_main-default text_color_inactive'>{props.label}</span>
@@ -27,7 +18,7 @@ NutritionValue.propTypes = {
     value: PropTypes.number
 }
 
-function IngredientDetails(props:Props) {
+function IngredientDetails(props) {
     return (
         <div className={ingredientDetailsStyles.container}>
 

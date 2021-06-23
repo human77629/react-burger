@@ -3,13 +3,8 @@ import PropTypes from 'prop-types';
 import navMenuItemStyles from './NavMenuItem.module.css';
 
 
-interface Props {
-    icon: any,
-    label: string,
-    selected?: boolean
-}
 
-function NavMenuItem (props:Props) {
+function NavMenuItem (props) {
     
     const NavIcon = props.icon;
     return (
