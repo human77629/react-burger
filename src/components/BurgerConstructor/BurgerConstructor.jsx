@@ -1,14 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useSelector } from 'react-redux';
 import burgerConstructorStyles from './BurgerConstructor.module.css'
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import {IngredientsContext, OrderContext} from '../../services/burgerContext';
+import { OrderContext } from '../../services/burgerContext';
 
 
 
 function BurgerConstructor (props) {
 
-    const {ingredients} = React.useContext(IngredientsContext);
+
+    const ingredients = useSelector( store => store.burger.ingredients )
     const {order} = React.useContext(OrderContext);
 
 

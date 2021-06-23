@@ -1,16 +1,17 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 import burgerIngredientsStyles from './BurgerIngredients.module.css'
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient.jsx";
-import {IngredientsContext, OrderContext} from '../../services/burgerContext';
+import { OrderContext } from '../../services/burgerContext';
 
 
 
 function BurgerIngredients (props) {
 
-    const {ingredients} = React.useContext(IngredientsContext);
     const {order} = React.useContext(OrderContext);
+    const ingredients = useSelector( store => store.burger.ingredients )
 
     const selectedIngredients = [order.bunId, ...order.toppingIds];
 
