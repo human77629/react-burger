@@ -8,6 +8,10 @@ import IngredientDetails from '../IngredientDetails/IngredientDetails.jsx';
 import OrderDetails from '../OrderDetails/OrderDetails.jsx';
 import {IngredientsContext, OrderContext} from '../../services/burgerContext';
 
+import { compose, createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { rootReducer } from '../../services/reducers/index.js'; 
+
 const INGREDIENTS_API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 const ORDER_API_URL = 'https://norma.nomoreparties.space/api/orders';
 
@@ -43,6 +47,15 @@ function App() {
   const [isOrderModalOpen, setIsOrderModalOpen] = React.useState(false);
 
   const [selectedIngredient, setSelectedIngredient] = React.useState();
+
+  const composeEnhancers =
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+    : compose;   
+
+  const enhancer = composeEnhancers(applyMiddleware(thunk));    
+
+  const store = createStore(rootReducer, enhancer)
 
   const handleOpenOrderModal = function () {
 
