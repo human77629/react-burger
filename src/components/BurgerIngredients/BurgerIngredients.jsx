@@ -12,7 +12,17 @@ function BurgerIngredients (props) {
     const order = useSelector( store=> store.burger.selectedIngredients )
     const ingredients = useSelector( store => store.burger.ingredients )
 
-    const selectedIngredients = [order.bunId, ...order.toppingIds];
+    const selectedIngredientCount = React.useMemo(()=>{
+        const ingredientIds = [order.bunId, ...order.toppingIds]
+        const uniqueIngredientIds = [...new Set(ingredientIds)]
+        const idsToCount = {}
+        uniqueIngredientIds.forEach(uid=>{
+            idsToCount[uid] = ingredientIds.filter(id=>id===uid).length;
+        });
+        
+        return idsToCount;
+    },
+        [order.bunId, order.toppingIds]);
 
     const [currentTab, setCurrentTab] = React.useState('bun');
 
@@ -24,10 +34,9 @@ function BurgerIngredients (props) {
 
     const scrollHandler = (e) => {
         const container = e.target;
-        const containerPadding = 24; // наверное лучше вообще без этого (игнорировать паддинг), чем хардкодом?
 
         const weightedCategories = ingredientTypes.map(category=> {
-            const relativeLabelOffset = category.labelRef.current.offsetTop - container.offsetTop - containerPadding;
+            const relativeLabelOffset = category.labelRef.current.offsetTop - container.offsetTop;
             const resultingLabelDistance = Math.abs(relativeLabelOffset - container.scrollTop);
             return {category: category, weight: resultingLabelDistance}
         })
@@ -67,7 +76,7 @@ function BurgerIngredients (props) {
                     <h1 className="text text_type_main-medium mt-6 mb-2" ref={ingredientType.labelRef}>{ingredientType.title}</h1>
                     <ul className={burgerIngredientsStyles.ingredientsContainer}>
                     {ingredients.filter(ingredient=>(ingredient.type===ingredientType.type)).map((ingredient)=>(
-                        <BurgerIngredient onClick={props.handleIngredientClick} key={ingredient._id} ingredient={{...ingredient, count: selectedIngredients.filter(o=>ingredient._id===o).length}} />
+                        <BurgerIngredient onClick={props.handleIngredientClick} key={ingredient._id} ingredient={{...ingredient, count: selectedIngredientCount[ingredient._id]||0}} />
                     ))}
                     </ul>
                     </React.Fragment>
