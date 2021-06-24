@@ -13,7 +13,8 @@
     flex: none;
     width: 584px;
     height: 656px; 
-    overflow: hidden;           
+    overflow: hidden;    
+    position: relative;       
 }
 
 .componentsScrollable {
@@ -80,4 +81,13 @@
     justify-content: flex-end;
     align-items: center;
     padding: 0px;    
+}
+
+.dragHoverEffect {
+    background-color: rgba(67, 115, 247, 0.1);
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    right: 0%;
+    bottom: 0%;
 }

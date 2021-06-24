@@ -25,3 +25,10 @@
     width: 272px;
     height: 48px;    
 }
+
+.draggable {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    position: relative;
+}

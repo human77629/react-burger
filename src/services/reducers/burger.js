@@ -69,8 +69,8 @@ export const burgerReducer = (state = initialState, action) => {
                 selectedIngredients: {
                     ...state.selectedIngredients, 
                     toppingIds: [
+                        action.id,
                         ...state.selectedIngredients.toppingIds, 
-                        action.id
                     ]
                 } 
             }

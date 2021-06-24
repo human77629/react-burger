@@ -1,13 +1,16 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
 import AppHeader from '../AppHeader/AppHeader.jsx'
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients.jsx'
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor.jsx'
 import Modal from '../Modal/Modal.jsx';
 import IngredientDetails from '../IngredientDetails/IngredientDetails.jsx';
 import OrderDetails from '../OrderDetails/OrderDetails.jsx';
-import { VIEW_INGREDIENT , getIngredients, makeOrder, ADD_TOPPING, SET_BUN } from '../../services/actions/burger.js';
+import { VIEW_INGREDIENT , getIngredients, makeOrder } from '../../services/actions/burger.js';
 
 import './App.css';
 
@@ -39,8 +42,6 @@ function App() {
   const closeModals = function () {
     setIsOrderModalOpen(false);
     setIsIngredientModalOpen(false);
-    const ingredient = viewedIngredient;
-    dispatch({type: ingredient.type==='bun'?SET_BUN:ADD_TOPPING, id: ingredient._id})
   }
 
   React.useEffect(()=>{
@@ -57,10 +58,9 @@ function App() {
 
 
   return (
-          <>
           
+        <DndProvider backend={HTML5Backend}>          
           <AppHeader />
-
           <main>
               {!ingredientsRequest && !ingredientsFailed && (
                 <>
@@ -86,7 +86,7 @@ function App() {
                   )}            
               </Modal>
           </main>
-          </>
+        </DndProvider>
   );
 }
 
