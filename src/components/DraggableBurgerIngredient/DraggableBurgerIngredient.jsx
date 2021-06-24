@@ -15,7 +15,6 @@ function DraggableBurgerIngredient(props) {
     });
 
     const onDropHandler = (itemId) => {
-        console.log(`move ${itemId.index} to ${props.index}`)
         dispatch({type: MOVE_TOPPING, currentIndex: itemId.index, targetIndex: props.index});
     }
 

@@ -12,9 +12,15 @@ import {
     MOVE_TOPPING,
 } from '../actions/burger.js'
 
-
 const initialState = {
-    viewedIngredient: {},
+    viewedIngredient: {
+        image_large: '',
+        name: '',
+        calories: 0,
+        proteins: 0,
+        fat: 0,
+        carbohydrates: 0,
+    },
 
     order: {
         number: '',
