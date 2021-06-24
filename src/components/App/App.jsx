@@ -16,16 +16,11 @@ import './App.css';
 
 function App() {
 
-  const selectedIngredients = useSelector(store=>store.burger.selectedIngredients)
-
   const [isIngredientModalOpen, setIsIngredientModalOpen] = React.useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = React.useState(false);
   const [isErrorModalOpen, setIsErrorModalOpen] = React.useState(false);  
 
-  const viewedIngredient = useSelector( store => store.burger.viewedIngredient )
-
-  const ingredientsRequest = useSelector ( store => store.burger.ingredientsRequest )
-  const ingredientsFailed = useSelector ( store => store.burger.ingredientsFailed )
+  const {selectedIngredients, viewedIngredient, ingredientsRequest, ingredientsFailed} = useSelector(store=>store.burger)
 
   const dispatch = useDispatch();
 

@@ -35,8 +35,13 @@ function BurgerConstructor (props) {
 
    
 
-        const bun = ingredients.find(ingredient=>(order.bunId===ingredient._id));
-        const toppings = order.toppingIds.map(componentId=>ingredients.find(ingredient=>ingredient._id===componentId));
+        const bun = React.useMemo(
+            ()=>ingredients.find(ingredient=>(order.bunId===ingredient._id)), 
+            [ingredients, order.bunId]);
+
+        const toppings = React.useMemo(
+            ()=>order.toppingIds.map(componentId=>ingredients.find(ingredient=>ingredient._id===componentId)), 
+            [ingredients, order.toppingIds]);
 
         const isBurgerEmpty = !bun && toppings.length===0
 

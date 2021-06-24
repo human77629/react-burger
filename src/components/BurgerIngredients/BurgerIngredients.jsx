@@ -9,12 +9,13 @@ import BurgerIngredient from "../BurgerIngredient/BurgerIngredient.jsx";
 
 function BurgerIngredients (props) {
 
-    const order = useSelector(store=> store.burger.selectedIngredients)
+    const order = useSelector( store=> store.burger.selectedIngredients )
     const ingredients = useSelector( store => store.burger.ingredients )
 
     const selectedIngredients = [order.bunId, ...order.toppingIds];
 
     const [currentTab, setCurrentTab] = React.useState('bun');
+
     const selectTab = (t) => {
         setCurrentTab(t);
         const ref = ingredientTypes.find(type=>type.type===t)?.labelRef;
