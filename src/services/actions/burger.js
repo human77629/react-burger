@@ -34,10 +34,6 @@ export function getIngredients() {
           type: GET_INGREDIENTS_SUCCESS,
           ingredients: res.data
         });
-        dispatch({
-            type: SET_BUN,
-            id: res.data.find(i=>(i.type==='bun'))._id
-        })
     }).catch((err) => {
         dispatch({
           type: GET_INGREDIENTS_FAILED

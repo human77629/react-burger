@@ -15,7 +15,7 @@ function BurgerConstructor (props) {
     const dispatch = useDispatch();
 
     const ingredients = useSelector( store => store.burger.ingredients )
-    const order = useSelector(store=>store.burger.selectedIngredients)
+    const order = useSelector( store=>store.burger.selectedIngredients )
 
     
     const onDropHandler = (itemId) => {
@@ -38,16 +38,27 @@ function BurgerConstructor (props) {
         const bun = ingredients.find(ingredient=>(order.bunId===ingredient._id));
         const toppings = order.toppingIds.map(componentId=>ingredients.find(ingredient=>ingredient._id===componentId));
 
+        const isBurgerEmpty = !bun && toppings.length===0
+
         return (
         <section className={`${burgerConstructorStyles.container} pt-25` }>
             <ul className={`${burgerConstructorStyles.components} ml-4 mb-10`} ref={dropTarget}>
-            
+            {isBurgerEmpty && (
+                <div className={burgerConstructorStyles.noIngredientsMessageContainer}>
+                <h1 className="text text_type_main-medium mt-10">Пожалуйста, перенесите ингредиенты сюда, чтобы собрать бургер</h1>
+                </div>
+            )}
             <li className="pl-8">
             {bun && (
                 <ConstructorElement type='top' isLocked={true} text={`${bun.name} (верх)`} thumbnail={bun.image} price={bun.price}/>
             )}
             </li>
             <div className={burgerConstructorStyles.componentsScrollable}>
+            {!isBurgerEmpty && (toppings.length===0) && (
+                <div className={burgerConstructorStyles.noIngredientsMessageContainer}>
+                <h1 className="text text_type_main-medium mt-10">Пожалуйста, перенесите ингредиенты сюда, чтобы собрать бургер</h1>
+                </div>
+            )}                
             {toppings.map((component, k)=>component&&
                 (
                     <DraggableBurgerIngredient key={k} component={component} index={k} handleClose={(e)=>{dispatch({type: REMOVE_TOPPING, index: k})}} />
