@@ -21,6 +21,21 @@ function BurgerIngredients (props) {
         if (ref) ref.current?.scrollIntoView();
     }
 
+    const scrollHandler = (e) => {
+        const container = e.target;
+        const containerPadding = 24; // наверное лучше вообще без этого (игнорировать паддинг), чем хардкодом?
+
+        const weightedCategories = ingredientTypes.map(category=> {
+            const relativeLabelOffset = category.labelRef.current.offsetTop - container.offsetTop - containerPadding;
+            const resultingLabelDistance = Math.abs(relativeLabelOffset - container.scrollTop);
+            return {category: category, weight: resultingLabelDistance}
+        })
+        
+        const closestCategory = weightedCategories.reduce((a,v)=>v.weight<a.weight?v:a,weightedCategories[0]).category;
+
+        setCurrentTab(closestCategory.type);
+    }
+
     const ingredientTypes =
         [
             {type: 'bun', title: 'Булки', labelRef: React.useRef(null)},
@@ -44,7 +59,7 @@ function BurgerIngredients (props) {
         <section className={`${burgerIngredientsStyles.container} ml-5 mr-5`}>
             <h1 className="text text_type_main-large mt-10">Соберите бургер</h1>
             {tabs()}
-            <ul className={burgerIngredientsStyles.ingredients}>
+            <ul className={burgerIngredientsStyles.ingredients} onScroll={scrollHandler}>
                 {ingredientTypes
                 .map((ingredientType,componentTypeKey)=>(
                     <React.Fragment key={componentTypeKey}>
