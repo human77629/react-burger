@@ -42,32 +42,6 @@
     background: #8585AD;
 }
 
-.component {
-    display: flex;
-    flex-flow: row;
-    align-items: center;
-    position: relative;
-    justify-content: space-evenly;
-}
-
-.dragIcon {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    left: 0px;
-    top: calc(50% - 24px/2);    
-}
-
-.ingredientFix {
-    flex: 2;
-    display: flex;
-    flex-flow: column;
-    align-items: stretch;
-}
-.ingredientFix span:first-of-type {
-    flex: 2;
-}
-
 .priceInfo {
     display: flex;
     flex-flow: row;

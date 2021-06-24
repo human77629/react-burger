@@ -9,6 +9,7 @@ import {
     MAKE_ORDER_REQUEST,
     MAKE_ORDER_SUCCESS,
     MAKE_ORDER_FAILED,
+    MOVE_TOPPING,
 } from '../actions/burger.js'
 
 
@@ -94,6 +95,20 @@ export const burgerReducer = (state = initialState, action) => {
                     toppingIds: 
                     [...state.selectedIngredients.toppingIds]
                     .filter((ingredient, index) => (index !== action.index))
+                }
+            }
+        }
+
+
+        case MOVE_TOPPING: {
+            const toppings = [...state.selectedIngredients.toppingIds]
+            const movedTopping = toppings.splice(action.currentIndex,1)[0];
+            toppings.splice(action.targetIndex,0,movedTopping);
+            return {
+                ...state,
+                selectedIngredients: {
+                    ...state.selectedIngredients,   
+                    toppingIds: toppings                    
                 }
             }
         }

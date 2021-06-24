@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import { useDrop } from "react-dnd";
 import { useSelector, useDispatch } from 'react-redux';
 import burgerConstructorStyles from './BurgerConstructor.module.css'
-import { ConstructorElement, DragIcon, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { REMOVE_TOPPING, ADD_TOPPING, SET_BUN } from "../../services/actions/burger";
+import DraggableBurgerIngredient from "../DraggableBurgerIngredient/DraggableBurgerIngredient";
 
 
 
@@ -32,6 +33,8 @@ function BurgerConstructor (props) {
         })
     });
 
+   
+
         const bun = ingredients.find(ingredient=>(order.bunId===ingredient._id));
         const toppings = order.toppingIds.map(componentId=>ingredients.find(ingredient=>ingredient._id===componentId));
 
@@ -47,14 +50,7 @@ function BurgerConstructor (props) {
             <div className={burgerConstructorStyles.componentsScrollable}>
             {toppings.map((component, k)=>component&&
                 (
-                <li key={k} className={`${burgerConstructorStyles.component} pl-8`}>
-                    <div className={burgerConstructorStyles.dragIcon}>
-                    <DragIcon type='primary' />
-                    </div>
-                    <div className={burgerConstructorStyles.ingredientFix}>
-                    <ConstructorElement text={component.name} thumbnail={component.image} price={component.price} handleClose={(e)=>{dispatch({type: REMOVE_TOPPING, index: k})}}/>
-                    </div>
-                </li>
+                    <DraggableBurgerIngredient key={k} component={component} index={k} handleClose={(e)=>{dispatch({type: REMOVE_TOPPING, index: k})}} />
                 )
             )}
             </div>
