@@ -1,24 +1,49 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 import burgerIngredientsStyles from './BurgerIngredients.module.css'
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient.jsx";
-import {IngredientsContext, OrderContext} from '../../services/burgerContext';
 
 
 
 function BurgerIngredients (props) {
 
-    const {ingredients} = React.useContext(IngredientsContext);
-    const {order} = React.useContext(OrderContext);
+    const order = useSelector( store=> store.burger.selectedIngredients )
+    const ingredients = useSelector( store => store.burger.ingredients )
 
-    const selectedIngredients = [order.bunId, ...order.toppingIds];
+    const selectedIngredientCount = React.useMemo(()=>{
+        const ingredientIds = [order.bunId, ...order.toppingIds]
+        const uniqueIngredientIds = [...new Set(ingredientIds)]
+        const idsToCount = {}
+        uniqueIngredientIds.forEach(uid=>{
+            idsToCount[uid] = ingredientIds.filter(id=>id===uid).length;
+        });
+        
+        return idsToCount;
+    },
+        [order.bunId, order.toppingIds]);
 
     const [currentTab, setCurrentTab] = React.useState('bun');
+
     const selectTab = (t) => {
         setCurrentTab(t);
         const ref = ingredientTypes.find(type=>type.type===t)?.labelRef;
         if (ref) ref.current?.scrollIntoView();
+    }
+
+    const scrollHandler = (e) => {
+        const container = e.target;
+
+        const weightedCategories = ingredientTypes.map(category=> {
+            const relativeLabelOffset = category.labelRef.current.offsetTop - container.offsetTop;
+            const resultingLabelDistance = Math.abs(relativeLabelOffset - container.scrollTop);
+            return {category: category, weight: resultingLabelDistance}
+        })
+        
+        const closestCategory = weightedCategories.reduce((a,v)=>v.weight<a.weight?v:a,weightedCategories[0]).category;
+
+        setCurrentTab(closestCategory.type);
     }
 
     const ingredientTypes =
@@ -44,14 +69,14 @@ function BurgerIngredients (props) {
         <section className={`${burgerIngredientsStyles.container} ml-5 mr-5`}>
             <h1 className="text text_type_main-large mt-10">Соберите бургер</h1>
             {tabs()}
-            <ul className={burgerIngredientsStyles.ingredients}>
+            <ul className={burgerIngredientsStyles.ingredients} onScroll={scrollHandler}>
                 {ingredientTypes
                 .map((ingredientType,componentTypeKey)=>(
                     <React.Fragment key={componentTypeKey}>
                     <h1 className="text text_type_main-medium mt-6 mb-2" ref={ingredientType.labelRef}>{ingredientType.title}</h1>
                     <ul className={burgerIngredientsStyles.ingredientsContainer}>
                     {ingredients.filter(ingredient=>(ingredient.type===ingredientType.type)).map((ingredient)=>(
-                        <BurgerIngredient onClick={props.handleIngredientClick} key={ingredient._id} ingredient={{...ingredient, count: selectedIngredients.filter(o=>ingredient._id===o).length}} />
+                        <BurgerIngredient onClick={props.handleIngredientClick} key={ingredient._id} ingredient={{...ingredient, count: selectedIngredientCount[ingredient._id]||0}} />
                     ))}
                     </ul>
                     </React.Fragment>

@@ -13,7 +13,8 @@
     flex: none;
     width: 584px;
     height: 656px; 
-    overflow: hidden;           
+    overflow: hidden;    
+    position: relative;       
 }
 
 .componentsScrollable {
@@ -41,32 +42,6 @@
     background: #8585AD;
 }
 
-.component {
-    display: flex;
-    flex-flow: row;
-    align-items: center;
-    position: relative;
-    justify-content: space-evenly;
-}
-
-.dragIcon {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    left: 0px;
-    top: calc(50% - 24px/2);    
-}
-
-.ingredientFix {
-    flex: 2;
-    display: flex;
-    flex-flow: column;
-    align-items: stretch;
-}
-.ingredientFix span:first-of-type {
-    flex: 2;
-}
-
 .priceInfo {
     display: flex;
     flex-flow: row;
@@ -80,4 +55,26 @@
     justify-content: flex-end;
     align-items: center;
     padding: 0px;    
+}
+
+.dragHoverEffect {
+    background-color: rgba(67, 115, 247, 0.1);
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    right: 0%;
+    bottom: 0%;
+}
+
+
+.noIngredientsMessageContainer {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    right: 0%;
+    bottom: 0%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    text-align: center;
 }
