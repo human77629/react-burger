@@ -27,7 +27,7 @@ export function PasswordResetPage() {
                     type={showPassword?'text':'password'}
                     placeholder={'Введите новый пароль'}
                     ref={passwordRef}
-                    icon={'ShowIcon'}
+                    icon={showPassword?'HideIcon':'ShowIcon'}
                     onIconClick={toggleShowPassword}
                     name={'password'}
                     size={'default'}

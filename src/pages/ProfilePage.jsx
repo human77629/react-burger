@@ -54,7 +54,7 @@ export function ProfilePage() {
                     type={showPassword?'text':'password'}
                     placeholder={'Пароль'}
                     ref={passwordRef}
-                    icon={'ShowIcon'}
+                    icon={showPassword?'HideIcon':'ShowIcon'}
                     onIconClick={toggleShowPassword}
                     name={'password'}
                     size={'default'}
