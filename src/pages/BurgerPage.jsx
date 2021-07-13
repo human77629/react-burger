@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import AppHeader from '../components/AppHeader/AppHeader.jsx'
 import BurgerIngredients from '../components/BurgerIngredients/BurgerIngredients.jsx'

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BurgerPage, LoginPage } from '../../pages';
+import { BurgerPage, LoginPage, SignupPage, PasswordRecoveryPage, PasswordResetPage } from '../../pages';
 
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
@@ -13,7 +13,16 @@ function App() {
             <Switch>
               <Route path="/login">
                 <LoginPage />
-              </Route>              
+              </Route>           
+              <Route path="/register">
+                <SignupPage />
+              </Route>        
+              <Route path="/forgot-password">
+                <PasswordRecoveryPage />
+              </Route>          
+              <Route path="/reset-password">
+                <PasswordResetPage />
+              </Route>                                   
               <Route path="/">
                 <BurgerPage />
               </Route>
