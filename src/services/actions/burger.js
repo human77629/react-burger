@@ -17,8 +17,6 @@ export const SET_BUN = 'SET_BUN';
 export const MOVE_TOPPING = 'MOVE_TOPPING';
 
 
-
-
 export function getIngredients() {
   return function(dispatch) {
     dispatch({

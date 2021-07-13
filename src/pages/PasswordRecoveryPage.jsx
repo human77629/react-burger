@@ -2,9 +2,12 @@ import React from 'react';
 import { Logo, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './LoginPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader.jsx'
+import { useDispatch } from 'react-redux';
 
 export function PasswordRecoveryPage() {
 
+    const [email, setEmail] = React.useState('')
+    const dispatch = useDispatch();
     return (
         <>
         <AppHeader />
@@ -18,9 +21,10 @@ export function PasswordRecoveryPage() {
                 <Input 
                     type={'email'}
                     placeholder={'Укажите e-mail'}
-                    
+                    value={email}
                     name={'email'}
                     size={'default'}
+                    onChange={(e)=>setEmail(e.target.value)}
                 />
                 </div>
 

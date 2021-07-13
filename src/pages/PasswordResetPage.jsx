@@ -6,6 +6,10 @@ import AppHeader from '../components/AppHeader/AppHeader.jsx'
 export function PasswordResetPage() {
     const passwordRef = React.useRef(null)
     const [showPassword, setShowPassword] = React.useState(false)
+
+    const [token, setToken] = React.useState('')
+    const [password, setPassword] = React.useState('')    
+    
     const toggleShowPassword = () =>
     {
         setTimeout(() => passwordRef.current.focus(), 0)
@@ -31,15 +35,18 @@ export function PasswordResetPage() {
                     onIconClick={toggleShowPassword}
                     name={'password'}
                     size={'default'}
+                    value={password}
+                    onChange={(e)=>setPassword(e.target.value)}
                 />   
                 </div>
                 <div className={styles.inputFix}>
                 <Input 
                     type={'text'}
                     placeholder={'Введите код из письма'}
-                    
+                    value={token}
                     name={'token'}
                     size={'default'}
+                    onChange={(e)=>setToken(e.target.value)}
                 />
                 </div>                     
                 <Button type='primary' size='medium'>Сохранить</Button>

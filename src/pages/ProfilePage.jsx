@@ -6,6 +6,9 @@ import AppHeader from '../components/AppHeader/AppHeader.jsx'
 export function ProfilePage() {
     const passwordRef = React.useRef(null)
     const [showPassword, setShowPassword] = React.useState(false)
+    const [username, setUsername] = React.useState('')
+    const [email, setEmail] = React.useState('')
+    const [password, setPassword] = React.useState('')    
     const toggleShowPassword = () =>
     {
         setTimeout(() => passwordRef.current.focus(), 0)
@@ -38,6 +41,8 @@ export function ProfilePage() {
                     
                     name={'username'}
                     size={'default'}
+                    value={username}
+                    onChange={(e)=>setUsername(e.target.value)}
                 />
                 </div>            
                 <div className={styles.inputFix}>
@@ -47,6 +52,8 @@ export function ProfilePage() {
                     
                     name={'email'}
                     size={'default'}
+                    value={email}
+                    onChange={(e)=>setEmail(e.target.value)}
                 />
                 </div>
                 <div className={styles.inputFix}>
@@ -58,6 +65,8 @@ export function ProfilePage() {
                     onIconClick={toggleShowPassword}
                     name={'password'}
                     size={'default'}
+                    value={password}
+                    onChange={(e)=>setPassword(e.target.value)}
                 />   
                 </div>
                 <div className={`${styles.actions}`}>

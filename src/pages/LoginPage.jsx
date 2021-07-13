@@ -2,10 +2,14 @@ import React from 'react';
 import { Logo, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './LoginPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader.jsx'
+import { useDispatch } from 'react-redux';
 
 export function LoginPage() {
     const passwordRef = React.useRef(null)
     const [showPassword, setShowPassword] = React.useState(false)
+    const [email, setEmail] = React.useState('')
+    const [password, setPassword] = React.useState('')
+    const dispatch = useDispatch();    
     const toggleShowPassword = () =>
     {
         setTimeout(() => passwordRef.current.focus(), 0)
@@ -23,9 +27,10 @@ export function LoginPage() {
                 <Input 
                     type={'email'}
                     placeholder={'E-mail'}
-                    
+                    value={email}
                     name={'email'}
                     size={'default'}
+                    onChange={(e)=>setEmail(e.target.value)}
                 />
                 </div>
                 <div className={styles.inputFix}>
@@ -33,10 +38,12 @@ export function LoginPage() {
                     type={showPassword?'text':'password'}
                     placeholder={'Пароль'}
                     ref={passwordRef}
+                    value={password}
                     icon={showPassword?'HideIcon':'ShowIcon'}
                     onIconClick={toggleShowPassword}
                     name={'password'}
                     size={'default'}
+                    onChange={(e)=>setPassword(e.target.value)}
                 />   
                 </div>
                 <Button type='primary' size='medium'>Войти</Button>
