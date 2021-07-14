@@ -2,7 +2,7 @@ import React from 'react';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './ProfilePage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader.jsx'
-
+import {Link} from 'react-router-dom'
 export function ProfilePage() {
     const passwordRef = React.useRef(null)
     const [showPassword, setShowPassword] = React.useState(false)

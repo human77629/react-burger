@@ -3,6 +3,7 @@ import { Logo, Input, Button } from '@ya.praktikum/react-developer-burger-ui-com
 import styles from './LoginPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader.jsx'
 import { useDispatch } from 'react-redux';
+import {Link} from 'react-router-dom'
 
 export function PasswordRecoveryPage() {
 
@@ -31,7 +32,7 @@ export function PasswordRecoveryPage() {
                 <Button type='primary' size='medium'>Восстановить</Button>
             </form>
             <section className={`${styles.additionalActions} mt-20`}>
-                <span className="text text_type_main-default text_color_inactive">Вспомнили пароль? <a href='/login'>Войти</a></span>
+                <span className="text text_type_main-default text_color_inactive">Вспомнили пароль? <Link to='/login'>Войти</Link></span>
             </section>
         </main>
         </>

@@ -3,6 +3,8 @@ import { Logo, Input, Button } from '@ya.praktikum/react-developer-burger-ui-com
 import styles from './LoginPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader.jsx'
 import { useDispatch } from 'react-redux';
+import { userLogin } from '../services/actions/user';
+import {Link} from 'react-router-dom'
 
 export function LoginPage() {
     const passwordRef = React.useRef(null)
@@ -15,6 +17,12 @@ export function LoginPage() {
         setTimeout(() => passwordRef.current.focus(), 0)
         setShowPassword(!showPassword)
     }
+    const handleLoginClick = (e) => {
+        e.preventDefault();
+        
+        dispatch(userLogin({email: email, password: password}))
+        console.log('login!!!!@1')
+    }    
     return (
         <>
         <AppHeader />
@@ -46,11 +54,11 @@ export function LoginPage() {
                     onChange={(e)=>setPassword(e.target.value)}
                 />   
                 </div>
-                <Button type='primary' size='medium'>Войти</Button>
+                <Button type='primary' size='medium' onClick={handleLoginClick}>Войти</Button>
             </form>
             <section className={`${styles.additionalActions} mt-20`}>
-                <span className="text text_type_main-default text_color_inactive">Вы - новый пользователь? <a href='/register'>Зарегистрироваться</a></span>
-                <span className="text text_type_main-default text_color_inactive">Забыли пароль? <a href='/forgot-password'>Восстановить пароль</a></span>
+                <span className="text text_type_main-default text_color_inactive">Вы - новый пользователь? <Link to='/register'>Зарегистрироваться</Link></span>
+                <span className="text text_type_main-default text_color_inactive">Забыли пароль? <Link to='/forgot-password'>Восстановить пароль</Link></span>
             </section>
         </main>
         </>

@@ -4,6 +4,7 @@ import styles from './LoginPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader.jsx'
 import { useSelector, useDispatch } from 'react-redux';
 import { userSignup } from '../services/actions/user';
+import {Link} from 'react-router-dom'
 
 export function SignupPage() {
     const passwordRef = React.useRef(null)
@@ -68,7 +69,7 @@ export function SignupPage() {
                 <Button type='primary' size='medium' onClick={handleSignupClick}>Зарегистрироваться</Button>
             </form>
             <section className={`${styles.additionalActions} mt-20`}>
-                <span className="text text_type_main-default text_color_inactive">Уже зарегистрированы? <a href='/login'>Войти</a></span>
+                <span className="text text_type_main-default text_color_inactive">Уже зарегистрированы? <Link to='/login'>Войти</Link></span>
             </section>
         </main>
         </>
