@@ -4,7 +4,7 @@ import styles from './ProfilePage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader.jsx'
 import {Link} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { userInfo } from '../services/actions/user';
+import { userInfo, userUpdate } from '../services/actions/user';
 import {useHistory} from 'react-router-dom'
 export function ProfilePage() {
     const passwordRef = React.useRef(null)
@@ -54,6 +54,7 @@ export function ProfilePage() {
         if (editEmail) updatedUser.email = email
         if (editPassword) updatedUser.password = password
         console.log(updatedUser)
+        dispatch(userUpdate({token: accessToken, user: updatedUser}))
     }
     React.useEffect(()=>{
         console.log('before userinfo')

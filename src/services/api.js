@@ -9,9 +9,9 @@ const TOKEN_API_URL = 'https://norma.nomoreparties.space/api/auth/token'
 const USER_INFO_URL = 'https://norma.nomoreparties.space/api/auth/user'
 
 
-export const ensureToken = async (token, request) => {
+export const ensureToken = async (request, param) => {
   console.log('ensure token')
-  const initialResponse = await request(token)
+  const initialResponse = await request(param)
   if (!initialResponse) return Promise.reject('?')
   if (initialResponse.ok) return initialResponse.json()
   if (initialResponse.status==401) {
@@ -21,7 +21,7 @@ export const ensureToken = async (token, request) => {
     if (!refreshResponse.ok) return Promise.reject(refreshResponse.status)
     const refreshObject = await refreshResponse.json()
     if (!refreshObject || !refreshObject.success) return Promise.reject('refresh error')
-    const newResponse = await request(refreshObject.accessToken)
+    const newResponse = await request({...param, token: refreshObject.accessToken})
     if (!newResponse) return Promise.reject()
     if (!newResponse.ok) return Promise.reject(newResponse.status)
     const responseObject = await newResponse.json()
@@ -32,13 +32,28 @@ export const ensureToken = async (token, request) => {
   return Promise.reject(initialResponse.status)
 }
 
-export const getUserInfo = (token) => {
+export const getUserInfo = ({token}) => {
   return fetch(USER_INFO_URL, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'authorization': token
     },
+  })
+}
+
+
+export const patchUserInfo = (params) => {
+
+  const {token, user} = params
+  console.log(user)
+  return fetch(USER_INFO_URL, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': token
+    },
+    body: JSON.stringify(user)  
   })
 }
 

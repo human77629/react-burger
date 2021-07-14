@@ -40,6 +40,10 @@ const initialState = {
         request: false,
         failed: false,
     },        
+    userUpdateStatus: {
+        request: false,
+        failed: false,
+    },        
     errorMessage: ''
 }
 
@@ -47,6 +51,16 @@ const initialState = {
 
 export const userReducer = (state = initialState, action) => {
     switch(action.type) {
+
+        case USER_UPDATE_REQUEST: {
+            return { ...state, userUpdateStatus: {request: true, failed: false} };
+        }
+        case USER_UPDATE_SUCCESS: {
+            return { ...state, userUpdateStatus: {request: true, failed: false}, user: action.user };
+        }
+        case USER_UPDATE_FAILED: {
+            return { ...state, userUpdateStatus: {request: false, failed: true}, errorMessage: action.message };
+        }          
 
         case USER_INFO_REQUEST: {
             return { ...state, infoRequestStatus: {request: true, failed: false} };

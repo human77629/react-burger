@@ -1,4 +1,4 @@
-import { loginRequest, logoutRequest, signupRequest, getUserInfo, ensureToken } from '../api.js'
+import { loginRequest, logoutRequest, signupRequest, getUserInfo, ensureToken, patchUserInfo } from '../api.js'
 import { setCookie ,getCookie } from '../../utils/cookie.js';
 
 export const USER_SIGNUP_REQUEST = 'USER_SIGNUP_REQUEST';
@@ -27,13 +27,38 @@ export const USER_UPDATE_FAILED = 'USER_UPDATE_FAILED';
 
 
 
+export function userUpdate(params) {  
+  return function(dispatch) {
+    console.log('update')
+    console.log('params')
+    dispatch({
+      type: USER_UPDATE_REQUEST
+    });
+    ensureToken(patchUserInfo, params).then(res => {
+      dispatch({
+          type: USER_UPDATE_SUCCESS,
+          user: res.user
+        });
+        console.log(res)
+        if (res.accessToken) dispatch({type: USER_UPDATE_TOKEN, token: res.accessToken})
+        if (res.refreshToken) localStorage.setItem('token', res.refreshToken)
+    }).catch((err) => {
+        dispatch({
+          type: USER_UPDATE_FAILED,
+          message: err
+        });
+      }
+    );
+  }
+}
+
 
 export function userInfo(token) {  
   return function(dispatch) {
     dispatch({
       type: USER_INFO_REQUEST
     });
-    ensureToken(token,getUserInfo).then(res => {
+    ensureToken(getUserInfo,{token: token}).then(res => {
       dispatch({
           type: USER_INFO_SUCCESS,
           user: res.user
@@ -49,6 +74,9 @@ export function userInfo(token) {
     );
   }
 }
+
+
+
 
 
 
