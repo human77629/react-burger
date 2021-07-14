@@ -1,3 +1,4 @@
+import { getCookie } from "../utils/cookie";
 import { sampleData } from "../utils/data";
 const INGREDIENTS_API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 const ORDER_API_URL = 'https://norma.nomoreparties.space/api/orders';
@@ -5,7 +6,41 @@ const LOGIN_API_URL = 'https://norma.nomoreparties.space/api/auth/login';
 const SIGNUP_API_URL = 'https://norma.nomoreparties.space/api/auth/register'
 const LOGOUT_API_URL = 'https://norma.nomoreparties.space/api/auth/logout'
 const TOKEN_API_URL = 'https://norma.nomoreparties.space/api/auth/token'
+const USER_INFO_URL = 'https://norma.nomoreparties.space/api/auth/user'
 
+
+export const ensureToken = async (token, request) => {
+  console.log('ensure token')
+  const initialResponse = await request(token)
+  if (!initialResponse) return Promise.reject('?')
+  if (initialResponse.ok) return initialResponse.json()
+  if (initialResponse.status==401) {
+    console.log('in 401')
+    const refreshResponse = await refreshTokenRequest(localStorage.getItem('token'))
+    if (!refreshResponse) return Promise.reject('refresh error')
+    if (!refreshResponse.ok) return Promise.reject(refreshResponse.status)
+    const refreshObject = await refreshResponse.json()
+    if (!refreshObject || !refreshObject.success) return Promise.reject('refresh error')
+    const newResponse = await request(refreshObject.accessToken)
+    if (!newResponse) return Promise.reject()
+    if (!newResponse.ok) return Promise.reject(newResponse.status)
+    const responseObject = await newResponse.json()
+    if (!responseObject) return Promise.reject()
+    if (!responseObject.success) return Promise.reject(responseObject.message)
+    return {...responseObject, ...{accessToken: refreshObject.accessToken, refreshToken: refreshObject.refreshToken}}
+  }
+  return Promise.reject(initialResponse.status)
+}
+
+export const getUserInfo = (token) => {
+  return fetch(USER_INFO_URL, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': token
+    },
+  })
+}
 
 export const signupRequest = ({email, password, username}) => {
   return fetch(SIGNUP_API_URL, {

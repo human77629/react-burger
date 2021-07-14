@@ -3,17 +3,73 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import styles from './ProfilePage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader.jsx'
 import {Link} from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { userInfo } from '../services/actions/user';
+import {useHistory} from 'react-router-dom'
 export function ProfilePage() {
     const passwordRef = React.useRef(null)
-    const [showPassword, setShowPassword] = React.useState(false)
+    const emailRef = React.useRef(null)
+    const usernameRef = React.useRef(null)
+    const [editPassword, setEditPassword] = React.useState(false)
+    const [editEmail, setEditEmail] = React.useState(false)
+    const [editUsername, setEditUsername] = React.useState(false)
     const [username, setUsername] = React.useState('')
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')    
-    const toggleShowPassword = () =>
+    const history = useHistory();
+    const toggleEditPassword = () =>
     {
-        setTimeout(() => passwordRef.current.focus(), 0)
-        setShowPassword(!showPassword)
+        if (!editPassword) setTimeout(() => passwordRef.current.focus(), 0)
+        if (editPassword) setPassword(user.password)
+        setEditPassword(!editPassword)
     }    
+    const toggleEditEmail = () =>
+    {
+        if (!editEmail) setTimeout(() => emailRef.current.focus(), 0)
+        if (editEmail) setEmail(user.email)
+        setEditEmail(!editEmail)
+    }    
+    const toggleEditUsername = () =>
+    {
+        if (editUsername) setTimeout(() => usernameRef.current.focus(), 0)
+        if (editUsername) setUsername(user.name)
+        setEditUsername(!editUsername)
+    }            
+    const {user, accessToken} = useSelector(store=>store.user)
+    const dispatch = useDispatch();
+    const handleCancelClick = (e) => {
+        e.preventDefault()
+        setUsername(user.name)
+        setEmail(user.email)
+        setPassword(user.password)
+        setEditUsername(false);        
+        setEditEmail(false);
+        setEditPassword(false);
+    }
+
+    const handleSaveClick = (e) => {
+        e.preventDefault()
+        const updatedUser = {}
+        if (editUsername) updatedUser.name = username
+        if (editEmail) updatedUser.email = email
+        if (editPassword) updatedUser.password = password
+        console.log(updatedUser)
+    }
+    React.useEffect(()=>{
+        console.log('before userinfo')
+        dispatch(userInfo(accessToken))
+    }, [])
+
+    React.useEffect(()=>{
+        
+        if(user.name) setUsername(user.name)
+        if(user.email) setEmail(user.email)
+        if(user.password) setPassword(user.password)
+        setEditUsername(false);        
+        setEditEmail(false);
+        setEditPassword(false);        
+    },[user])
+
     return (
         <>
         <AppHeader />
@@ -23,7 +79,7 @@ export function ProfilePage() {
             <nav className={`${styles.navBar} mb-20`}>
                 <span className={`text text_type_main-medium ${styles.navLink}`}>Профиль</span>
                 <span className={`text text_type_main-medium text_color_inactive ${styles.navLink}`}>История заказов</span>
-                <span className={`text text_type_main-medium text_color_inactive ${styles.navLink}`}>Выход</span>
+                <span className={`text text_type_main-medium text_color_inactive ${styles.navLink}`} onClick={()=>history.replace({pathname: '/login'})}>Выход</span>
             </nav>
             <p className="text text_type_main-default text_color_inactive">
             В этом разделе вы можете<br/>
@@ -38,9 +94,12 @@ export function ProfilePage() {
                 <Input 
                     type={'text'}
                     placeholder={'Имя'}
-                    
+                    icon={editUsername?'CloseIcon':'EditIcon'}
+                    onIconClick={toggleEditUsername}       
+                    ref={usernameRef}             
                     name={'username'}
                     size={'default'}
+                    disabled={!editUsername}
                     value={username}
                     onChange={(e)=>setUsername(e.target.value)}
                 />
@@ -49,7 +108,10 @@ export function ProfilePage() {
                 <Input 
                     type={'email'}
                     placeholder={'E-mail'}
-                    
+                    icon={editEmail?'CloseIcon':'EditIcon'}
+                    ref={emailRef}
+                    onIconClick={toggleEditEmail}
+                    disabled={!editEmail}
                     name={'email'}
                     size={'default'}
                     value={email}
@@ -58,21 +120,24 @@ export function ProfilePage() {
                 </div>
                 <div className={styles.inputFix}>
                 <Input 
-                    type={showPassword?'text':'password'}
+                    type={'password'}
                     placeholder={'Пароль'}
+                    disabled={!editPassword}
                     ref={passwordRef}
-                    icon={showPassword?'HideIcon':'ShowIcon'}
-                    onIconClick={toggleShowPassword}
+                    icon={editPassword?'CloseIcon':'EditIcon'}
+                    onIconClick={toggleEditPassword}
                     name={'password'}
                     size={'default'}
                     value={password}
                     onChange={(e)=>setPassword(e.target.value)}
                 />   
                 </div>
+                {(editUsername || editPassword || editEmail) && (
                 <div className={`${styles.actions}`}>
-                <Button type='secondary' size='medium'>Отмена</Button> 
-                <Button type='primary' size='medium'>Сохранить</Button>                
+                <Button type='secondary' size='medium' onClick={handleCancelClick}>Отмена</Button> 
+                <Button type='primary' size='medium' onClick={handleSaveClick}>Сохранить</Button>                
                 </div>
+                )}
             </form>
             </section>
             <section className={`${styles.sideSection}`}>

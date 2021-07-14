@@ -1,4 +1,4 @@
-import { loginRequest, logoutRequest, signupRequest } from '../api.js'
+import { loginRequest, logoutRequest, signupRequest, getUserInfo, ensureToken } from '../api.js'
 import { setCookie ,getCookie } from '../../utils/cookie.js';
 
 export const USER_SIGNUP_REQUEST = 'USER_SIGNUP_REQUEST';
@@ -10,11 +10,45 @@ export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const USER_LOGIN_FAILED = 'USER_LOGIN_FAILED';
 
+export const USER_UPDATE_TOKEN = 'USER_UPDATE_TOKEN';
+
 
 export const USER_LOGOUT_REQUEST = 'USER_LOGOUT_REQUEST';
 export const USER_LOGOUT_SUCCESS = 'USER_LOGOUT_SUCCESS';
 export const USER_LOGOUT_FAILED = 'USER_LOGOUT_FAILED';
 
+export const USER_INFO_REQUEST = 'USER_INFO_REQUEST';
+export const USER_INFO_SUCCESS = 'USER_INFO_SUCCESS';
+export const USER_INFO_FAILED = 'USER_INFO_FAILED';
+
+export const USER_UPDATE_REQUEST = 'USER_UPDATE_REQUEST';
+export const USER_UPDATE_SUCCESS = 'USER_UPDATE_SUCCESS';
+export const USER_UPDATE_FAILED = 'USER_UPDATE_FAILED';
+
+
+
+
+export function userInfo(token) {  
+  return function(dispatch) {
+    dispatch({
+      type: USER_INFO_REQUEST
+    });
+    ensureToken(token,getUserInfo).then(res => {
+      dispatch({
+          type: USER_INFO_SUCCESS,
+          user: res.user
+        });
+        if (res.accessToken) dispatch({type: USER_UPDATE_TOKEN, token: res.accessToken})
+        if (res.refreshToken) localStorage.setItem('token', res.refreshToken)
+    }).catch((err) => {
+        dispatch({
+          type: USER_INFO_FAILED,
+          message: err
+        });
+      }
+    );
+  }
+}
 
 
 
@@ -23,7 +57,7 @@ export function userLogout() {
       dispatch({
         type: USER_LOGOUT_REQUEST
       });
-      logoutRequest(getCookie('token')).then(res => {
+      logoutRequest(localStorage.getItem('token')).then(res => {
         if (res && res.ok) {
           return res.json();
         }
@@ -35,7 +69,7 @@ export function userLogout() {
         dispatch({
             type: USER_LOGOUT_SUCCESS
           });
-          setCookie('token', '');
+          localStorage.removeItem('token')
       }).catch((err) => {
           dispatch({
             type: USER_LOGOUT_FAILED,
@@ -67,7 +101,8 @@ export function userLogin(req) {
             access: res.accessToken,
             refresh: res.refreshToken
           });
-          setCookie('token', res.refreshToken);
+          //setCookie('token', res.refreshToken);
+          localStorage.setItem('token', res.refreshToken)
       }).catch((err) => {
           dispatch({
             type: USER_LOGIN_FAILED,
@@ -102,7 +137,8 @@ export function userSignup(req) {
           access: res.accessToken,
           refresh: res.refreshToken
         });
-        setCookie('token', res.refreshToken);
+        //setCookie('token', res.refreshToken);
+        localStorage.setItem('token', res.refreshToken);
     }).catch((err) => {
         dispatch({
           type: USER_SIGNUP_FAILED,
