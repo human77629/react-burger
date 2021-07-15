@@ -1,4 +1,3 @@
-import { getCookie } from "../utils/cookie";
 import { sampleIngredients, sampleOrders } from "../utils/data";
 const INGREDIENTS_API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 const ORDER_API_URL = 'https://norma.nomoreparties.space/api/orders';
@@ -33,7 +32,7 @@ export const ensureToken = async (request, param) => {
   console.log('not empty')
   if (initialResponse.ok) return initialResponse.json()
   console.log('not ok')
-  if (initialResponse.status==401 || initialResponse.status==403) {
+  if (initialResponse.status===401 || initialResponse.status===403) {
     console.log('in 401')
     const refreshResponse = await refreshTokenRequest(localStorage.getItem('token'))
     if (!refreshResponse) return Promise.reject('refresh error')

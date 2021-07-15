@@ -9,7 +9,7 @@ function IngredientIcon (props) {
                 
             </div>
             
-            <img className={styles.illustration} src={props.image} />
+            <img className={styles.illustration} src={props.image} alt={props.alt} />
             {props.count && (<>
                 <div className={styles.dim}>
                     
@@ -25,6 +25,7 @@ function IngredientIcon (props) {
 
 IngredientIcon.propTypes = {
     image: PropTypes.string.isRequired,
+    alt: PropTypes.string,
     count: PropTypes.number
 }
 

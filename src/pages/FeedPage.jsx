@@ -4,8 +4,7 @@ import AppHeader from '../components/AppHeader/AppHeader'
 import { useSelector, useDispatch } from 'react-redux'
 import { getOrders, getIngredients } from '../services/actions/burger'
 import { useParams } from 'react-router-dom'
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import IngredientIcon from '../components/IngredientIcon/IngredientIcon'
+
 import CardOrder from '../components/CardOrder/CardOrder'
 
 

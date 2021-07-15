@@ -34,7 +34,7 @@ export function BurgerPage() {
   React.useEffect(()=>{
       console.log('before userinfo')
       dispatch(userInfo(accessToken))
-  }, [])     
+  }, [accessToken, dispatch])     
   const user = useSelector(store=>store.user.user)
 
   const handleOpenOrderModal = function () {

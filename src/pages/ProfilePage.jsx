@@ -2,7 +2,6 @@ import React from 'react';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './ProfilePage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader.jsx'
-import {Link} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { userInfo, userUpdate, userLogout } from '../services/actions/user';
 import {useHistory} from 'react-router-dom'

@@ -1,5 +1,4 @@
 import { loginRequest, logoutRequest, signupRequest, getUserInfo, ensureToken, patchUserInfo, passwordResetRequest, passwordResetConfirmationRequest } from '../api.js'
-import { setCookie ,getCookie } from '../../utils/cookie.js';
 
 export const USER_SIGNUP_REQUEST = 'USER_SIGNUP_REQUEST';
 export const USER_SIGNUP_SUCCESS = 'USER_SIGNUP_SUCCESS';
