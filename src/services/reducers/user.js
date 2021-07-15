@@ -15,6 +15,12 @@ import {
     USER_UPDATE_REQUEST,
     USER_UPDATE_SUCCESS,
     USER_UPDATE_TOKEN,
+    PASSWORD_RESET_FAILED,
+    PASSWORD_RESET_REQUEST,
+    PASSWORD_RESET_SUCCESS,
+    CONFIRM_PASSWORD_RESET_FAILED,
+    CONFIRM_PASSWORD_RESET_REQUEST,
+    CONFIRM_PASSWORD_RESET_SUCCESS,
 } from '../actions/user.js'
 
 const initialState = {
@@ -43,14 +49,45 @@ const initialState = {
     userUpdateStatus: {
         request: false,
         failed: false,
-    },        
-    errorMessage: ''
+    },      
+    passwordResetStatus: {
+        request: false,
+        failed: false,
+        success: false
+    },
+    passwordResetConfirmationStatus: {
+        request: false,
+        failed: false,
+        success: false
+    },      
+    errorMessage: '',
 }
 
 
 
 export const userReducer = (state = initialState, action) => {
     switch(action.type) {
+
+
+        case CONFIRM_PASSWORD_RESET_REQUEST: {
+            return { ...state, passwordResetConfirmationStatus: {request: true, failed: false, success: false} };
+        }
+        case CONFIRM_PASSWORD_RESET_SUCCESS: {
+            return { ...state, passwordResetConfirmationStatus: {request: true, failed: false, success: true} };
+        }
+        case CONFIRM_PASSWORD_RESET_FAILED: {
+            return { ...state, passwordResetConfirmationStatus: {request: false, failed: true, success: false}, errorMessage: action.message };
+        }            
+
+        case PASSWORD_RESET_REQUEST: {
+            return { ...state, passwordResetStatus: {request: true, failed: false, success: false} };
+        }
+        case PASSWORD_RESET_SUCCESS: {
+            return { ...state, passwordResetStatus: {request: true, failed: false, success: true} };
+        }
+        case PASSWORD_RESET_FAILED: {
+            return { ...state, passwordResetStatus: {request: false, failed: true, success: false}, errorMessage: action.message };
+        }              
 
         case USER_UPDATE_REQUEST: {
             return { ...state, userUpdateStatus: {request: true, failed: false} };

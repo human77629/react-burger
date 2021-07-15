@@ -7,7 +7,22 @@ const SIGNUP_API_URL = 'https://norma.nomoreparties.space/api/auth/register'
 const LOGOUT_API_URL = 'https://norma.nomoreparties.space/api/auth/logout'
 const TOKEN_API_URL = 'https://norma.nomoreparties.space/api/auth/token'
 const USER_INFO_URL = 'https://norma.nomoreparties.space/api/auth/user'
+const PASSWORD_RESET_URL = 'https://norma.nomoreparties.space/api/password-reset'
+const PASSWORD_RESET_CONFIRM_URL = 'https://norma.nomoreparties.space/api/password-reset/reset'
 
+
+export const passwordResetConfirmationRequest = (password, token) => {
+  return fetch(PASSWORD_RESET_CONFIRM_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      password: password,
+      token: token
+    })    
+  })
+}
 
 export const ensureToken = async (request, param) => {
   console.log('ensure token')
@@ -80,6 +95,19 @@ export const loginRequest = ({email, password}) => {
     body: JSON.stringify({
       email: email,
       password: password,
+    })    
+  })
+}
+
+
+export const passwordResetRequest = (email) => {
+  return fetch(PASSWORD_RESET_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email: email,
     })    
   })
 }

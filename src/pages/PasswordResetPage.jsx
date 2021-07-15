@@ -2,7 +2,9 @@ import React from 'react';
 import { Logo, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './LoginPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader.jsx'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { confirmPasswordReset } from '../services/actions/user';
 
 export function PasswordResetPage() {
     const passwordRef = React.useRef(null)
@@ -10,6 +12,15 @@ export function PasswordResetPage() {
 
     const [token, setToken] = React.useState('')
     const [password, setPassword] = React.useState('')    
+    const [requestSent, setRequestSent] = React.useState(false)
+    const dispatch = useDispatch()
+    const requestStatus = useSelector(store=>store.user.passwordResetConfirmationStatus)
+
+    const handleSaveClick = (e) => {
+        e.preventDefault();
+        setRequestSent(true)
+        dispatch(confirmPasswordReset(password, token))
+    }
     
     const toggleShowPassword = () =>
     {
@@ -19,6 +30,7 @@ export function PasswordResetPage() {
     return (
         <>
         <AppHeader />
+        {requestStatus.success && requestSent && (<Redirect to='/login' />)}
         <main className={styles.container}>
             <Logo />
             
@@ -50,7 +62,7 @@ export function PasswordResetPage() {
                     onChange={(e)=>setToken(e.target.value)}
                 />
                 </div>                     
-                <Button type='primary' size='medium'>Сохранить</Button>
+                <Button type='primary' size='medium' onClick={handleSaveClick}>Сохранить</Button>
             </form>
             <section className={`${styles.additionalActions} mt-20`}>
                 <span className="text text_type_main-default text_color_inactive">Вспомнили пароль? <Link to='/login'>Войти</Link></span>

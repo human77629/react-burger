@@ -1,4 +1,4 @@
-import { loginRequest, logoutRequest, signupRequest, getUserInfo, ensureToken, patchUserInfo } from '../api.js'
+import { loginRequest, logoutRequest, signupRequest, getUserInfo, ensureToken, patchUserInfo, passwordResetRequest, passwordResetConfirmationRequest } from '../api.js'
 import { setCookie ,getCookie } from '../../utils/cookie.js';
 
 export const USER_SIGNUP_REQUEST = 'USER_SIGNUP_REQUEST';
@@ -25,6 +25,75 @@ export const USER_UPDATE_REQUEST = 'USER_UPDATE_REQUEST';
 export const USER_UPDATE_SUCCESS = 'USER_UPDATE_SUCCESS';
 export const USER_UPDATE_FAILED = 'USER_UPDATE_FAILED';
 
+export const PASSWORD_RESET_REQUEST = 'PASSWORD_RESET_REQUEST';
+export const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
+export const PASSWORD_RESET_FAILED = 'PASSWORD_RESET_FAILED';
+
+
+export const CONFIRM_PASSWORD_RESET_REQUEST = 'CONFIRM_PASSWORD_RESET_REQUEST';
+export const CONFIRM_PASSWORD_RESET_SUCCESS = 'CONFIRM_PASSWORD_RESET_SUCCESS';
+export const CONFIRM_PASSWORD_RESET_FAILED = 'CONFIRM_PASSWORD_RESET_FAILED';
+
+
+
+export function confirmPasswordReset(password, token) {
+  return function(dispatch) {
+    dispatch({
+      type: CONFIRM_PASSWORD_RESET_REQUEST
+    });
+    passwordResetConfirmationRequest(password, token).then(res => {
+      if (res && res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка ${res.status}`);
+    }).then(res=>{
+      if (res.success !== true) {
+        return Promise.reject(res);
+      }
+      dispatch({
+          type: CONFIRM_PASSWORD_RESET_SUCCESS,
+        });
+        //setCookie('token', res.refreshToken);
+        localStorage.setItem('token', res.refreshToken)
+    }).catch((err) => {
+        dispatch({
+          type: CONFIRM_PASSWORD_RESET_FAILED,
+          message: err
+        });
+      }
+    );
+  };
+}
+
+
+export function passwordReset(email) {
+  return function(dispatch) {
+    dispatch({
+      type: PASSWORD_RESET_REQUEST
+    });
+    passwordResetRequest(email).then(res => {
+      if (res && res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка ${res.status}`);
+    }).then(res=>{
+      if (res.success !== true) {
+        return Promise.reject(res);
+      }
+      dispatch({
+          type: PASSWORD_RESET_SUCCESS,
+        });
+        //setCookie('token', res.refreshToken);
+        localStorage.setItem('token', res.refreshToken)
+    }).catch((err) => {
+        dispatch({
+          type: PASSWORD_RESET_FAILED,
+          message: err
+        });
+      }
+    );
+  };
+}
 
 
 export function userUpdate(params) {  
