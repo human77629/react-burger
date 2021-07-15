@@ -2,16 +2,25 @@ import React from 'react';
 import { Logo, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './LoginPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader.jsx'
-import { useDispatch } from 'react-redux';
-import { userLogin } from '../services/actions/user';
-import {Link} from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { userLogin,userInfo } from '../services/actions/user';
+import {Link, Redirect, useLocation} from 'react-router-dom'
+
 
 export function LoginPage() {
     const passwordRef = React.useRef(null)
     const [showPassword, setShowPassword] = React.useState(false)
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
-    const dispatch = useDispatch();    
+    const dispatch = useDispatch(); 
+    const {state} = useLocation();
+
+    const accessToken = useSelector(store=>store.user.accessToken)
+    React.useEffect(()=>{
+        console.log('before userinfo')
+        dispatch(userInfo(accessToken))
+    }, [])    
+
     const toggleShowPassword = () =>
     {
         setTimeout(() => passwordRef.current.focus(), 0)
@@ -22,7 +31,11 @@ export function LoginPage() {
         
         dispatch(userLogin({email: email, password: password}))
         console.log('login!!!!@1')
-    }    
+    }
+
+
+    const user = useSelector(store=>store.user.user)
+    if (user.name!=='') return (<Redirect to={state?.from || '/profile'} />)
     return (
         <>
         <AppHeader />

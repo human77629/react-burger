@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import {useHistory} from 'react-router-dom'
 
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -12,6 +13,7 @@ import Modal from '../components/Modal/Modal.jsx';
 import IngredientDetails from '../components/IngredientDetails/IngredientDetails.jsx';
 import OrderDetails from '../components/OrderDetails/OrderDetails.jsx';
 import { VIEW_INGREDIENT , getIngredients, makeOrder } from '../services/actions/burger.js';
+import { userInfo } from '../services/actions/user.js';
 
 import './BurgerPage.css';
 
@@ -25,12 +27,26 @@ export function BurgerPage() {
 
   const dispatch = useDispatch();
 
+  const history = useHistory();
+
+  const accessToken = useSelector(store=>store.user.accessToken)
+  React.useEffect(()=>{
+      console.log('before userinfo')
+      dispatch(userInfo(accessToken))
+  }, [])     
+  const user = useSelector(store=>store.user.user)
+
   const handleOpenOrderModal = function () {
     if (selectedIngredients.bunId === '' || selectedIngredients.toppingIds.length === 0) {
-
+      
+      
       setIsErrorModalOpen(true);
+    
+    } else if (user.name==='') {
+      history.replace({pathname: '/login', state:{from: '/'}})
     } else {
-      dispatch(makeOrder([...selectedIngredients.toppingIds, selectedIngredients.bunId, selectedIngredients.bunId]))
+      console.log(accessToken)
+      dispatch(makeOrder({token: accessToken, ingredients: [...selectedIngredients.toppingIds, selectedIngredients.bunId, selectedIngredients.bunId]}))
       setIsOrderModalOpen(true);
     }
   }

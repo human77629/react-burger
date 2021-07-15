@@ -4,7 +4,7 @@ import styles from './ProfilePage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader.jsx'
 import {Link} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { userInfo, userUpdate } from '../services/actions/user';
+import { userInfo, userUpdate, userLogout } from '../services/actions/user';
 import {useHistory} from 'react-router-dom'
 export function ProfilePage() {
     const passwordRef = React.useRef(null)
@@ -79,8 +79,8 @@ export function ProfilePage() {
                 <div className="mr-15">
             <nav className={`${styles.navBar} mb-20`}>
                 <span className={`text text_type_main-medium ${styles.navLink}`}>Профиль</span>
-                <span className={`text text_type_main-medium text_color_inactive ${styles.navLink}`}>История заказов</span>
-                <span className={`text text_type_main-medium text_color_inactive ${styles.navLink}`} onClick={()=>history.replace({pathname: '/login'})}>Выход</span>
+                <span className={`text text_type_main-medium text_color_inactive ${styles.navLink}`} onClick={()=>history.replace({pathname: '/login'})}>История заказов</span>
+                <span className={`text text_type_main-medium text_color_inactive ${styles.navLink}`} onClick={()=>dispatch(userLogout())}>Выход</span>
             </nav>
             <p className="text text_type_main-default text_color_inactive">
             В этом разделе вы можете<br/>

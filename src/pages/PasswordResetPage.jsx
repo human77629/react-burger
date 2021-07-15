@@ -4,7 +4,7 @@ import styles from './LoginPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader.jsx'
 import {Link, Redirect} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { confirmPasswordReset } from '../services/actions/user';
+import { confirmPasswordReset, userInfo } from '../services/actions/user';
 
 export function PasswordResetPage() {
     const passwordRef = React.useRef(null)
@@ -21,12 +21,22 @@ export function PasswordResetPage() {
         setRequestSent(true)
         dispatch(confirmPasswordReset(password, token))
     }
-    
+
+    const accessToken = useSelector(store=>store.user.accessToken)
+    React.useEffect(()=>{
+        console.log('before userinfo')
+        dispatch(userInfo(accessToken))
+    }, [])    
+
+
     const toggleShowPassword = () =>
     {
         setTimeout(() => passwordRef.current.focus(), 0)
         setShowPassword(!showPassword)
     }
+
+    const user = useSelector(store=>store.user.user)
+    if (user.name!=='') return (<Redirect to='/profile' />)    
     return (
         <>
         <AppHeader />

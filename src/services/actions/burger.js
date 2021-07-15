@@ -1,4 +1,6 @@
-import { getIngredientsRequest, makeOrderRequest } from '../api.js'
+import { getIngredientsRequest, makeOrderRequest, ensureToken } from '../api.js'
+
+import { USER_UPDATE_TOKEN } from './user.js';
 
 export const VIEW_INGREDIENT = 'VIEW_INGREDIENT';
 
@@ -42,21 +44,18 @@ export function getIngredients() {
 }
 
 
-export function makeOrder(ingredients) {
+export function makeOrder(params) {
   return function(dispatch) {
     dispatch({
       type: MAKE_ORDER_REQUEST
     });
-    makeOrderRequest(ingredients).then(res => {
-      if (res && res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка ${res.status}`);
-    }).then(res=>{
+    ensureToken(makeOrderRequest, params).then(res => {
       dispatch({
           type: MAKE_ORDER_SUCCESS,
           data: res
         });
+        if (res.accessToken) dispatch({type: USER_UPDATE_TOKEN, token: res.accessToken})
+        if (res.refreshToken) localStorage.setItem('token', res.refreshToken)
     }).catch((err) => {
       console.log(err);
         dispatch({

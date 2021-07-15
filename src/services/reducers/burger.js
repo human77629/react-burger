@@ -60,7 +60,7 @@ export const burgerReducer = (state = initialState, action) => {
         }        
 
         case MAKE_ORDER_REQUEST: {
-            return { ...state, orderRequest: true };
+            return { ...state, orderRequest: true, orderFailed: false };
         }
         case MAKE_ORDER_SUCCESS: {
             return { ...state, orderFailed: false, order: {number: action.data.order.number, generatedBurgerName: action.data.name}, orderRequest: false };

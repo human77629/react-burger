@@ -3,8 +3,8 @@ import { Logo, Input, Button } from '@ya.praktikum/react-developer-burger-ui-com
 import styles from './LoginPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader.jsx'
 import { useSelector, useDispatch } from 'react-redux';
-import { userSignup } from '../services/actions/user';
-import {Link} from 'react-router-dom'
+import { userSignup, userInfo } from '../services/actions/user';
+import {Link, Redirect} from 'react-router-dom'
 
 export function SignupPage() {
     const passwordRef = React.useRef(null)
@@ -13,6 +13,12 @@ export function SignupPage() {
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
     const dispatch = useDispatch();
+    const accessToken = useSelector(store=>store.user.accessToken)
+    React.useEffect(()=>{
+        console.log('before userinfo')
+        dispatch(userInfo(accessToken))
+    }, [])    
+
     const toggleShowPassword = () =>
     {
         setTimeout(() => passwordRef.current.focus(), 0)
@@ -24,6 +30,9 @@ export function SignupPage() {
         dispatch(userSignup({email: email, password: password, username: username}))
         console.log('signup!!!!@1')
     }
+
+    const user = useSelector(store=>store.user.user)
+    if (user.name!=='') return (<Redirect to='/profile' />)    
     return (
         <>
         <AppHeader />

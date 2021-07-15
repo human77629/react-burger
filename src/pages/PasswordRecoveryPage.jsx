@@ -4,7 +4,7 @@ import styles from './LoginPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader.jsx'
 import { useDispatch, useSelector } from 'react-redux';
 import {Link, Redirect} from 'react-router-dom'
-import { passwordReset } from '../services/actions/user';
+import { passwordReset, userInfo } from '../services/actions/user';
 
 
 export function PasswordRecoveryPage() {
@@ -18,8 +18,16 @@ export function PasswordRecoveryPage() {
         dispatch(passwordReset(email))
     }
 
+    const accessToken = useSelector(store=>store.user.accessToken)
+    React.useEffect(()=>{
+        console.log('before userinfo')
+        dispatch(userInfo(accessToken))
+    }, [])    
+
+
     const requestStatus = useSelector(store=>store.user.passwordResetStatus)
-    
+    const user = useSelector(store=>store.user.user)
+    if (user.name!=='') return (<Redirect to='/profile' />)
     return (
         <>
         <AppHeader />

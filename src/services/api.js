@@ -27,8 +27,12 @@ export const passwordResetConfirmationRequest = (password, token) => {
 export const ensureToken = async (request, param) => {
   console.log('ensure token')
   const initialResponse = await request(param)
+  console.log('normal response loaded')
+  console.log(initialResponse)
   if (!initialResponse) return Promise.reject('?')
+  console.log('not empty')
   if (initialResponse.ok) return initialResponse.json()
+  console.log('not ok')
   if (initialResponse.status==401) {
     console.log('in 401')
     const refreshResponse = await refreshTokenRequest(localStorage.getItem('token'))
@@ -44,6 +48,7 @@ export const ensureToken = async (request, param) => {
     if (!responseObject.success) return Promise.reject(responseObject.message)
     return {...responseObject, ...{accessToken: refreshObject.accessToken, refreshToken: refreshObject.refreshToken}}
   }
+  console.log('not 401')
   return Promise.reject(initialResponse.status)
 }
 
@@ -150,11 +155,12 @@ export const fakeGetIngredientsRequest = async () => {
           ); 
 }
 
-export const makeOrderRequest = async (ingredients) => {
+export const makeOrderRequest = async ({token, ingredients}) => {
   return await fetch(ORDER_API_URL, {
     method: 'POST', 
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'authorization': token
     },
     body: JSON.stringify({ingredients: ingredients})
   })

@@ -2,6 +2,8 @@ import React from 'react';
 
 import { BurgerPage, LoginPage, SignupPage, PasswordRecoveryPage, PasswordResetPage, ProfilePage } from '../../pages';
 
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.jsx'
+
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import './App.css';
@@ -23,9 +25,9 @@ function App() {
               <Route path="/reset-password">
                 <PasswordResetPage />
               </Route> 
-              <Route path="/profile">
+              <ProtectedRoute path="/profile">
                 <ProfilePage />
-              </Route>                                                 
+              </ProtectedRoute>                                                 
               <Route path="/">
                 <BurgerPage />
               </Route>
