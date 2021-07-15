@@ -1,4 +1,4 @@
-export const sampleData = [
+export const sampleIngredients = [
     {
        "_id":"60666c42cc7b410027a1a9b1",
        "name":"Краторная булка N-200i",
@@ -208,5 +208,84 @@ export const sampleData = [
        "image_mobile":"https://code.s3.yandex.net/react/code/bun-01-mobile.png",
        "image_large":"https://code.s3.yandex.net/react/code/bun-01-large.png",
        "__v":0
+    }
+ ]
+
+
+ export const sampleOrders = [
+   {
+      "ingredients": [
+         "60d3b41abdacab0026a733d3",
+         "60d3b41abdacab0026a733d1",
+         "60d3b41abdacab0026a733cb",
+         "60d3b41abdacab0026a733d0",
+         "60d3b41abdacab0026a733cf",
+         "60d3b41abdacab0026a733cd",
+         "60d3b41abdacab0026a733c7",
+         "60d3b41abdacab0026a733c7"
+       ],
+      "_id": "60efbf7a294c38001b6c1ec5",
+      "owner": {
+        "name": "qweasdzxc",
+        "email": "qweasdzxc@qweasdzxc.com",
+        "createdAt": "2021-07-14T00:03:11.841Z",
+        "updatedAt": "2021-07-14T19:34:29.885Z"
+      },
+      "status": "done",
+      "name": "Био-марсианский антарианский минеральный space фалленианский экзо-плантаго флюоресцентный бургер",
+      "createdAt": "2021-07-15T04:54:18.362Z",
+      "updatedAt": "2021-07-15T04:54:18.393Z",
+      "number": 862,
+      "price": 8142
+    },
+
+    {
+      "ingredients": [
+         "60d3b41abdacab0026a733c8",
+         "60d3b41abdacab0026a733c8",
+         "60d3b41abdacab0026a733c8",
+         "60d3b41abdacab0026a733cc",
+         "60d3b41abdacab0026a733cd",
+         "60d3b41abdacab0026a733cb",
+         "60d3b41abdacab0026a733d0",
+         "60d3b41abdacab0026a733cf",
+         "60d3b41abdacab0026a733cd",
+         "60d3b41abdacab0026a733c6",
+         "60d3b41abdacab0026a733c6"
+       ],
+      "_id": "60efc052294c38001b6c1ec6",
+      "owner": {
+        "name": "qweasdzxc",
+        "email": "qweasdzxc@qweasdzxc.com",
+        "createdAt": "2021-07-10T00:03:11.841Z",
+        "updatedAt": "2021-07-14T19:34:29.885Z"
+      },
+      "status": "pending",
+      "name": "Био-марсианский бургер",
+      "createdAt": "2021-07-10T04:57:54.342Z",
+      "updatedAt": "2021-07-15T04:57:54.381Z",
+      "number": 863,
+      "price": 6536
+    },
+    {
+      "ingredients": [
+         "60d3b41abdacab0026a733d4",
+         "60d3b41abdacab0026a733d1",
+         "60d3b41abdacab0026a733c6",
+         "60d3b41abdacab0026a733c6"
+       ],
+      "_id": "60efc0a5294c38001b6c1ec7",
+      "owner": {
+        "name": "qweasdzxc",
+        "email": "qweasdzxc@qweasdzxc.com",
+        "createdAt": "2021-07-14T00:03:11.841Z",
+        "updatedAt": "2021-07-14T19:34:29.885Z"
+      },
+      "status": "done",
+      "name": "Краторный астероидный фалленианский бургер",
+      "createdAt": "2021-07-15T04:59:17.528Z",
+      "updatedAt": "2021-07-15T04:59:17.558Z",
+      "number": 864,
+      "price": 7526
     }
  ]

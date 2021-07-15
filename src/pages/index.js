@@ -5,5 +5,7 @@ import { PasswordRecoveryPage } from './PasswordRecoveryPage';
 import { PasswordResetPage } from './PasswordResetPage';
 import { ProfilePage } from './ProfilePage';
 import { IngredientPage } from './IngredientPage';
+import { OrderPage } from './OrderPage';
+import { FeedPage } from './FeedPage';
 
-export { BurgerPage, LoginPage, SignupPage, PasswordRecoveryPage, PasswordResetPage, ProfilePage, IngredientPage };
+export { BurgerPage, LoginPage, SignupPage, PasswordRecoveryPage, PasswordResetPage, ProfilePage, IngredientPage, OrderPage, FeedPage };

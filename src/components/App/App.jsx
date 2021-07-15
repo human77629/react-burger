@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BurgerPage, LoginPage, SignupPage, PasswordRecoveryPage, PasswordResetPage, ProfilePage, IngredientPage } from '../../pages';
+import { BurgerPage, LoginPage, SignupPage, PasswordRecoveryPage, PasswordResetPage, ProfilePage, IngredientPage, OrderPage, FeedPage } from '../../pages';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.jsx'
 import {useHistory, useLocation} from 'react-router-dom'
@@ -34,7 +34,12 @@ function App() {
               <ProtectedRoute path="/profile">
                 <ProfilePage />
               </ProtectedRoute>      
-                                                        
+              <Route path="/feed/:id">
+                <OrderPage />
+              </Route>                      
+              <Route path="/feed">
+                <FeedPage />
+              </Route>                                                         
               <Route exact path="/">
                 <BurgerPage />
               </Route>
