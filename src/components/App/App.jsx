@@ -1,18 +1,24 @@
 import React from 'react';
 
-import { BurgerPage, LoginPage, SignupPage, PasswordRecoveryPage, PasswordResetPage, ProfilePage } from '../../pages';
+import { BurgerPage, LoginPage, SignupPage, PasswordRecoveryPage, PasswordResetPage, ProfilePage, IngredientPage } from '../../pages';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.jsx'
+import {useHistory, useLocation} from 'react-router-dom'
 
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 
 import './App.css';
 
 function App() {
+  const location = useLocation();
+  const history = useHistory();
+  const background = history.action === 'REPLACE' && location.state && location.state.background; 
+  
+  console.log(history.action)
 
   return (
-          <Router>
-            <Switch>
+          
+            <Switch location={background || location}>
               <Route path="/login">
                 <LoginPage />
               </Route>           
@@ -27,12 +33,16 @@ function App() {
               </Route> 
               <ProtectedRoute path="/profile">
                 <ProfilePage />
-              </ProtectedRoute>                                                 
-              <Route path="/">
+              </ProtectedRoute>      
+                                                        
+              <Route exact path="/">
                 <BurgerPage />
               </Route>
+              <Route path="/ingredients/:id">
+                <IngredientPage />
+              </Route>               
             </Switch>
-          </Router>
+          
   );
 }
 

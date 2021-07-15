@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {useHistory} from 'react-router-dom'
+import {useHistory, useLocation} from 'react-router-dom'
 
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -28,6 +28,7 @@ export function BurgerPage() {
   const dispatch = useDispatch();
 
   const history = useHistory();
+  const location = useLocation();
 
   const accessToken = useSelector(store=>store.user.accessToken)
   React.useEffect(()=>{
@@ -52,6 +53,7 @@ export function BurgerPage() {
   }
 
   const handleOpenIngredientModal = function (ingredient) {
+    history.replace({pathname: `/ingredients/${ingredient._id}`, state: {background: location}})
     dispatch({type: VIEW_INGREDIENT, ingredient: ingredient});
     setIsIngredientModalOpen(true);
   }
@@ -60,6 +62,7 @@ export function BurgerPage() {
     setIsOrderModalOpen(false);
     setIsIngredientModalOpen(false);
     setIsErrorModalOpen(false);
+    history.replace({pathname: '/'})
   }
 
   React.useEffect(()=>{
