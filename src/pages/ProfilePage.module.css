@@ -43,3 +43,7 @@
 .centerSection {
     width: 480px;
 }
+
+.navLink {
+    cursor: pointer;
+}

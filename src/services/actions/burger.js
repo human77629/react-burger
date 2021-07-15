@@ -29,7 +29,7 @@ export function getOrders() {
       type: GET_ORDERS_REQUEST
     });
     fakeGetOrdersRequest().then(res=>{
-      console.log(res)
+
       dispatch({
           type: GET_ORDERS_SUCCESS,
           orders: res.data
@@ -82,7 +82,7 @@ export function makeOrder(params) {
         if (res.accessToken) dispatch({type: USER_UPDATE_TOKEN, token: res.accessToken})
         if (res.refreshToken) localStorage.setItem('token', res.refreshToken)
     }).catch((err) => {
-      console.log(err);
+
         dispatch({
           type: MAKE_ORDER_FAILED
         });

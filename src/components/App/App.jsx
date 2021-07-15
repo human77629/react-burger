@@ -14,8 +14,6 @@ function App() {
   const history = useHistory();
   const background = history.action === 'REPLACE' && location.state && location.state.background; 
   
-  console.log(history.action)
-
   return (
           
             <Switch location={background || location}>

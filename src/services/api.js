@@ -24,16 +24,11 @@ export const passwordResetConfirmationRequest = (password, token) => {
 }
 
 export const ensureToken = async (request, param) => {
-  console.log('ensure token')
   const initialResponse = await request(param)
-  console.log('normal response loaded')
-  console.log(initialResponse)
+
   if (!initialResponse) return Promise.reject('?')
-  console.log('not empty')
   if (initialResponse.ok) return initialResponse.json()
-  console.log('not ok')
   if (initialResponse.status===401 || initialResponse.status===403) {
-    console.log('in 401')
     const refreshResponse = await refreshTokenRequest(localStorage.getItem('token'))
     if (!refreshResponse) return Promise.reject('refresh error')
     if (!refreshResponse.ok) return Promise.reject(refreshResponse.status)
@@ -47,7 +42,6 @@ export const ensureToken = async (request, param) => {
     if (!responseObject.success) return Promise.reject(responseObject.message)
     return {...responseObject, ...{accessToken: refreshObject.accessToken, refreshToken: refreshObject.refreshToken}}
   }
-  console.log('not 401')
   return Promise.reject(initialResponse.status)
 }
 
@@ -65,7 +59,7 @@ export const getUserInfo = ({token}) => {
 export const patchUserInfo = (params) => {
 
   const {token, user} = params
-  console.log(user)
+
   return fetch(USER_INFO_URL, {
     method: 'PATCH',
     headers: {

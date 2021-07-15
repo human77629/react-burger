@@ -17,7 +17,7 @@ export function LoginPage() {
 
     const accessToken = useSelector(store=>store.user.accessToken)
     React.useEffect(()=>{
-        console.log('before userinfo')
+
         dispatch(userInfo(accessToken))
     }, [])    
 
@@ -30,7 +30,7 @@ export function LoginPage() {
         e.preventDefault();
         
         dispatch(userLogin({email: email, password: password}))
-        console.log('login!!!!@1')
+
     }
 
 

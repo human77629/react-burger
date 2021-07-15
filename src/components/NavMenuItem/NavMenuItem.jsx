@@ -9,8 +9,6 @@ function NavMenuItem (props) {
     const history = useHistory();
     const location = useLocation();
     const selected = React.useMemo(()=>{
-        console.log(location.pathname)
-        console.log(props.pathname)
         return (location.pathname === props.pathname)
     }, [location.pathname, props.pathname])
     const handleClick = () => {

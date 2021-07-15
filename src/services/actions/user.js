@@ -97,8 +97,7 @@ export function passwordReset(email) {
 
 export function userUpdate(params) {  
   return function(dispatch) {
-    console.log('update')
-    console.log('params')
+
     dispatch({
       type: USER_UPDATE_REQUEST
     });
@@ -107,7 +106,7 @@ export function userUpdate(params) {
           type: USER_UPDATE_SUCCESS,
           user: res.user
         });
-        console.log(res)
+
         if (res.accessToken) dispatch({type: USER_UPDATE_TOKEN, token: res.accessToken})
         if (res.refreshToken) localStorage.setItem('token', res.refreshToken)
     }).catch((err) => {
@@ -214,7 +213,6 @@ export function userLogin(req) {
 
 export function userSignup(req) {
   return function(dispatch) {
-      console.log('user signup')
     dispatch({
       type: USER_SIGNUP_REQUEST
     });

@@ -52,11 +52,11 @@ export function ProfilePage() {
         if (editUsername) updatedUser.name = username
         if (editEmail) updatedUser.email = email
         if (editPassword) updatedUser.password = password
-        console.log(updatedUser)
+
         dispatch(userUpdate({token: accessToken, user: updatedUser}))
     }
     React.useEffect(()=>{
-        console.log('before userinfo')
+
         dispatch(userInfo(accessToken))
     }, [])
 

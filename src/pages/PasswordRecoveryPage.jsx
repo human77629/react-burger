@@ -20,7 +20,7 @@ export function PasswordRecoveryPage() {
 
     const accessToken = useSelector(store=>store.user.accessToken)
     React.useEffect(()=>{
-        console.log('before userinfo')
+
         dispatch(userInfo(accessToken))
     }, [])    
 

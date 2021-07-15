@@ -32,7 +32,7 @@ export function BurgerPage() {
 
   const accessToken = useSelector(store=>store.user.accessToken)
   React.useEffect(()=>{
-      console.log('before userinfo')
+
       dispatch(userInfo(accessToken))
   }, [accessToken, dispatch])     
   const user = useSelector(store=>store.user.user)
@@ -46,7 +46,7 @@ export function BurgerPage() {
     } else if (user.name==='') {
       history.replace({pathname: '/login', state:{from: '/'}})
     } else {
-      console.log(accessToken)
+
       dispatch(makeOrder({token: accessToken, ingredients: [...selectedIngredients.toppingIds, selectedIngredients.bunId, selectedIngredients.bunId]}))
       setIsOrderModalOpen(true);
     }

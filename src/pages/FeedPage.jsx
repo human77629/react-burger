@@ -27,13 +27,6 @@ export function FeedPage() {
                 const toppings = uniqueIngredients.filter(ingredient=>ingredient.type!=='bun')
                 const icons = [bun, ...toppings].slice(0,6).map(i=>({image: i.image}))
                 if (uniqueIngredients.length>6) icons[5].count = uniqueIngredients.length - 6
-                console.log({
-                    number: order.number, 
-                    date: order.createdAt,
-                    name: order.name,
-                    price: order.price,
-                    icons: icons
-                });
                 return {
                     _id: order._id,
                     number: order.number, 

@@ -15,7 +15,7 @@ export function SignupPage() {
     const dispatch = useDispatch();
     const accessToken = useSelector(store=>store.user.accessToken)
     React.useEffect(()=>{
-        console.log('before userinfo')
+
         dispatch(userInfo(accessToken))
     }, [])    
 
@@ -28,7 +28,7 @@ export function SignupPage() {
         e.preventDefault();
         
         dispatch(userSignup({email: email, password: password, username: username}))
-        console.log('signup!!!!@1')
+
     }
 
     const user = useSelector(store=>store.user.user)
