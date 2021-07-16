@@ -5,6 +5,7 @@ import AppHeader from '../components/AppHeader/AppHeader.jsx'
 import {Link, Redirect} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { confirmPasswordReset, userInfo } from '../services/actions/user';
+import { SET_PASSWORD_RESET_STAGE } from '../services/actions/user';
 
 export function PasswordResetPage() {
     const passwordRef = React.useRef(null)
@@ -28,6 +29,10 @@ export function PasswordResetPage() {
         dispatch(userInfo(accessToken))
     }, [])    
 
+    const handleResendClick = (e) => {
+        e.preventDefault();
+        dispatch({type: SET_PASSWORD_RESET_STAGE, stage: 'RECOVERY_PAGE'})
+    }
 
     const toggleShowPassword = () =>
     {
@@ -40,7 +45,7 @@ export function PasswordResetPage() {
     return (
         <>
         <AppHeader />
-        {!requestSent && passwordResetStage === 'RECOVERY_PAGE' && (
+        {!passwordResetConfirmationStatus.success && passwordResetStage === 'RECOVERY_PAGE' && (
             <Redirect to='/forgot-password' />
         )}
         {passwordResetConfirmationStatus.success && requestSent && (<Redirect to='/login' />)}
@@ -79,6 +84,7 @@ export function PasswordResetPage() {
                 <Button type='primary' size='medium' onClick={handleSaveClick}>Сохранить</Button>
             </form>
             <section className={`${styles.additionalActions} mt-20`}>
+                <span className="text text_type_main-default text_color_inactive">Письмо не приходит? <a href='#' onClick={handleResendClick}>Отправить заново</a></span>                
                 <span className="text text_type_main-default text_color_inactive">Вспомнили пароль? <Link to='/login'>Войти</Link></span>
             </section>
         </main>
