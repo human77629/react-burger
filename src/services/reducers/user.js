@@ -21,6 +21,7 @@ import {
     CONFIRM_PASSWORD_RESET_FAILED,
     CONFIRM_PASSWORD_RESET_REQUEST,
     CONFIRM_PASSWORD_RESET_SUCCESS,
+    SET_PASSWORD_RESET_STAGE,
 } from '../actions/user.js'
 
 const initialState = {
@@ -61,6 +62,7 @@ const initialState = {
         success: false
     },      
     errorMessage: '',
+    passwordResetStage: 'RECOVERY_PAGE',
 }
 
 
@@ -68,6 +70,9 @@ const initialState = {
 export const userReducer = (state = initialState, action) => {
     switch(action.type) {
 
+        case SET_PASSWORD_RESET_STAGE: {
+            return { ...state, passwordResetStage: action.stage }
+        }
 
         case CONFIRM_PASSWORD_RESET_REQUEST: {
             return { ...state, passwordResetConfirmationStatus: {request: true, failed: false, success: false} };

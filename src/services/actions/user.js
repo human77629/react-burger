@@ -34,6 +34,8 @@ export const CONFIRM_PASSWORD_RESET_SUCCESS = 'CONFIRM_PASSWORD_RESET_SUCCESS';
 export const CONFIRM_PASSWORD_RESET_FAILED = 'CONFIRM_PASSWORD_RESET_FAILED';
 
 
+export const SET_PASSWORD_RESET_STAGE = 'SET_PASSWORD_RESET_STAGE';
+
 
 export function confirmPasswordReset(password, token) {
   return function(dispatch) {
@@ -49,9 +51,14 @@ export function confirmPasswordReset(password, token) {
       if (res.success !== true) {
         return Promise.reject(res);
       }
+     
       dispatch({
           type: CONFIRM_PASSWORD_RESET_SUCCESS,
         });
+        dispatch({
+          type: SET_PASSWORD_RESET_STAGE,
+          stage: 'RECOVERY_PAGE',
+        });               
         //setCookie('token', res.refreshToken);
         localStorage.setItem('token', res.refreshToken)
     }).catch((err) => {
@@ -82,6 +89,10 @@ export function passwordReset(email) {
       dispatch({
           type: PASSWORD_RESET_SUCCESS,
         });
+        dispatch({
+          type: SET_PASSWORD_RESET_STAGE,
+          stage: 'RESET_PAGE'
+        });        
         //setCookie('token', res.refreshToken);
         localStorage.setItem('token', res.refreshToken)
     }).catch((err) => {

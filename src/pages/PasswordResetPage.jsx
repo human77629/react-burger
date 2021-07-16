@@ -14,7 +14,7 @@ export function PasswordResetPage() {
     const [password, setPassword] = React.useState('')    
     const [requestSent, setRequestSent] = React.useState(false)
     const dispatch = useDispatch()
-    const requestStatus = useSelector(store=>store.user.passwordResetConfirmationStatus)
+    const {passwordResetConfirmationStatus, accessToken, passwordResetStage} = useSelector(store=>store.user)
 
     const handleSaveClick = (e) => {
         e.preventDefault();
@@ -22,7 +22,7 @@ export function PasswordResetPage() {
         dispatch(confirmPasswordReset(password, token))
     }
 
-    const accessToken = useSelector(store=>store.user.accessToken)
+    
     React.useEffect(()=>{
 
         dispatch(userInfo(accessToken))
@@ -40,7 +40,11 @@ export function PasswordResetPage() {
     return (
         <>
         <AppHeader />
-        {requestStatus.success && requestSent && (<Redirect to='/login' />)}
+        {!requestSent && passwordResetStage === 'RECOVERY_PAGE' && (
+            <Redirect to='/forgot-password' />
+        )}
+        {passwordResetConfirmationStatus.success && requestSent && (<Redirect to='/login' />)}
+
         <main className={styles.container}>
             <Logo />
             
