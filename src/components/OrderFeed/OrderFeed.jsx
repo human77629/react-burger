@@ -15,6 +15,7 @@ export function OrderFeed(props) {
                 const bun = uniqueIngredients.find(ingredient=>ingredient.type==='bun')
                 const toppings = uniqueIngredients.filter(ingredient=>ingredient.type!=='bun')
                 const icons = [bun, ...toppings].slice(0,6).map(i=>({image: i.image}))
+                const price = order.ingredients.reduce((a, v)=>a+ingredients.find(i=>i._id===v).price, 0)
                 if (uniqueIngredients.length>6) icons[5].count = uniqueIngredients.length - 6
                 return {
                     _id: order._id,
@@ -22,7 +23,7 @@ export function OrderFeed(props) {
                     date: order.createdAt,
                     name: order.name,
                     status: props.status?order.status:null,
-                    price: order.price,
+                    price: price,
                     icons: icons
                 }
             })

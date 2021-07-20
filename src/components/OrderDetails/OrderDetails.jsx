@@ -36,6 +36,12 @@ export function OrderDetails (props) {
         
     },
         [order, ingredients]);  
+
+
+        const price = React.useMemo(()=>{
+            if (!order || !order.ingredients || !ingredients) return 0;
+            return order.ingredients.reduce((a, v)=>a+ingredients.find(i=>i._id===v).price, 0)
+        },[order, ingredients])
         
     const timeText = React.useMemo(()=>{
         if (order) {
@@ -69,7 +75,7 @@ export function OrderDetails (props) {
             <p className={styles.footer}>
                 <span className={`text text_type_main-default text_color_inactive`}>{timeText}</span>
                 <span className={styles.price}>
-                <span className="text text_type_digits-default">{order.price}&nbsp;</span>
+                <span className="text text_type_digits-default">{price}&nbsp;</span>
                 <CurrencyIcon type='primary' />
             </span>
             </p>
