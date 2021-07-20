@@ -281,7 +281,7 @@ export const sampleIngredients = [
         "createdAt": "2021-07-14T00:03:11.841Z",
         "updatedAt": "2021-07-14T19:34:29.885Z"
       },
-      "status": "done",
+      "status": "cancelled",
       "name": "Краторный астероидный фалленианский бургер",
       "createdAt": "2021-07-15T04:59:17.528Z",
       "updatedAt": "2021-07-15T04:59:17.558Z",

@@ -9,6 +9,7 @@ function CardOrder (props) {
     const history = useHistory();
 
     const timeText = React.useMemo(()=>{
+        console.log(props)
         if (props.date) {
 
             const today = new Date();
@@ -27,6 +28,19 @@ function CardOrder (props) {
         }
     }, [props.date])
     
+    const orderStatusColor= status=>
+    {
+        if (status==='done') return styles.orderFinished
+        if (status==='cancelled') return styles.orderCancelled
+        return ''
+    }
+
+    const orderStatusText= status=>
+    {
+        if (status==='done') return 'Выполнен'
+        if (status==='cancelled') return 'Отменен'
+        return 'Готовится'
+    }    
 
     return (
         <li className={`${styles.container}`} onClick={props.onClick}>
@@ -34,7 +48,9 @@ function CardOrder (props) {
                 <span className={`text text_type_digits-default`}>#{props.number}</span>
                 <span className={`text text_type_main-default text_color_inactive`}>{timeText}</span>
             </p>
-            <h2 className={`${styles.burgerName} text text_type_main-medium mb-6`}>{props.name}</h2>
+            <h2 className={`${styles.burgerName} text text_type_main-medium ${props.status?'mb-2':'mb-6'}`}>{props.name}</h2>
+            {props.status && (
+            <p className={`${styles.orderStatus} ${orderStatusColor(props.status)} text text_type_main-default mb-6`}>{orderStatusText(props.status)}</p>)}
             <section className={`${styles.componentsPrice} mb-6`}>
                 <ul className={`${styles.iconList}`}>
                     

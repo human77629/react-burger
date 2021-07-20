@@ -8,6 +8,7 @@ import { OrderDetails } from '../components/OrderDetails/OrderDetails'
 import { VIEW_ORDER } from '../services/actions/burger'
 import Modal from '../components/Modal/Modal.jsx';
 import CardOrder from '../components/CardOrder/CardOrder'
+import { OrderFeed } from '../components/OrderFeed/OrderFeed'
 
 
 export function FeedPage() {
@@ -15,6 +16,10 @@ export function FeedPage() {
     React.useEffect(()=>{
         dispatch(getIngredients())
         dispatch(getOrders())
+        const escapeHandler = (event) => event.key === 'Escape' && handleCloseModals();
+        document.addEventListener('keydown', escapeHandler);
+    
+        return () => document.removeEventListener('keydown', escapeHandler);          
     },[])
     const dispatch = useDispatch()
     const history = useHistory()
@@ -32,6 +37,7 @@ export function FeedPage() {
 
     const handleCloseModals = () => {
         setIsOrderModalOpen(false)
+        history.replace({pathname: '/feed'})
     }
 
     const compactOrderList = React.useMemo(()=>{
@@ -68,11 +74,7 @@ export function FeedPage() {
             <h1 className={`${styles.headerText} text text_type_main-large mt-10 mb-10`}>Лента заказов</h1>
         </header>
         <section className={`${styles.content}`}>
-            <section className={`${styles.orders}`}>
-                {compactOrderList.map(order=>
-                    <CardOrder key={order._id} onClick={()=>{handleOpenOrderModal(order._id)}} {...order} />
-                )}
-            </section>
+            <OrderFeed orders={orders} ingredients={ingredients} modalCallback={handleOpenOrderModal} status/>
             <section className={`${styles.stats}`}>
                 <section className={`${styles.orderBoard} mb-15`}>
                     <ul className={`${styles.completedOrders}`}>
