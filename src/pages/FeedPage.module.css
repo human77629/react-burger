@@ -43,8 +43,13 @@
 }
 .completedOrders{
     width: 272px;
+    height: inherit;
     display: flex;
     flex-flow: column wrap;
+}
+
+.boardBlock {
+    height: 206px;
 }
 
 .complete {
@@ -52,6 +57,7 @@
 }
 
 .pendingOrders{
+    height: inherit;
     width: 272px;
     display: flex;
     flex-flow: column wrap;

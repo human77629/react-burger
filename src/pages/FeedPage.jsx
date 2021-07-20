@@ -56,18 +56,23 @@ export function FeedPage() {
             <OrderFeed orders={orders} ingredients={ingredients} modalCallback={handleOpenOrderModal} status/>
             <section className={`${styles.stats}`}>
                 <section className={`${styles.orderBoard} mb-15`}>
+                    <section className={`${styles.boardBlock}`}>
+                    <h2 className={`text text_type_main-medium mb-6`}>Готовы:</h2>
                     <ul className={`${styles.completedOrders}`}>
-                        <h2 className={`text text_type_main-medium mb-6`}>Готовы:</h2>
-                        {orders.filter(order=>order.status==='done').map(order=>(
+                        
+                        {orders.filter(order=>order.status==='done').slice(0,12).map(order=>(
                             <span key={order._id} className={`${styles.complete} text text_type_digits-default`}>{order.number}</span>
                         ))}
                     </ul>
+                    </section>
+                    <section className={`${styles.boardBlock}`}>
+                    <h2 className={`text text_type_main-medium mb-6`}>В работе:</h2>
                     <ul className={`${styles.pendingOrders}`}>
-                        <h2 className={`text text_type_main-medium mb-6`}>В работе:</h2>
                         {orders.filter(order=>order.status!=='done').map(order=>(
                             <span key={order._id} className={`text text_type_digits-default`}>{order.number}</span>
                         ))}
                     </ul>
+                    </section>
                 </section>
                 <section className={`${styles.allTimeTotal} mb-15`}>
                     <h2 className={`text text_type_main-medium mb-6`}>Выполнено за все время:</h2>
