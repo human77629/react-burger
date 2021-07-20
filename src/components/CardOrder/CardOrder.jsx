@@ -29,7 +29,7 @@ function CardOrder (props) {
     
 
     return (
-        <li className={`${styles.container}`} onClick={()=>{history.push({pathname: `/feed/${props._id}`})}}>
+        <li className={`${styles.container}`} onClick={props.onClick}>
             <p className={`${styles.dateNumber} mt-6 mb-6`}>
                 <span className={`text text_type_digits-default`}>#{props.number}</span>
                 <span className={`text text_type_main-default text_color_inactive`}>{timeText}</span>
@@ -38,8 +38,8 @@ function CardOrder (props) {
             <section className={`${styles.componentsPrice} mb-6`}>
                 <ul className={`${styles.iconList}`}>
                     
-                            {[...props.icons].reverse().map(icon=>(
-                                <li className={`${styles.iconWrapperRelative}`}>
+                            {[...props.icons].reverse().map((icon, i)=>(
+                                <li key={i} className={`${styles.iconWrapperRelative}`}>
                                     <div className={`${styles.iconWrapperAbsolute}`}>
                                          <IngredientIcon {...icon} />
                                     </div>
@@ -62,10 +62,10 @@ CardOrder.propTypes = {
     name: PropTypes.string.isRequired,
     number: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
-    icons: PropTypes.shape({
+    icons: PropTypes.arrayOf(PropTypes.shape({
         image: PropTypes.string.isRequired,
         count: PropTypes.number,
-    })
+    }))
 }
 
 export default CardOrder;

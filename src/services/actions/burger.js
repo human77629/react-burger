@@ -3,6 +3,7 @@ import { getIngredientsRequest, makeOrderRequest, ensureToken, fakeGetOrdersRequ
 import { USER_UPDATE_TOKEN } from './user.js';
 
 export const VIEW_INGREDIENT = 'VIEW_INGREDIENT';
+export const VIEW_ORDER = 'VIEW_ORDER';
 
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';

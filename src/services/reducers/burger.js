@@ -13,6 +13,7 @@ import {
     GET_ORDERS_FAILED,
     GET_ORDERS_SUCCESS,
     MOVE_TOPPING,
+    VIEW_ORDER,
 } from '../actions/burger.js'
 
 const initialState = {
@@ -41,6 +42,13 @@ const initialState = {
     orders: [],
     ordersRequest: false,
     ordersFailed: false,    
+
+    viewedOrder: {
+        status: '',
+        name: '',
+        number: 0,
+        price: 0,
+    },
     
     selectedIngredients: {bunId: '', toppingIds: []},
 }
@@ -55,6 +63,9 @@ export const burgerReducer = (state = initialState, action) => {
         case VIEW_INGREDIENT: {
             return { ...state, viewedIngredient: action.ingredient };
         }
+        case VIEW_ORDER: {
+            return { ...state, viewedOrder: action.order };
+        }        
 
         case GET_ORDERS_REQUEST: {
             return { ...state, ordersRequest: true, ordersFailed: false };

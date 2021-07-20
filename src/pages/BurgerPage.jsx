@@ -11,7 +11,7 @@ import BurgerIngredients from '../components/BurgerIngredients/BurgerIngredients
 import BurgerConstructor from '../components/BurgerConstructor/BurgerConstructor.jsx'
 import Modal from '../components/Modal/Modal.jsx';
 import IngredientDetails from '../components/IngredientDetails/IngredientDetails.jsx';
-import OrderDetails from '../components/OrderDetails/OrderDetails.jsx';
+import OrderStatus from '../components/OrderStatus/OrderStatus.jsx';
 import { VIEW_INGREDIENT , getIngredients, makeOrder } from '../services/actions/burger.js';
 import { userInfo } from '../services/actions/user.js';
 
@@ -99,7 +99,7 @@ export function BurgerPage() {
               )}              
 
               <Modal isOpen={isOrderModalOpen} closeCallback={closeModals}>    
-                <OrderDetails />
+                <OrderStatus />
               </Modal>
               <Modal isOpen={isIngredientModalOpen} closeCallback={closeModals} header={'Детали ингредиента'}>    
                   {viewedIngredient && (

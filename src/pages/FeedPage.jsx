@@ -3,8 +3,10 @@ import styles from './FeedPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader'
 import { useSelector, useDispatch } from 'react-redux'
 import { getOrders, getIngredients } from '../services/actions/burger'
-import { useParams } from 'react-router-dom'
-
+import { useParams, useHistory, useLocation } from 'react-router-dom'
+import { OrderDetails } from '../components/OrderDetails/OrderDetails'
+import { VIEW_ORDER } from '../services/actions/burger'
+import Modal from '../components/Modal/Modal.jsx';
 import CardOrder from '../components/CardOrder/CardOrder'
 
 
@@ -15,8 +17,22 @@ export function FeedPage() {
         dispatch(getOrders())
     },[])
     const dispatch = useDispatch()
-    const {orders, ingredients} = useSelector(store=>store.burger)
-    const {id} = useParams()
+    const history = useHistory()
+    const location = useLocation()
+    const {orders, ingredients, viewedOrder} = useSelector(store=>store.burger)
+    const [isOrderModalOpen, setIsOrderModalOpen] = React.useState(false)
+    
+
+    const handleOpenOrderModal = function (orderId) {
+        const order = orders.find(order=>order._id===orderId)
+        history.replace({pathname: `/feed/${order._id}`, state: {background: location}})
+        dispatch({type: VIEW_ORDER, order: order});
+        setIsOrderModalOpen(true);        
+    }
+
+    const handleCloseModals = () => {
+        setIsOrderModalOpen(false)
+    }
 
     const compactOrderList = React.useMemo(()=>{
         if (orders && ingredients) {
@@ -42,15 +58,19 @@ export function FeedPage() {
     if (!orders || !ingredients) return <AppHeader/>;
     return (<>
     <AppHeader/>
-    
-    <main class={styles.container}>
-        <header class={styles.header}>
+    <Modal isOpen={isOrderModalOpen} closeCallback={handleCloseModals} header={'Детали заказа'}>
+        {viewedOrder && (
+            <OrderDetails order={viewedOrder} ingredients={ingredients} />
+        )}
+    </Modal>
+    <main className={styles.container}>
+        <header className={styles.header}>
             <h1 className={`${styles.headerText} text text_type_main-large mt-10 mb-10`}>Лента заказов</h1>
         </header>
         <section className={`${styles.content}`}>
             <section className={`${styles.orders}`}>
                 {compactOrderList.map(order=>
-                    <CardOrder key={order._id} {...order} />
+                    <CardOrder key={order._id} onClick={()=>{handleOpenOrderModal(order._id)}} {...order} />
                 )}
             </section>
             <section className={`${styles.stats}`}>
