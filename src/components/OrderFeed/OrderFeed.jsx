@@ -31,10 +31,10 @@ export function OrderFeed(props) {
     
     if (!orders || !ingredients) return;
     return (
-            <section className={`${styles.orders}`}>
+            <ul className={`${styles.orders}`}>
                 {compactOrderList.map(order=>
                     <CardOrder key={order._id} onClick={()=>{props.modalCallback(order._id)}} {...order} />
                 )}
-            </section>     
+            </ul>     
     )
 }

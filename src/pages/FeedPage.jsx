@@ -3,11 +3,10 @@ import styles from './FeedPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader'
 import { useSelector, useDispatch } from 'react-redux'
 import { getOrders, getIngredients } from '../services/actions/burger'
-import { useParams, useHistory, useLocation } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { OrderDetails } from '../components/OrderDetails/OrderDetails'
 import { VIEW_ORDER } from '../services/actions/burger'
 import Modal from '../components/Modal/Modal.jsx';
-import CardOrder from '../components/CardOrder/CardOrder'
 import { OrderFeed } from '../components/OrderFeed/OrderFeed'
 
 
@@ -39,28 +38,7 @@ export function FeedPage() {
         setIsOrderModalOpen(false)
         history.replace({pathname: '/feed'})
     }
-
-    const compactOrderList = React.useMemo(()=>{
-        if (orders && ingredients) {
-            return orders.map(order=>{
-                const uniqueIngredientIds = [...new Set(order.ingredients)]
-                const uniqueIngredients = uniqueIngredientIds.map(uid=>ingredients.find(i=>i._id===uid))
-                const bun = uniqueIngredients.find(ingredient=>ingredient.type==='bun')
-                const toppings = uniqueIngredients.filter(ingredient=>ingredient.type!=='bun')
-                const icons = [bun, ...toppings].slice(0,6).map(i=>({image: i.image}))
-                if (uniqueIngredients.length>6) icons[5].count = uniqueIngredients.length - 6
-                return {
-                    _id: order._id,
-                    number: order.number, 
-                    date: order.createdAt,
-                    name: order.name,
-                    price: order.price,
-                    icons: icons
-                }
-            })
-        }
-    }, [orders, ingredients])
-    
+   
     if (!orders || !ingredients) return <AppHeader/>;
     return (<>
     <AppHeader/>

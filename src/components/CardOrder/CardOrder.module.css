@@ -5,8 +5,7 @@
     flex-flow: column;
     padding-left: 24px;
     padding-right: 24px;
-    width: 584px;
-    
+    /*width: 584px;*/
     cursor: pointer;
 }
 

@@ -23,10 +23,6 @@
     width: 1240px;
 }
 
-.orders {
-    width: 626px;
-}
-
 .stats {
     width: 580px;
     display: flex;
@@ -74,8 +70,9 @@
     overflow: auto;
     display: flex;
     flex-flow: column;
-    align-items: flex-end;
+    align-items: stretch;
     gap: 16px;
+    height:917px;
 }
 
 .orders::-webkit-scrollbar {
