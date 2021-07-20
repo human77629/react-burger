@@ -24,7 +24,7 @@ export function FeedPage() {
     const dispatch = useDispatch()
     const history = useHistory()
     const location = useLocation()
-    const {orders, ingredients, viewedOrder} = useSelector(store=>store.burger)
+    const {orders, ingredients, viewedOrder, totalOrderCount, todayOrderCount} = useSelector(store=>store.burger)
     const [isOrderModalOpen, setIsOrderModalOpen] = React.useState(false)
     
 
@@ -60,7 +60,7 @@ export function FeedPage() {
                     <h2 className={`text text_type_main-medium mb-6`}>Готовы:</h2>
                     <ul className={`${styles.completedOrders}`}>
                         
-                        {orders.filter(order=>order.status==='done').slice(0,12).map(order=>(
+                        {orders.filter(order=>order.status==='done').slice(0,40).map(order=>(
                             <span key={order._id} className={`${styles.complete} text text_type_digits-default`}>{order.number}</span>
                         ))}
                     </ul>
@@ -68,7 +68,7 @@ export function FeedPage() {
                     <section className={`${styles.boardBlock}`}>
                     <h2 className={`text text_type_main-medium mb-6`}>В работе:</h2>
                     <ul className={`${styles.pendingOrders}`}>
-                        {orders.filter(order=>order.status!=='done').map(order=>(
+                        {orders.filter(order=>order.status!=='done').slice(0,40).map(order=>(
                             <span key={order._id} className={`text text_type_digits-default`}>{order.number}</span>
                         ))}
                     </ul>
@@ -76,11 +76,11 @@ export function FeedPage() {
                 </section>
                 <section className={`${styles.allTimeTotal} mb-15`}>
                     <h2 className={`text text_type_main-medium mb-6`}>Выполнено за все время:</h2>
-                    <span className={`${styles.giantGlowingDigits} text text_type_digits-large`}>28 752</span>
+                    <span className={`${styles.giantGlowingDigits} text text_type_digits-large`}>{totalOrderCount}</span>
                 </section>
                 <section className={`${styles.todayTotal}`}>
                     <h2 className={`text text_type_main-medium mb-6`}>Выполнено за сегодня:</h2>
-                    <span className={`${styles.giantGlowingDigits} text text_type_digits-large`}>138</span>
+                    <span className={`${styles.giantGlowingDigits} text text_type_digits-large`}>{todayOrderCount}</span>
                 </section>
             </section>      
         </section>  

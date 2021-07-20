@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './OrderFeed.module.css'
 import CardOrder from '../CardOrder/CardOrder'
+import PropTypes from 'prop-types'
 
 
 export function OrderFeed(props) {
@@ -38,4 +39,22 @@ export function OrderFeed(props) {
                 )}
             </ul>     
     )
+}
+
+OrderFeed.propTypes = {
+    orders: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        number: PropTypes.number.isRequired,
+        createdAt: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        status: PropTypes.string,
+        ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    }).isRequired).isRequired,
+    ingredients: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+    }).isRequired).isRequired
 }

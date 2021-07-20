@@ -64,7 +64,7 @@ export function OrderDetails (props) {
     return (
         <>
         {ingredients && order && (
-        <div className={styles.container}>
+        <div className={`${styles.container} m-10`}>
             <p className={`${styles.orderNo} text text_type_digits-default mb-10`}>#{order.number}</p>
             <h1 className={`${styles.header} text text_type_main-medium mb-3`}>{order.name}</h1>
             <p className={`${styles.orderStatus} ${order.status==='done'?styles.completed:''} text text_type_main-default mb-15`}>{order.status==='done'?'Выполнен':'Готовится'}</p>
@@ -87,15 +87,15 @@ export function OrderDetails (props) {
 //   image: ingredient.image_mobile, name: ingredient.name, price: ingredient.price, count: ingredientIds.filter(id=>id===uid).length}
 OrderDetails.propTypes = {
     ingredients: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string,
-        image: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.number,
-    })),
+        _id: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+    }).isRequired).isRequired,
     order: PropTypes.shape({
-        number: PropTypes.number,
-        name: PropTypes.string,
+        number: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
         status: PropTypes.string,
-        price: PropTypes.number,
-    })
+        price: PropTypes.number.isRequired,
+    }).isRequired
 }
