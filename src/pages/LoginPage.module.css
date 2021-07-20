@@ -1,0 +1,52 @@
+.container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-between;
+    
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 720px;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+ 
+    border: none;
+    
+    width: 480px;
+    
+}
+
+.additionalActions {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.additionalActions a {
+    font-family: Jet Brains Mono;
+    font-size: 16px;
+    line-height: 24px;
+    text-decoration: none;
+    text-align: center;
+    color: #4C4CFF;
+}
+
+
+.loginForm {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width: 100%;
+}
+
+.inputFix div div{
+    width: 480px;
+}
+
+.inputFix div div div{
+    width: 24px;
+}

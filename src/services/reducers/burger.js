@@ -9,6 +9,9 @@ import {
     MAKE_ORDER_REQUEST,
     MAKE_ORDER_SUCCESS,
     MAKE_ORDER_FAILED,
+    GET_ORDERS_REQUEST,
+    GET_ORDERS_FAILED,
+    GET_ORDERS_SUCCESS,
     MOVE_TOPPING,
 } from '../actions/burger.js'
 
@@ -34,6 +37,10 @@ const initialState = {
     ingredients: [],
     ingredientsRequest: false,
     ingredientsFailed: false,
+
+    orders: [],
+    ordersRequest: false,
+    ordersFailed: false,    
     
     selectedIngredients: {bunId: '', toppingIds: []},
 }
@@ -49,6 +56,16 @@ export const burgerReducer = (state = initialState, action) => {
             return { ...state, viewedIngredient: action.ingredient };
         }
 
+        case GET_ORDERS_REQUEST: {
+            return { ...state, ordersRequest: true, ordersFailed: false };
+        }
+        case GET_ORDERS_SUCCESS: {
+            return { ...state, ordersFailed: false, orders: action.orders, ordersRequest: false };
+        }
+        case GET_ORDERS_FAILED: {
+            return { ...state, ordersFailed: true, ingredients: [...initialState.ingredients], ordersRequest: false };
+        }          
+
         case GET_INGREDIENTS_REQUEST: {
             return { ...state, ingredientsRequest: true };
         }
@@ -60,7 +77,7 @@ export const burgerReducer = (state = initialState, action) => {
         }        
 
         case MAKE_ORDER_REQUEST: {
-            return { ...state, orderRequest: true };
+            return { ...state, orderRequest: true, orderFailed: false };
         }
         case MAKE_ORDER_SUCCESS: {
             return { ...state, orderFailed: false, order: {number: action.data.order.number, generatedBurgerName: action.data.name}, orderRequest: false };

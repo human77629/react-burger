@@ -1,0 +1,58 @@
+.container {
+    background: #1C1C21;
+    border-radius: 40px;
+    display: flex;
+    flex-flow: column;
+    padding-left: 24px;
+    padding-right: 24px;
+    width: 584px;
+    height: 214px;
+    cursor: pointer;
+}
+
+.dateNumber {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.burgerName {
+    width: 536px;
+    height: 30px;
+    overflow: hidden;
+}
+
+.componentsPrice {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.iconList {
+    display: flex;
+    flex-flow: row-reverse;
+    justify-content: flex-end;
+    width: 436px;
+    height: 64px;
+}
+
+.price {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0px;    
+}
+
+.iconWrapperRelative {
+    position: relative;
+    width: 42px;
+}
+.iconWrapperAbsolute {
+    position: absolute;
+    top:0px;
+    left:0px;
+    display: inline
+}

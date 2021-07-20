@@ -1,0 +1,92 @@
+.container {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    gap: 60px;
+}
+
+.header {
+    display:flex;
+    width: 100%;
+    flex-flow: row;
+    justify-content: center;
+}
+
+.headerText {
+    width: 1240px;
+}
+
+.orders {
+    width: 626px;
+}
+
+.stats {
+    width: 580px;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+.orderBoard {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    gap: 36px;
+    height: 206px;
+}
+.completedOrders{
+    width: 272px;
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.complete {
+    color: #00CCCC;
+}
+
+.pendingOrders{
+    width: 272px;
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.sections {
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-start;
+}
+
+.giantGlowingDigits {
+    text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25), 0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
+}
+
+
+
+.orders {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+.orders::-webkit-scrollbar {
+    width: 8px;
+    background: #2F2F37;
+}
+   
+.orders::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+   
+.orders::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}

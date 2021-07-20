@@ -1,0 +1,71 @@
+.container {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    
+    position: absolute;
+    left: 34%;
+    right: 34%;
+    top: 230px;
+    
+    height: 620px;
+}
+
+.orderNo {
+    text-align: center;
+}
+
+.completed {
+    color: #00CCCC;
+}
+
+.ingredients {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    flex-flow: column;
+    gap: 16px;
+}
+
+.ingredients::-webkit-scrollbar {
+    width: 8px;
+    background: #2F2F37;
+}
+   
+.ingredients::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+   
+.ingredients::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}
+
+.ingredient {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.price {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0px;    
+}
+
+.ingredientName {
+    flex: 2;
+}
+
+.footer {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 24px;
+    padding: 0px;
+    margin: 0px;
+}

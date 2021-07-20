@@ -1,0 +1,49 @@
+.navBar {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    height: 192px;
+    width: 320px;
+}
+
+
+.inputFix div div{
+    width: 480px;
+}
+
+.inputFix div div div{
+    width: 24px;
+}
+
+.form {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width: 100%;
+}
+
+.actions {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+}
+
+.sideSection {
+    flex: 1;
+    width: 320px;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+}
+
+.centerSection {
+    width: 480px;
+}
+
+.navLink {
+    cursor: pointer;
+}
