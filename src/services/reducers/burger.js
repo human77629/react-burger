@@ -14,6 +14,11 @@ import {
     GET_ORDERS_SUCCESS,
     MOVE_TOPPING,
     VIEW_ORDER,
+    WS_CONNECTION_CLOSED,
+    WS_CONNECTION_ERROR,
+    WS_CONNECTION_START,
+    WS_CONNECTION_SUCCESS,
+    WS_GET_ORDERS,
 } from '../actions/burger.js'
 
 const initialState = {
@@ -49,6 +54,11 @@ const initialState = {
         number: 0,
         price: 0,
     },
+
+    totalOrderCount: 0,
+    todayOrderCount: 0,
+
+    orderSocketStatus: 'disconnected',
     
     selectedIngredients: {bunId: '', toppingIds: []},
 }
@@ -76,6 +86,26 @@ export const burgerReducer = (state = initialState, action) => {
         case GET_ORDERS_FAILED: {
             return { ...state, ordersFailed: true, ingredients: [...initialState.ingredients], ordersRequest: false };
         }          
+
+        case WS_GET_ORDERS: {
+            return { ...state, orders: action.message.orders, totalOrderCount: action.message.total, todayOrderCount: action.message.totalToday }
+        }
+
+        case WS_CONNECTION_CLOSED: {
+            return { ...state, orderSocketStatus: 'disconnected'}
+        }
+
+        case WS_CONNECTION_ERROR: {
+            return { ...state, orderSocketStatus: 'error'}
+        }
+
+        case WS_CONNECTION_SUCCESS: {
+            return { ...state, orderSocketStatus: 'connected'}
+        }
+
+        case WS_CONNECTION_START: {
+            return { ...state, orderSocketStatus: 'connecting'}
+        }
 
         case GET_INGREDIENTS_REQUEST: {
             return { ...state, ingredientsRequest: true };

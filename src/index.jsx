@@ -8,17 +8,9 @@ import App from './components/App/App.jsx';
 import reportWebVitals from './reportWebVitals';
 import { rootReducer } from './services/reducers/index.js'; 
 import {BrowserRouter as Router} from 'react-router-dom'
+import { initStore } from './services/store.js';
 
-
-
-const composeEnhancers =
-typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-  : compose;   
-
-const enhancer = composeEnhancers(applyMiddleware(thunk));    
-
-const store = createStore(rootReducer, enhancer)
+const store = initStore()
 
 ReactDOM.render(
   <React.StrictMode>

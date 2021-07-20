@@ -4,12 +4,13 @@ import styles from './ProfilePage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader.jsx'
 import { useDispatch, useSelector } from 'react-redux';
 import { userInfo, userUpdate, userLogout } from '../services/actions/user';
-import { getIngredients, getOrders, VIEW_ORDER } from '../services/actions/burger';
+import { WS_CONNECTION_START, getIngredients, getOrders, VIEW_ORDER } from '../services/actions/burger';
 import { OrderDetails } from '../components/OrderDetails/OrderDetails';
 import {useHistory, useLocation} from 'react-router-dom'
 import ProfileNavMenu from '../components/ProfileNavMenu/ProfileNavMenu';
 import { OrderFeed } from '../components/OrderFeed/OrderFeed';
 import Modal from '../components/Modal/Modal';
+
 export function ProfilePage() {
     const passwordRef = React.useRef(null)
     const emailRef = React.useRef(null)
@@ -148,9 +149,9 @@ export function ProfilePage() {
         setEditUsername(false);        
         setEditEmail(false);
         setEditPassword(false);        
-        if (user.name) {
+        if (user.name.length>0) {
             dispatch(getIngredients())
-            dispatch(getOrders())
+            dispatch({type: WS_CONNECTION_START, token: accessToken})
         }
     },[user])
 

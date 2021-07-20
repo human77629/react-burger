@@ -24,6 +24,13 @@ export const SET_BUN = 'SET_BUN';
 export const MOVE_TOPPING = 'MOVE_TOPPING';
 
 
+export const WS_CONNECTION_CLOSED = 'WS_CONNECTION_CLOSED'
+export const WS_CONNECTION_ERROR = 'WS_CONNECTION_ERROR'
+export const WS_CONNECTION_START = 'WS_CONNECTION_START'
+export const WS_CONNECTION_SUCCESS = 'WS_CONNECTION_SUCCESS'
+export const WS_GET_ORDERS = 'WS_GET_ORDERS'
+
+
 export function getOrders() {
   return function(dispatch) {
     dispatch({

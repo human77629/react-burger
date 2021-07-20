@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './FeedPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader'
 import { useSelector, useDispatch } from 'react-redux'
-import { getOrders, getIngredients } from '../services/actions/burger'
+import { getOrders, getIngredients, WS_CONNECTION_START } from '../services/actions/burger'
 import { useHistory, useLocation } from 'react-router-dom'
 import { OrderDetails } from '../components/OrderDetails/OrderDetails'
 import { VIEW_ORDER } from '../services/actions/burger'
@@ -14,7 +14,8 @@ export function FeedPage() {
 
     React.useEffect(()=>{
         dispatch(getIngredients())
-        dispatch(getOrders())
+        //dispatch(getOrders())
+        dispatch({type: WS_CONNECTION_START})
         const escapeHandler = (event) => event.key === 'Escape' && handleCloseModals();
         document.addEventListener('keydown', escapeHandler);
     
