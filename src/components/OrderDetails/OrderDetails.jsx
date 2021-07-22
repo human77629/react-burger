@@ -96,6 +96,6 @@ OrderDetails.propTypes = {
         number: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         status: PropTypes.string,
-        price: PropTypes.number.isRequired,
+        price: PropTypes.number,
     }).isRequired
 }

@@ -29,6 +29,9 @@ function App() {
               <Route path="/reset-password">
                 <PasswordResetPage />
               </Route> 
+              <ProtectedRoute path="/profile/orders/:id">
+                <OrderPage />
+              </ProtectedRoute>                
               <ProtectedRoute path="/profile">
                 <ProfilePage />
               </ProtectedRoute>      

@@ -9,7 +9,7 @@ function CardOrder (props) {
     const history = useHistory();
 
     const timeText = React.useMemo(()=>{
-        console.log(props)
+
         if (props.date) {
 
             const today = new Date();

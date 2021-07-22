@@ -35,7 +35,7 @@ export function LoginPage() {
 
 
     const user = useSelector(store=>store.user.user)
-    if (user.name!=='') return (<Redirect to={state?.from || '/profile'} />)
+    if (user.name!=='') return (<Redirect to={state?.from.pathname || '/profile'} />)
     return (
         <>
         <AppHeader />
