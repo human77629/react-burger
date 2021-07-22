@@ -22,11 +22,13 @@ import {
     CONFIRM_PASSWORD_RESET_REQUEST,
     CONFIRM_PASSWORD_RESET_SUCCESS,
     SET_PASSWORD_RESET_STAGE,
+    
 } from '../actions/user.js'
 
 const initialState = {
     accessToken: '',
     refreshToken: '',
+    tokenTime: new Date(),
     user: {
         email: '',
         name: ''
@@ -118,14 +120,14 @@ export const userReducer = (state = initialState, action) => {
             return { ...state, signupRequestStatus: {request: true, failed: false} };
         }
         case USER_SIGNUP_SUCCESS: {
-            return { ...state, signupRequestStatus: {request: true, failed: false}, user: action.user, accessToken: action.access, refreshToken: action.refresh };
+            return { ...state, signupRequestStatus: {request: true, failed: false}, user: action.user, accessToken: action.access, refreshToken: action.refresh, tokenTime: new Date() };
         }
         case USER_SIGNUP_FAILED: {
             return { ...state, signupRequestStatus: {request: false, failed: true}, errorMessage: action.message };
         }        
 
         case USER_UPDATE_TOKEN: {
-            return { ...state, accessToken: action.token };
+            return { ...state, accessToken: action.token, tokenTime: new Date() };
         }          
 
 
@@ -133,7 +135,7 @@ export const userReducer = (state = initialState, action) => {
             return { ...state, loginRequestStatus: {request: true, failed: false} };
         }
         case USER_LOGIN_SUCCESS: {
-            return { ...state, loginRequestStatus: {request: true, failed: false}, user: action.user, accessToken: action.access, refreshToken: action.refresh };
+            return { ...state, loginRequestStatus: {request: true, failed: false}, user: action.user, accessToken: action.access, refreshToken: action.refresh, tokenTime: new Date() };
         }
         case USER_LOGIN_FAILED: {
             return { ...state, loginRequestStatus: {request: false, failed: true}, errorMessage: action.message };

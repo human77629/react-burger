@@ -17,7 +17,7 @@ export function PasswordResetPage() {
     const dispatch = useDispatch()
     const {passwordResetConfirmationStatus, accessToken, passwordResetStage} = useSelector(store=>store.user)
 
-    const handleSaveClick = (e) => {
+    const handleSaveSubmit = (e) => {
         e.preventDefault();
         setRequestSent(true)
         dispatch(confirmPasswordReset(password, token))
@@ -53,7 +53,7 @@ export function PasswordResetPage() {
         <main className={styles.container}>
             <Logo />
             
-            <form className={styles.loginForm}>
+            <form className={styles.loginForm} onSubmit={handleSaveSubmit}>
                 <h1 className="text text_type_main-medium mt-20">Восстановление пароля</h1>
 
        
@@ -81,7 +81,7 @@ export function PasswordResetPage() {
                     onChange={(e)=>setToken(e.target.value)}
                 />
                 </div>                     
-                <Button type='primary' size='medium' onClick={handleSaveClick}>Сохранить</Button>
+                <Button type='primary' size='medium'>Сохранить</Button>
             </form>
             <section className={`${styles.additionalActions} mt-20`}>
                 <span className="text text_type_main-default text_color_inactive">Письмо не приходит? <a href='#' onClick={handleResendClick}>Отправить заново</a></span>                

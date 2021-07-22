@@ -5,8 +5,7 @@
     flex-flow: column;
     padding-left: 24px;
     padding-right: 24px;
-    width: 584px;
-    height: 214px;
+    /*width: 584px;*/
     cursor: pointer;
 }
 
@@ -18,9 +17,15 @@
 }
 
 .burgerName {
-    width: 536px;
-    height: 30px;
-    overflow: hidden;
+    width: 536px;    
+}
+
+.orderFinished {
+    color: #00CCCC;
+}
+
+.orderCancelled {
+    color: rgb(212,62,43)
 }
 
 .componentsPrice {

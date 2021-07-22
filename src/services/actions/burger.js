@@ -3,6 +3,7 @@ import { getIngredientsRequest, makeOrderRequest, ensureToken, fakeGetOrdersRequ
 import { USER_UPDATE_TOKEN } from './user.js';
 
 export const VIEW_INGREDIENT = 'VIEW_INGREDIENT';
+export const VIEW_ORDER = 'VIEW_ORDER';
 
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
@@ -21,6 +22,13 @@ export const REMOVE_TOPPING = 'REMOVE_TOPPING';
 export const SET_BUN = 'SET_BUN';
 
 export const MOVE_TOPPING = 'MOVE_TOPPING';
+
+
+export const WS_CONNECTION_CLOSED = 'WS_CONNECTION_CLOSED'
+export const WS_CONNECTION_ERROR = 'WS_CONNECTION_ERROR'
+export const WS_CONNECTION_START = 'WS_CONNECTION_START'
+export const WS_CONNECTION_SUCCESS = 'WS_CONNECTION_SUCCESS'
+export const WS_GET_ORDERS = 'WS_GET_ORDERS'
 
 
 export function getOrders() {

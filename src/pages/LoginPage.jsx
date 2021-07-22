@@ -26,7 +26,7 @@ export function LoginPage() {
         setTimeout(() => passwordRef.current.focus(), 0)
         setShowPassword(!showPassword)
     }
-    const handleLoginClick = (e) => {
+    const handleLoginSubmit = (e) => {
         e.preventDefault();
         
         dispatch(userLogin({email: email, password: password}))
@@ -35,14 +35,14 @@ export function LoginPage() {
 
 
     const user = useSelector(store=>store.user.user)
-    if (user.name!=='') return (<Redirect to={state?.from || '/profile'} />)
+    if (user.name!=='') return (<Redirect to={state?.from.pathname || '/profile'} />)
     return (
         <>
         <AppHeader />
         <main className={styles.container}>
             <Logo />
             
-            <form className={styles.loginForm}>
+            <form className={styles.loginForm} onSubmit={handleLoginSubmit}>
             <h1 className="text text_type_main-medium mt-20">Вход</h1>
                 <div className={styles.inputFix}>
                 <Input 
@@ -67,7 +67,7 @@ export function LoginPage() {
                     onChange={(e)=>setPassword(e.target.value)}
                 />   
                 </div>
-                <Button type='primary' size='medium' onClick={handleLoginClick}>Войти</Button>
+                <Button type='primary' size='medium'>Войти</Button>
             </form>
             <section className={`${styles.additionalActions} mt-20`}>
                 <span className="text text_type_main-default text_color_inactive">Вы - новый пользователь? <Link to='/register'>Зарегистрироваться</Link></span>

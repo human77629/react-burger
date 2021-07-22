@@ -11,7 +11,7 @@ import BurgerIngredients from '../components/BurgerIngredients/BurgerIngredients
 import BurgerConstructor from '../components/BurgerConstructor/BurgerConstructor.jsx'
 import Modal from '../components/Modal/Modal.jsx';
 import IngredientDetails from '../components/IngredientDetails/IngredientDetails.jsx';
-import OrderDetails from '../components/OrderDetails/OrderDetails.jsx';
+import OrderStatus from '../components/OrderStatus/OrderStatus.jsx';
 import { VIEW_INGREDIENT , getIngredients, makeOrder } from '../services/actions/burger.js';
 import { userInfo } from '../services/actions/user.js';
 
@@ -19,7 +19,6 @@ import './BurgerPage.css';
 
 export function BurgerPage() {
 
-  const [isIngredientModalOpen, setIsIngredientModalOpen] = React.useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = React.useState(false);
   const [isErrorModalOpen, setIsErrorModalOpen] = React.useState(false);  
 
@@ -53,14 +52,12 @@ export function BurgerPage() {
   }
 
   const handleOpenIngredientModal = function (ingredient) {
-    history.replace({pathname: `/ingredients/${ingredient._id}`, state: {background: location}})
+    history.replace({pathname: `/ingredients/${ingredient._id}`, state: {background: location, modalHeader: 'Детали ингредиента'}})
     dispatch({type: VIEW_INGREDIENT, ingredient: ingredient});
-    setIsIngredientModalOpen(true);
   }
 
   const closeModals = function () {
     setIsOrderModalOpen(false);
-    setIsIngredientModalOpen(false);
     setIsErrorModalOpen(false);
     history.replace({pathname: '/'})
   }
@@ -99,12 +96,7 @@ export function BurgerPage() {
               )}              
 
               <Modal isOpen={isOrderModalOpen} closeCallback={closeModals}>    
-                <OrderDetails />
-              </Modal>
-              <Modal isOpen={isIngredientModalOpen} closeCallback={closeModals} header={'Детали ингредиента'}>    
-                  {viewedIngredient && (
-                <IngredientDetails ingredient={viewedIngredient} />
-                  )}
+                <OrderStatus />
               </Modal>
 
               <Modal isOpen={isErrorModalOpen} closeCallback={closeModals} header={'Пустой бургер!'}>    

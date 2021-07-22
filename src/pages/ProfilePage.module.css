@@ -16,17 +16,21 @@
     width: 24px;
 }
 
+.feed {
+    width: 872px;
+}
+
 .form {
     display: flex;
     flex-flow: column;
-    align-items: center;
+    align-items: right;
     justify-content: space-between;
     gap: 24px;
     width: 100%;
 }
 
 .actions {
-    width: 100%;
+    width: 480px;
     display: flex;
     flex-flow: row;
     justify-content: flex-end;
@@ -42,6 +46,7 @@
 
 .centerSection {
     width: 480px;
+    flex: 2;
 }
 
 .navLink {

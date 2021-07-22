@@ -13,7 +13,7 @@ function BurgerIngredients (props) {
     const ingredients = useSelector( store => store.burger.ingredients )
 
     const selectedIngredientCount = React.useMemo(()=>{
-        const ingredientIds = [order.bunId, ...order.toppingIds]
+        const ingredientIds = [order.bunId, order.bunId, ...order.toppingIds]
         const uniqueIngredientIds = [...new Set(ingredientIds)]
         const idsToCount = {}
         uniqueIngredientIds.forEach(uid=>{

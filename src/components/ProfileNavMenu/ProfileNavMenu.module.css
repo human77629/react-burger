@@ -1,0 +1,11 @@
+.navBar {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    height: 192px;
+    width: 320px;
+}
+.navLink {
+    cursor: pointer;
+}

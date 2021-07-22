@@ -13,6 +13,12 @@ import {
     GET_ORDERS_FAILED,
     GET_ORDERS_SUCCESS,
     MOVE_TOPPING,
+    VIEW_ORDER,
+    WS_CONNECTION_CLOSED,
+    WS_CONNECTION_ERROR,
+    WS_CONNECTION_START,
+    WS_CONNECTION_SUCCESS,
+    WS_GET_ORDERS,
 } from '../actions/burger.js'
 
 const initialState = {
@@ -41,6 +47,18 @@ const initialState = {
     orders: [],
     ordersRequest: false,
     ordersFailed: false,    
+
+    viewedOrder: {
+        status: '',
+        name: '',
+        number: 0,
+        price: 0,
+    },
+
+    totalOrderCount: 0,
+    todayOrderCount: 0,
+
+    orderSocketStatus: 'disconnected',
     
     selectedIngredients: {bunId: '', toppingIds: []},
 }
@@ -55,6 +73,9 @@ export const burgerReducer = (state = initialState, action) => {
         case VIEW_INGREDIENT: {
             return { ...state, viewedIngredient: action.ingredient };
         }
+        case VIEW_ORDER: {
+            return { ...state, viewedOrder: action.order };
+        }        
 
         case GET_ORDERS_REQUEST: {
             return { ...state, ordersRequest: true, ordersFailed: false };
@@ -65,6 +86,26 @@ export const burgerReducer = (state = initialState, action) => {
         case GET_ORDERS_FAILED: {
             return { ...state, ordersFailed: true, ingredients: [...initialState.ingredients], ordersRequest: false };
         }          
+
+        case WS_GET_ORDERS: {
+            return { ...state, orders: action.message.orders, totalOrderCount: action.message.total, todayOrderCount: action.message.totalToday }
+        }
+
+        case WS_CONNECTION_CLOSED: {
+            return { ...state, orderSocketStatus: 'disconnected'}
+        }
+
+        case WS_CONNECTION_ERROR: {
+            return { ...state, orderSocketStatus: 'error'}
+        }
+
+        case WS_CONNECTION_SUCCESS: {
+            return { ...state, orderSocketStatus: 'connected'}
+        }
+
+        case WS_CONNECTION_START: {
+            return { ...state, orderSocketStatus: 'connecting'}
+        }
 
         case GET_INGREDIENTS_REQUEST: {
             return { ...state, ingredientsRequest: true };
@@ -80,7 +121,7 @@ export const burgerReducer = (state = initialState, action) => {
             return { ...state, orderRequest: true, orderFailed: false };
         }
         case MAKE_ORDER_SUCCESS: {
-            return { ...state, orderFailed: false, order: {number: action.data.order.number, generatedBurgerName: action.data.name}, orderRequest: false };
+            return { ...state, orderFailed: false, order: {...state.order, number: action.data.order.number, generatedBurgerName: action.data.name}, selectedIngredients: initialState.selectedIngredients, orderRequest: false };
         }
         case MAKE_ORDER_FAILED: {
             return { ...state, orderFailed: true, order: {...initialState.order}, orderRequest: false };
