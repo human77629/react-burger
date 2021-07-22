@@ -36,7 +36,7 @@ function App() {
           <>
             {background && (
               <Switch>
-                <Modal isOpen={background} closeCallback={closeAllModals} header={location.state.modalHeader}>
+                <Modal isOpen={!!background} closeCallback={closeAllModals} header={location.state.modalHeader}>
                   <ProtectedRoute path="/profile/orders/:id">
                     <OrderDetails ingredients={ingredients} order={viewedOrder}/>
                   </ProtectedRoute>
