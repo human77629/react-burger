@@ -70,7 +70,7 @@ export function ProfilePage() {
         history.replace({pathname: '/profile/orders'})
     }    
 
-    const handleSaveClick = (e) => {
+    const handleSaveSubmit = (e) => {
         e.preventDefault()
         const updatedUser = {}
         if (editUsername) updatedUser.name = username
@@ -81,7 +81,7 @@ export function ProfilePage() {
     }
 
     const profileEdit =  () => (
-        <form className={`${styles.form} mt-20`}>
+        <form className={`${styles.form} mt-20`} onSubmit={handleSaveSubmit}>
         <div className={styles.inputFix}>
             <Input 
                 type={'text'}
@@ -127,7 +127,7 @@ export function ProfilePage() {
             {(editUsername || editPassword || editEmail) && (
             <div className={`${styles.actions}`}>
             <Button type='secondary' size='medium' onClick={handleCancelClick}>Отмена</Button> 
-            <Button type='primary' size='medium' onClick={handleSaveClick}>Сохранить</Button>                
+            <Button type='primary' size='medium'>Сохранить</Button>                
             </div>
             )}
         </form>

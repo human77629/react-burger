@@ -30,7 +30,7 @@
 }
 
 .actions {
-    width: 100%;
+    width: 480px;
     display: flex;
     flex-flow: row;
     justify-content: flex-end;

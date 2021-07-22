@@ -24,7 +24,7 @@ export function SignupPage() {
         setTimeout(() => passwordRef.current.focus(), 0)
         setShowPassword(!showPassword)
     }
-    const handleSignupClick = (e) => {
+    const handleSignupSubmit = (e) => {
         e.preventDefault();
         
         dispatch(userSignup({email: email, password: password, username: username}))
@@ -39,7 +39,7 @@ export function SignupPage() {
         <main className={styles.container}>
             <Logo />
             
-            <form className={styles.loginForm}>
+            <form className={styles.loginForm} onSubmit={handleSignupSubmit}>
                 <h1 className="text text_type_main-medium mt-20">Регистрация</h1>
 
                 <div className={styles.inputFix}>
@@ -75,7 +75,7 @@ export function SignupPage() {
                     onChange={(e)=>setPassword(e.target.value)}
                 />   
                 </div>
-                <Button type='primary' size='medium' onClick={handleSignupClick}>Зарегистрироваться</Button>
+                <Button type='primary' size='medium'>Зарегистрироваться</Button>
             </form>
             <section className={`${styles.additionalActions} mt-20`}>
                 <span className="text text_type_main-default text_color_inactive">Уже зарегистрированы? <Link to='/login'>Войти</Link></span>
