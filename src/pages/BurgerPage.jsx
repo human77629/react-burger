@@ -19,7 +19,6 @@ import './BurgerPage.css';
 
 export function BurgerPage() {
 
-  const [isIngredientModalOpen, setIsIngredientModalOpen] = React.useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = React.useState(false);
   const [isErrorModalOpen, setIsErrorModalOpen] = React.useState(false);  
 
@@ -53,14 +52,12 @@ export function BurgerPage() {
   }
 
   const handleOpenIngredientModal = function (ingredient) {
-    history.replace({pathname: `/ingredients/${ingredient._id}`, state: {background: location}})
+    history.replace({pathname: `/ingredients/${ingredient._id}`, state: {background: location, modalHeader: 'Детали ингредиента'}})
     dispatch({type: VIEW_INGREDIENT, ingredient: ingredient});
-    setIsIngredientModalOpen(true);
   }
 
   const closeModals = function () {
     setIsOrderModalOpen(false);
-    setIsIngredientModalOpen(false);
     setIsErrorModalOpen(false);
     history.replace({pathname: '/'})
   }
@@ -100,11 +97,6 @@ export function BurgerPage() {
 
               <Modal isOpen={isOrderModalOpen} closeCallback={closeModals}>    
                 <OrderStatus />
-              </Modal>
-              <Modal isOpen={isIngredientModalOpen} closeCallback={closeModals} header={'Детали ингредиента'}>    
-                  {viewedIngredient && (
-                <IngredientDetails ingredient={viewedIngredient} />
-                  )}
               </Modal>
 
               <Modal isOpen={isErrorModalOpen} closeCallback={closeModals} header={'Пустой бургер!'}>    

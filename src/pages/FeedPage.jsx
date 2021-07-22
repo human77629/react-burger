@@ -15,39 +15,24 @@ export function FeedPage() {
     React.useEffect(()=>{
         dispatch(getIngredients())
         //dispatch(getOrders())
-        dispatch({type: WS_CONNECTION_START})
-        const escapeHandler = (event) => event.key === 'Escape' && handleCloseModals();
-        document.addEventListener('keydown', escapeHandler);
-    
-        return () => document.removeEventListener('keydown', escapeHandler);          
+        dispatch({type: WS_CONNECTION_START})      
     },[])
     const dispatch = useDispatch()
     const history = useHistory()
     const location = useLocation()
     const {orders, ingredients, viewedOrder, totalOrderCount, todayOrderCount} = useSelector(store=>store.burger)
-    const [isOrderModalOpen, setIsOrderModalOpen] = React.useState(false)
     
 
     const handleOpenOrderModal = function (orderId) {
         const order = orders.find(order=>order._id===orderId)
-        history.replace({pathname: `/feed/${order._id}`, state: {background: location}})
+        history.replace({pathname: `/feed/${order._id}`, state: {background: location, modalHeader: 'Детали заказа'}})
         dispatch({type: VIEW_ORDER, order: order});
-        setIsOrderModalOpen(true);        
     }
 
-    const handleCloseModals = () => {
-        setIsOrderModalOpen(false)
-        history.replace({pathname: '/feed'})
-    }
    
     if (!orders || !ingredients) return <AppHeader/>;
     return (<>
     <AppHeader/>
-    <Modal isOpen={isOrderModalOpen} closeCallback={handleCloseModals} header={'Детали заказа'}>
-        {viewedOrder && (
-            <OrderDetails order={viewedOrder} ingredients={ingredients} />
-        )}
-    </Modal>
     <main className={styles.container}>
         <header className={styles.header}>
             <h1 className={`${styles.headerText} text text_type_main-large mt-10 mb-10`}>Лента заказов</h1>

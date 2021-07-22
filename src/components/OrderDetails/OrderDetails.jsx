@@ -23,6 +23,8 @@ export function OrderDetails (props) {
     const {ingredients, order} = props
    
 
+    console.log(ingredients)
+
     const ingredientList = React.useMemo(()=>{
         if (!order || !ingredients) return;
         const ingredientIds = order.ingredients

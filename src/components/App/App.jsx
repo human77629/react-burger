@@ -4,8 +4,13 @@ import { BurgerPage, LoginPage, SignupPage, PasswordRecoveryPage, PasswordResetP
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.jsx'
 import {useHistory, useLocation} from 'react-router-dom'
+import { useSelector } from 'react-redux';
 
 import {Route, Switch} from 'react-router-dom';
+
+import Modal from '../Modal/Modal';
+import { OrderDetails } from '../OrderDetails/OrderDetails';
+import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
 import './App.css';
 
@@ -13,9 +18,37 @@ function App() {
   const location = useLocation();
   const history = useHistory();
   const background = history.action === 'REPLACE' && location.state && location.state.background; 
+
+  const closeAllModals = () => {
+    if (background) history.replace({pathname: background.pathname})
+  }
+
+  const {ingredients, viewedOrder, viewedIngredient} = useSelector(store=>store.burger)
+
+
+  React.useEffect(()=>{
+    const escapeHandler = (event) => event.key === 'Escape' && closeAllModals();
+    document.addEventListener('keydown', escapeHandler);
+    return () => document.removeEventListener('keydown', escapeHandler);         
+  }, [location])
   
   return (
-          
+          <>
+            {background && (
+              <Switch>
+                <Modal isOpen={background} closeCallback={closeAllModals} header={location.state.modalHeader}>
+                  <ProtectedRoute path="/profile/orders/:id">
+                    <OrderDetails ingredients={ingredients} order={viewedOrder}/>
+                  </ProtectedRoute>
+                  <Route path="/feed/:id">
+                    <OrderDetails ingredients={ingredients} order={viewedOrder}/>
+                  </Route>                         
+                  <Route path="/ingredients/:id">
+                    <IngredientDetails ingredient={viewedIngredient}/>
+                  </Route>                     
+                </Modal>
+              </Switch>
+            )}
             <Switch location={background || location}>
               <Route path="/login">
                 <LoginPage />
@@ -48,7 +81,7 @@ function App() {
                 <IngredientPage />
               </Route>               
             </Switch>
-          
+          </>
   );
 }
 

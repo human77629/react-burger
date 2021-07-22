@@ -54,21 +54,14 @@ export function ProfilePage() {
         setEditEmail(false);
         setEditPassword(false);
     }
-
-    const [isOrderModalOpen, setIsOrderModalOpen] = React.useState(false)
-    
+   
 
     const handleOpenOrderModal = function (orderId) {
         const order = orders.find(order=>order._id===orderId)
-        history.replace({pathname: `/profile/orders/${order._id}`, state: {background: location}})
-        dispatch({type: VIEW_ORDER, order: order});
-        setIsOrderModalOpen(true);        
+        history.replace({pathname: `/profile/orders/${order._id}`, state: {background: location, modalHeader: 'Детали заказа'}})
+        dispatch({type: VIEW_ORDER, order: order});     
     }
 
-    const handleCloseModals = () => {
-        setIsOrderModalOpen(false)
-        history.replace({pathname: '/profile/orders'})
-    }    
 
     const handleSaveSubmit = (e) => {
         e.preventDefault()
@@ -134,11 +127,7 @@ export function ProfilePage() {
     )
 
     React.useEffect(()=>{        
-        dispatch(userInfo(accessToken))
-        const escapeHandler = (event) => event.key === 'Escape' && handleCloseModals();
-        document.addEventListener('keydown', escapeHandler);
-    
-        return () => document.removeEventListener('keydown', escapeHandler);           
+        dispatch(userInfo(accessToken))  
     }, [])
 
     React.useEffect(()=>{
@@ -157,12 +146,7 @@ export function ProfilePage() {
 
     return (
         <>
-        <AppHeader />
-        <Modal isOpen={isOrderModalOpen} closeCallback={handleCloseModals} header={'Детали заказа'}>
-        {viewedOrder && (
-            <OrderDetails order={viewedOrder} ingredients={ingredients} />
-        )}
-     </Modal>        
+        <AppHeader />      
         <main className={`mt-10`}>
             <section className={`${styles.sideSection} mt-20`}>
             <ProfileNavMenu />
