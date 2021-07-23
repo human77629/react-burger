@@ -84,7 +84,7 @@ export const burgerReducer = (state = initialState, action) => {
             return { ...state, ordersFailed: false, orders: action.orders, ordersRequest: false };
         }
         case GET_ORDERS_FAILED: {
-            return { ...state, ordersFailed: true, ingredients: [...initialState.ingredients], ordersRequest: false };
+            return { ...state, ordersFailed: true, orders: [...initialState.orders], ordersRequest: false };
         }          
 
         case WS_GET_ORDERS: {
@@ -108,7 +108,7 @@ export const burgerReducer = (state = initialState, action) => {
         }
 
         case GET_INGREDIENTS_REQUEST: {
-            return { ...state, ingredientsRequest: true };
+            return { ...state, ingredientsRequest: true, ingredientsFailed: false };
         }
         case GET_INGREDIENTS_SUCCESS: {
             return { ...state, ingredientsFailed: false, ingredients: action.ingredients, ingredientsRequest: false };
