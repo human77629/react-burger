@@ -14,9 +14,6 @@ describe('ingredients work correctly', function() {
     })
 
     it('should handle selecting a bun via dnd', ()=>{
-        const bun = cy.get('[class^=BurgerIngredient_container').first()
-        const topping = cy.get('[class^=BurgerIngredient_container').last()
-        const droppable = cy.get('[class^=BurgerConstructor_components__').first()
         cy.wait(500)
         cy.get('[class^=BurgerIngredient_container').first().trigger("dragstart").trigger("dragleave");
         cy.wait(500)
