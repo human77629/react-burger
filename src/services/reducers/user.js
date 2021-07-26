@@ -28,7 +28,6 @@ import {
 const initialState = {
     accessToken: '',
     refreshToken: '',
-    tokenTime: new Date(),
     user: {
         email: '',
         name: ''
@@ -120,7 +119,7 @@ export const userReducer = (state = initialState, action) => {
             return { ...state, signupRequestStatus: {request: true, failed: false} };
         }
         case USER_SIGNUP_SUCCESS: {
-            return { ...state, signupRequestStatus: {request: true, failed: false}, user: action.user, accessToken: action.access, refreshToken: action.refresh, tokenTime: new Date() };
+            return { ...state, signupRequestStatus: {request: true, failed: false}, user: action.user, accessToken: action.access, refreshToken: action.refresh };
         }
         case USER_SIGNUP_FAILED: {
             return { ...state, signupRequestStatus: {request: false, failed: true}, errorMessage: action.message };
@@ -135,7 +134,7 @@ export const userReducer = (state = initialState, action) => {
             return { ...state, loginRequestStatus: {request: true, failed: false} };
         }
         case USER_LOGIN_SUCCESS: {
-            return { ...state, loginRequestStatus: {request: true, failed: false}, user: action.user, accessToken: action.access, refreshToken: action.refresh, tokenTime: new Date() };
+            return { ...state, loginRequestStatus: {request: true, failed: false}, user: action.user, accessToken: action.access, refreshToken: action.refresh };
         }
         case USER_LOGIN_FAILED: {
             return { ...state, loginRequestStatus: {request: false, failed: true}, errorMessage: action.message };
