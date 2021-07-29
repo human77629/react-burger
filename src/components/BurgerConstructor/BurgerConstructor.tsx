@@ -1,8 +1,7 @@
 import React from "react";
 
 import { useDrop } from "react-dnd";
-import { useDispatch } from 'react-redux';
-import {useSelector} from '../../services/hooks'
+import {useSelector, useDispatch} from '../../services/hooks'
 
 
 import burgerConstructorStyles from './BurgerConstructor.module.css'

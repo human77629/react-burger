@@ -11,6 +11,10 @@ describe('burger reducer', ()=>{
                 proteins: 0,
                 fat: 0,
                 carbohydrates: 0,
+                _id: '',
+                image: '',
+                price: 0,
+                type: '',
             },
         
             order: {
@@ -35,6 +39,9 @@ describe('burger reducer', ()=>{
                 name: '',
                 number: 0,
                 price: 0,
+                _id: '',
+                createdAt: '',
+                ingredients: [],
             },
         
             totalOrderCount: 0,

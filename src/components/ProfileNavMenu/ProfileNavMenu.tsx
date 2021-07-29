@@ -1,6 +1,6 @@
 import styles from './ProfileNavMenu.module.css'
 import {useHistory, useLocation} from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch } from '../../services/hooks'
 import { userLogout } from '../../services/actions/user'
 
 export default function ProfileNavMenu() {

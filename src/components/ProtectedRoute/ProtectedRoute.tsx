@@ -1,8 +1,7 @@
 import React from 'react'
 import {Route, Redirect, RouteProps} from 'react-router-dom'
 import {userLogin} from '../../services/actions/user'
-import {useDispatch} from 'react-redux'
-import {useSelector} from '../../services/hooks'
+import {useSelector, useDispatch} from '../../services/hooks'
 
 interface Props extends RouteProps {
     children: React.ReactNode
