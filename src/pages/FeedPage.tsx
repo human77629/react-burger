@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './FeedPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from '../services/hooks'
 import { getOrders, getIngredients, WS_CONNECTION_START } from '../services/actions/burger'
 import { useHistory, useLocation } from 'react-router-dom'
 import { OrderDetails } from '../components/OrderDetails/OrderDetails'
@@ -23,9 +23,9 @@ export function FeedPage() {
     const {orders, ingredients, viewedOrder, totalOrderCount, todayOrderCount} = useSelector(store=>store.burger)
     
 
-    const handleOpenOrderModal = function (orderId) {
+    const handleOpenOrderModal = function (orderId:string) {
         const order = orders.find(order=>order._id===orderId)
-        history.replace({pathname: `/feed/${order._id}`, state: {background: location, modalHeader: 'Детали заказа'}})
+        history.replace({pathname: `/feed/${order?._id}`, state: {background: location, modalHeader: 'Детали заказа'}})
         dispatch({type: VIEW_ORDER, order: order});
     }
 

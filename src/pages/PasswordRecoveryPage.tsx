@@ -2,7 +2,7 @@ import React from 'react';
 import { Logo, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './LoginPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../services/hooks';
 import {Link, Redirect} from 'react-router-dom'
 import { passwordReset, SET_PASSWORD_RESET_STAGE, userInfo } from '../services/actions/user';
 
@@ -12,7 +12,7 @@ export function PasswordRecoveryPage() {
     const [email, setEmail] = React.useState('')
     const dispatch = useDispatch();
     const [resetRequested, setResetRequested] = React.useState(false)
-    const handleRecoverSubmit = (e) => {
+    const handleRecoverSubmit = (e: React.FormEvent) => {
         setResetRequested(true)
         e.preventDefault()
         dispatch(passwordReset(email))

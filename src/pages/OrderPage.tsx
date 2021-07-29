@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './OrderPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader'
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector, useDispatch} from '../services/hooks'
 import { getIngredients, WS_CONNECTION_START } from '../services/actions/burger'
 import { useParams } from 'react-router-dom'
 import { OrderDetails } from '../components/OrderDetails/OrderDetails'
@@ -17,7 +17,7 @@ export function OrderPage () {
     },[])
 
     const {orders, ingredients} = useSelector(store=>store.burger)
-    const {id} = useParams()
+    const {id} = useParams<{id:string}>()
     const order = orders.find(order=>order._id===id)
     
     

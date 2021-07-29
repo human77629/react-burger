@@ -2,12 +2,12 @@ import React from 'react';
 import { Logo, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './LoginPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader'
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../services/hooks';
 import { userSignup, userInfo } from '../services/actions/user';
 import {Link, Redirect} from 'react-router-dom'
 
 export function SignupPage() {
-    const passwordRef = React.useRef(null)
+    const passwordRef = React.useRef<HTMLInputElement>(null)
     const [showPassword, setShowPassword] = React.useState(false)
     const [username, setUsername] = React.useState('')
     const [email, setEmail] = React.useState('')
@@ -21,10 +21,10 @@ export function SignupPage() {
 
     const toggleShowPassword = () =>
     {
-        setTimeout(() => passwordRef.current.focus(), 0)
+        setTimeout(() => passwordRef.current?.focus(), 0)
         setShowPassword(!showPassword)
     }
-    const handleSignupSubmit = (e) => {
+    const handleSignupSubmit = (e:React.FormEvent) => {
         e.preventDefault();
         
         dispatch(userSignup({email: email, password: password, username: username}))

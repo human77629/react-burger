@@ -10,7 +10,13 @@ type TIngredient = {
     name:string,
     count:number,
     _id:string,
+    image_large:string,  
+    calories:number,
+    proteins:number,
+    fat:number,
+    carbohydrates:number,      
 }
+
 
 interface Props {
     ingredient: TIngredient,

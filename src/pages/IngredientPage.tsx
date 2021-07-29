@@ -1,14 +1,14 @@
 import React from 'react'
 import AppHeader from "../components/AppHeader/AppHeader";
 import IngredientDetails from "../components/IngredientDetails/IngredientDetails";
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector, useDispatch} from '../services/hooks'
 import { getIngredients } from '../services/actions/burger';
 import { useParams } from 'react-router-dom'
 import styles from './IngredientPage.module.css'
 
 export function IngredientPage () {
     const dispatch = useDispatch()
-    const {id} = useParams()
+    const {id} = useParams<{id:string}>()
     React.useEffect(()=>{
         dispatch(getIngredients())
     }, [])

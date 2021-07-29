@@ -3,12 +3,12 @@ import { Logo, Input, Button } from '@ya.praktikum/react-developer-burger-ui-com
 import styles from './LoginPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader'
 import {Link, Redirect} from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../services/hooks';
 import { confirmPasswordReset, userInfo } from '../services/actions/user';
 import { SET_PASSWORD_RESET_STAGE } from '../services/actions/user';
 
 export function PasswordResetPage() {
-    const passwordRef = React.useRef(null)
+    const passwordRef = React.useRef<HTMLInputElement>(null)
     const [showPassword, setShowPassword] = React.useState(false)
 
     const [token, setToken] = React.useState('')
@@ -17,7 +17,7 @@ export function PasswordResetPage() {
     const dispatch = useDispatch()
     const {passwordResetConfirmationStatus, accessToken, passwordResetStage} = useSelector(store=>store.user)
 
-    const handleSaveSubmit = (e) => {
+    const handleSaveSubmit = (e:React.FormEvent) => {
         e.preventDefault();
         setRequestSent(true)
         dispatch(confirmPasswordReset(password, token))
@@ -29,14 +29,14 @@ export function PasswordResetPage() {
         dispatch(userInfo(accessToken))
     }, [])    
 
-    const handleResendClick = (e) => {
+    const handleResendClick = (e:React.MouseEvent) => {
         e.preventDefault();
         dispatch({type: SET_PASSWORD_RESET_STAGE, stage: 'RECOVERY_PAGE'})
     }
 
     const toggleShowPassword = () =>
     {
-        setTimeout(() => passwordRef.current.focus(), 0)
+        setTimeout(() => passwordRef.current?.focus(), 0)
         setShowPassword(!showPassword)
     }
 

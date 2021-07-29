@@ -54,6 +54,7 @@ const initialState:TBurgerState = {
     ordersFailed: false,    
 
     viewedOrder: {
+        _id:'',
         status: '',
         name: '',
         number: 0,
@@ -120,6 +121,7 @@ export type TIngredient = {
 }
 
 export type TOrder = {
+    _id:string,
     number:number,
     name:string,
     status:string,

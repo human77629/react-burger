@@ -2,18 +2,23 @@ import React from 'react';
 import { Logo, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './LoginPage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../services/hooks';
 import { userLogin,userInfo } from '../services/actions/user';
 import {Link, Redirect, useLocation} from 'react-router-dom'
+import {Location} from 'history'
 
+
+type TLocationState = {
+    from?: Location
+}
 
 export function LoginPage() {
-    const passwordRef = React.useRef(null)
+    const passwordRef = React.useRef<HTMLInputElement>(null)
     const [showPassword, setShowPassword] = React.useState(false)
-    const [email, setEmail] = React.useState('')
-    const [password, setPassword] = React.useState('')
+    const [email, setEmail] = React.useState<string>('')
+    const [password, setPassword] = React.useState<string>('')
     const dispatch = useDispatch(); 
-    const {state} = useLocation();
+    const {state} = useLocation<TLocationState>();
 
     const accessToken = useSelector(store=>store.user.accessToken)
     React.useEffect(()=>{
@@ -23,19 +28,21 @@ export function LoginPage() {
 
     const toggleShowPassword = () =>
     {
-        setTimeout(() => passwordRef.current.focus(), 0)
+        setTimeout(() => passwordRef?.current?.focus(), 0)
         setShowPassword(!showPassword)
     }
-    const handleLoginSubmit = (e) => {
+    const handleLoginSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         
         dispatch(userLogin({email: email, password: password}))
 
     }
 
+    console.log(state)
+    console.log(state?.from?.pathname)
 
     const user = useSelector(store=>store.user.user)
-    if (user.name!=='') return (<Redirect to={state?.from.pathname || '/profile'} />)
+    if (user.name!=='') return (<Redirect to={state?.from?.pathname || '/profile'} />)
     return (
         <>
         <AppHeader />

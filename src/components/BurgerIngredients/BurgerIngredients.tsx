@@ -5,9 +5,18 @@ import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 
 
+type TIngredient = {
+    image_large:string,
+    name:string,
+    calories:number,
+    proteins:number,
+    fat:number,
+    carbohydrates:number,
+    _id:string,
+}
 
 interface Props {
-    handleIngredientClick: () => void,
+    handleIngredientClick: (ingredient: TIngredient) => void,
 }
 
 

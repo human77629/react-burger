@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import {useSelector, useDispatch} from '../services/hooks'
 import {useHistory, useLocation} from 'react-router-dom'
 
 import { DndProvider } from "react-dnd";
@@ -15,6 +15,18 @@ import { VIEW_INGREDIENT , getIngredients, makeOrder } from '../services/actions
 import { userInfo } from '../services/actions/user';
 
 import './BurgerPage.css';
+
+
+
+type TIngredient = {
+  image_large:string,
+  name:string,
+  calories:number,
+  proteins:number,
+  fat:number,
+  carbohydrates:number,
+  _id:string,
+}
 
 export function BurgerPage() {
 
@@ -42,7 +54,7 @@ export function BurgerPage() {
       setIsErrorModalOpen(true);
     
     } else if (user.name==='') {
-      history.replace({pathname: '/login', state:{from: '/'}})
+      history.replace({pathname: '/login', state:{from: location}})
     } else {
 
       dispatch(makeOrder({token: accessToken, ingredients: [...selectedIngredients.toppingIds, selectedIngredients.bunId, selectedIngredients.bunId]}))
@@ -50,7 +62,7 @@ export function BurgerPage() {
     }
   }
 
-  const handleOpenIngredientModal = function (ingredient) {
+  const handleOpenIngredientModal = function (ingredient:TIngredient) {
     history.replace({pathname: `/ingredients/${ingredient._id}`, state: {background: location, modalHeader: 'Детали ингредиента'}})
     dispatch({type: VIEW_INGREDIENT, ingredient: ingredient});
   }
@@ -65,7 +77,7 @@ export function BurgerPage() {
 
     dispatch(getIngredients());
 
-    const escapeHandler = (event) => event.key === 'Escape' && closeModals();
+    const escapeHandler = (event:KeyboardEvent) => event.key === 'Escape' && closeModals();
     document.addEventListener('keydown', escapeHandler);
 
     return () => document.removeEventListener('keydown', escapeHandler);    

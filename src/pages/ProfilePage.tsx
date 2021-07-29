@@ -2,7 +2,7 @@ import React from 'react';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './ProfilePage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../services/hooks';
 import { userInfo, userUpdate, userLogout } from '../services/actions/user';
 import { WS_CONNECTION_START, getIngredients, getOrders, VIEW_ORDER } from '../services/actions/burger';
 import { OrderDetails } from '../components/OrderDetails/OrderDetails';
@@ -12,9 +12,9 @@ import { OrderFeed } from '../components/OrderFeed/OrderFeed';
 import Modal from '../components/Modal/Modal';
 
 export function ProfilePage() {
-    const passwordRef = React.useRef(null)
-    const emailRef = React.useRef(null)
-    const usernameRef = React.useRef(null)
+    const passwordRef = React.useRef<HTMLInputElement>(null)
+    const emailRef = React.useRef<HTMLInputElement>(null)
+    const usernameRef = React.useRef<HTMLInputElement>(null)
     const [editPassword, setEditPassword] = React.useState(false)
     const [editEmail, setEditEmail] = React.useState(false)
     const [editUsername, setEditUsername] = React.useState(false)
@@ -26,46 +26,52 @@ export function ProfilePage() {
 
     const toggleEditPassword = () =>
     {
-        if (!editPassword) setTimeout(() => passwordRef.current.focus(), 0)
-        if (editPassword) setPassword(user.password)
+        if (!editPassword) setTimeout(() => passwordRef.current?.focus(), 0)
+        if (editPassword) setPassword('')
         setEditPassword(!editPassword)
     }    
     const toggleEditEmail = () =>
     {
-        if (!editEmail) setTimeout(() => emailRef.current.focus(), 0)
+        if (!editEmail) setTimeout(() => emailRef.current?.focus(), 0)
         if (editEmail) setEmail(user.email)
         setEditEmail(!editEmail)
     }    
     const toggleEditUsername = () =>
     {
-        if (editUsername) setTimeout(() => usernameRef.current.focus(), 0)
+        if (editUsername) setTimeout(() => usernameRef.current?.focus(), 0)
         if (editUsername) setUsername(user.name)
         setEditUsername(!editUsername)
     }            
     const {user, accessToken} = useSelector(store=>store.user)
     const {orders, ingredients, viewedOrder} = useSelector(store=>store.burger)    
     const dispatch = useDispatch();
-    const handleCancelClick = (e) => {
+    const handleCancelClick = (e:React.MouseEvent) => {
         e.preventDefault()
         setUsername(user.name)
         setEmail(user.email)
-        setPassword(user.password)
+        setPassword('')
         setEditUsername(false);        
         setEditEmail(false);
         setEditPassword(false);
     }
    
 
-    const handleOpenOrderModal = function (orderId) {
+    const handleOpenOrderModal = function (orderId:string) {
         const order = orders.find(order=>order._id===orderId)
+        if (!order) return;
         history.replace({pathname: `/profile/orders/${order._id}`, state: {background: location, modalHeader: 'Детали заказа'}})
         dispatch({type: VIEW_ORDER, order: order});     
     }
 
 
-    const handleSaveSubmit = (e) => {
+    const handleSaveSubmit = (e:React.FormEvent) => {
         e.preventDefault()
-        const updatedUser = {}
+        type TUserData = {
+            name:string,
+            email:string,
+            password:string,
+        }
+        const updatedUser:TUserData = {name:'', email:'', password: ''}
         if (editUsername) updatedUser.name = username
         if (editEmail) updatedUser.email = email
         if (editPassword) updatedUser.password = password
@@ -119,7 +125,7 @@ export function ProfilePage() {
             </div>
             {(editUsername || editPassword || editEmail) && (
             <div className={`${styles.actions}`}>
-            <Button type='secondary' size='medium' onClick={handleCancelClick}>Отмена</Button> 
+            <Button type='secondary' size='medium' onClick={handleCancelClick as ()=>void}>Отмена</Button> 
             <Button type='primary' size='medium'>Сохранить</Button>                
             </div>
             )}
@@ -134,7 +140,6 @@ export function ProfilePage() {
         
         if(user.name) setUsername(user.name)
         if(user.email) setEmail(user.email)
-        if(user.password) setPassword(user.password)
         setEditUsername(false);        
         setEditEmail(false);
         setEditPassword(false);        

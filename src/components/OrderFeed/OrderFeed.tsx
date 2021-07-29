@@ -61,7 +61,7 @@ export function OrderFeed(props:Props) {
     }, [orders, ingredients])
 
     
-    if (!orders || !ingredients) return;
+    if (!orders || !ingredients) return <></>;
     return (
             <ul className={`${styles.orders}`}>
                 {compactOrderList && compactOrderList.map((order,i)=> (<React.Fragment key={i}>
