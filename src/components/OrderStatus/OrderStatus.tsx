@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './OrderStatus.module.css';
-import {useSelector} from 'react-redux';
+import {useSelector} from '../../services/hooks';
 
 function OrderStatus() {
 

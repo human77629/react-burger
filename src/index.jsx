@@ -4,13 +4,13 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import './index.css';
-import App from './components/App/App.jsx';
+import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { rootReducer } from './services/reducers/index.js'; 
 import {BrowserRouter as Router} from 'react-router-dom'
-import { initStore } from './services/store.js';
+import { store } from './services/store';
 
-const store = initStore()
+
 
 ReactDOM.render(
   <React.StrictMode>

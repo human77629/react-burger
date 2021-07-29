@@ -19,16 +19,21 @@ import {
     WS_CONNECTION_START,
     WS_CONNECTION_SUCCESS,
     WS_GET_ORDERS,
-} from '../actions/burger.js'
+    TBurgerActions,
+} from '../actions/burger'
 
-const initialState = {
+const initialState:TBurgerState = {
     viewedIngredient: {
         image_large: '',
+        image: '',
         name: '',
         calories: 0,
         proteins: 0,
         fat: 0,
         carbohydrates: 0,
+        _id: '',
+        type: '',
+        price: 0,
     },
 
     order: {
@@ -53,6 +58,8 @@ const initialState = {
         name: '',
         number: 0,
         price: 0,
+        ingredients:[],
+        createdAt:'',
     },
 
     totalOrderCount: 0,
@@ -63,12 +70,67 @@ const initialState = {
     selectedIngredients: {bunId: '', toppingIds: []},
 }
 
+type TBurgerState = {
+    viewedIngredient: TIngredient,
+
+    order: {
+        number:string,
+        status:string,
+        generatedBurgerName:string,
+        ingredientIds: string[],
+    },
+
+    orderRequest:boolean,
+    orderFailed:boolean,
+
+    ingredients:TIngredient[],
+    ingredientsRequest: boolean,
+    ingredientsFailed: boolean,
+
+    orders:TOrder[],
+    ordersRequest:boolean,
+    ordersFailed:boolean,
+
+    viewedOrder: TOrder,
+
+    totalOrderCount:number,
+    todayOrderCount:number,
+
+    orderSocketStatus:string,
+    selectedIngredients:{
+        bunId:string,
+        toppingIds:string[],
+    },
+
+
+}
+
+
+export type TIngredient = {
+    image_large:string,
+    image:string,
+    name:string,
+    calories:number,
+    proteins:number,
+    fat:number,
+    carbohydrates:number,
+    _id:string,
+    type:string,
+    price:number,
+}
+
+export type TOrder = {
+    number:number,
+    name:string,
+    status:string,
+    price?:number
+    ingredients:string[],
+    createdAt:string,
+}
 
 
 
-
-
-export const burgerReducer = (state = initialState, action) => {
+export const burgerReducer = (state = initialState, action:TBurgerActions):TBurgerState => {
     switch(action.type) {
         case VIEW_INGREDIENT: {
             return { ...state, viewedIngredient: action.ingredient };

@@ -1,11 +1,23 @@
-import PropTypes from "prop-types";
+
 import styles from './DraggableBurgerIngredient.module.css';
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag, useDrop} from 'react-dnd';
 import {useDispatch} from 'react-redux';
 import { MOVE_TOPPING } from "../../services/actions/burger";
 
-function DraggableBurgerIngredient(props) {
+type TIngredient = {
+    name:string,
+    image:string,
+    price:number,
+}
+
+interface Props {
+    handleClose: () => void,
+    component: TIngredient,
+    index: number,
+}
+
+function DraggableBurgerIngredient(props:Props) {
 
     const dispatch = useDispatch();
 
@@ -14,13 +26,13 @@ function DraggableBurgerIngredient(props) {
         item: {index: props.index},      
     });
 
-    const onDropHandler = (itemId) => {
+    const onDropHandler = (itemId: {index:number}) => {
         dispatch({type: MOVE_TOPPING, currentIndex: itemId.index, targetIndex: props.index});
     }
 
     const [{isOver, hoveringItem}, dropTarget] = useDrop({
         accept: 'ingredient',
-        drop(itemId) {
+        drop(itemId: {index:number}) {
             onDropHandler(itemId);
         },
         collect: monitor => ({
@@ -44,17 +56,5 @@ function DraggableBurgerIngredient(props) {
     )
 }
 
-const ingredientPropTypes = PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-});
-
-
-DraggableBurgerIngredient.propTypes = {
-    handleClose: PropTypes.func.isRequired,
-    component: ingredientPropTypes.isRequired,
-    index: PropTypes.number.isRequired,
-}
 
 export default DraggableBurgerIngredient;

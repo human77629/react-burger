@@ -23,9 +23,10 @@ import {
     CONFIRM_PASSWORD_RESET_SUCCESS,
     SET_PASSWORD_RESET_STAGE,
     
-} from '../actions/user.js'
+    TUserActions
+} from '../actions/user'
 
-const initialState = {
+const initialState:TUserState = {
     accessToken: '',
     refreshToken: '',
     user: {
@@ -66,9 +67,50 @@ const initialState = {
     passwordResetStage: 'RECOVERY_PAGE',
 }
 
+export type TUserState = {
+    accessToken:string,
+    refreshToken:string,
+    user:{
+        email:string,
+        name:string,
+    },
+    signupRequestStatus:{
+        request:boolean,
+        failed:boolean,
+    },    
+    loginRequestStatus:{
+        request:boolean,
+        failed:boolean,
+    },
+    logoutRequestStatus:{
+        request:boolean,
+        failed:boolean,
+    },
+    infoRequestStatus:{
+        request:boolean,
+        failed:boolean,
+    },
+    userUpdateStatus:{
+        request:boolean,
+        failed:boolean,
+    },
+    passwordResetStatus:{
+        request:boolean,
+        failed:boolean,
+        success:boolean,
+    },
+    passwordResetConfirmationStatus:{
+        request:boolean,
+        failed:boolean,
+        success:boolean,
+    },
+    errorMessage:string,
+    passwordResetStage:string,
+}
 
 
-export const userReducer = (state = initialState, action) => {
+
+export const userReducer = (state:TUserState = initialState, action:TUserActions) => {
     switch(action.type) {
 
         case SET_PASSWORD_RESET_STAGE: {

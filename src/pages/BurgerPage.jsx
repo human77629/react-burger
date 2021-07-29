@@ -6,14 +6,13 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 
-import AppHeader from '../components/AppHeader/AppHeader.jsx'
-import BurgerIngredients from '../components/BurgerIngredients/BurgerIngredients.jsx'
-import BurgerConstructor from '../components/BurgerConstructor/BurgerConstructor.jsx'
-import Modal from '../components/Modal/Modal.jsx';
-import IngredientDetails from '../components/IngredientDetails/IngredientDetails.jsx';
-import OrderStatus from '../components/OrderStatus/OrderStatus.jsx';
-import { VIEW_INGREDIENT , getIngredients, makeOrder } from '../services/actions/burger.js';
-import { userInfo } from '../services/actions/user.js';
+import AppHeader from '../components/AppHeader/AppHeader'
+import BurgerIngredients from '../components/BurgerIngredients/BurgerIngredients'
+import BurgerConstructor from '../components/BurgerConstructor/BurgerConstructor'
+import Modal from '../components/Modal/Modal';
+import OrderStatus from '../components/OrderStatus/OrderStatus';
+import { VIEW_INGREDIENT , getIngredients, makeOrder } from '../services/actions/burger';
+import { userInfo } from '../services/actions/user';
 
 import './BurgerPage.css';
 

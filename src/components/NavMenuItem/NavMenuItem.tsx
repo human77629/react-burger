@@ -1,11 +1,15 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import navMenuItemStyles from './NavMenuItem.module.css';
 import {useHistory, useLocation} from 'react-router-dom'
+import { TIconProps } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils";
 
+interface Props {
+    icon: ({type}:TIconProps)=>JSX.Element,
+    label: string,
+    pathname?: string
+}
 
-
-function NavMenuItem (props) {
+function NavMenuItem (props:Props) {
     const history = useHistory();
     const location = useLocation();
     const selected = React.useMemo(()=>{
@@ -25,12 +29,6 @@ function NavMenuItem (props) {
             <span className={"text text_type_main-default"+(selected?'':' text_color_inactive')+' m-1'}>{props.label}</span>
         </li>
     );
-}
-
-NavMenuItem.propTypes = {
-    icon: PropTypes.elementType.isRequired,
-    label: PropTypes.string.isRequired,
-    pathname: PropTypes.string
 }
 
 

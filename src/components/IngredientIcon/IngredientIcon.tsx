@@ -1,7 +1,12 @@
 import styles from './IngredientIcon.module.css'
-import PropTypes from 'prop-types'
 
-function IngredientIcon (props) {
+interface Props {
+    image:string,
+    alt?:string,
+    count?:number,
+}
+
+function IngredientIcon (props:Props) {
     return (
         <div className={styles.container}>
             <div className={styles.borderDiv}></div>
@@ -21,12 +26,6 @@ function IngredientIcon (props) {
             )}
         </div>
     )
-}
-
-IngredientIcon.propTypes = {
-    image: PropTypes.string.isRequired,
-    alt: PropTypes.string,
-    count: PropTypes.number
 }
 
 export default IngredientIcon

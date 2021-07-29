@@ -1,11 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import IngredientIcon from '../IngredientIcon/IngredientIcon';
 import styles from './CardOrder.module.css'
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import {useHistory} from 'react-router-dom'
 
-function CardOrder (props) {
+interface Props {
+    date?:string,
+    name:string,
+    number:number,
+    price:number,
+    status?:string,
+    icons:{
+        image:string,
+        count?:number
+    }[],
+    onClick: ()=>void,
+}
+
+function CardOrder (props:Props) {
     const history = useHistory();
 
     const timeText = React.useMemo(()=>{
@@ -28,14 +40,14 @@ function CardOrder (props) {
         }
     }, [props.date])
     
-    const orderStatusColor= status=>
+    const orderStatusColor= (status:string) =>
     {
         if (status==='done') return styles.orderFinished
         if (status==='cancelled') return styles.orderCancelled
         return ''
     }
 
-    const orderStatusText= status=>
+    const orderStatusText= (status:string) =>
     {
         if (status==='done') return 'Выполнен'
         if (status==='cancelled') return 'Отменен'
@@ -73,15 +85,5 @@ function CardOrder (props) {
     )
 }
 
-CardOrder.propTypes = {
-    date: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    number: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    icons: PropTypes.arrayOf(PropTypes.shape({
-        image: PropTypes.string.isRequired,
-        count: PropTypes.number,
-    }))
-}
 
 export default CardOrder;

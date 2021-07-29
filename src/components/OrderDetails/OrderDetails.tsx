@@ -1,14 +1,41 @@
 import React from 'react'
 import styles from './OrderDetails.module.css'
-import PropTypes from 'prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientIcon from '../IngredientIcon/IngredientIcon'
 
-const ingredientListItem = function (ingredient) {
+
+
+
+type TIngredient = {
+    _id: string,
+    image: string,
+    name: string,
+    price: number,
+    count?: number,
+    image_mobile?:string,
+}
+
+type TOrder = {
+    number:number,
+    name:string,
+    status?:string,
+    price?:number,
+    ingredients:string[],
+    createdAt:string,
+}
+
+interface Props {
+    ingredients: TIngredient[],
+    order: TOrder,
+}
+
+
+
+const ingredientListItem = function (ingredient:TIngredient) {
 
     return (
         <li key={ingredient._id} className={styles.ingredient}>
-            <IngredientIcon image={ingredient.image} />
+            {ingredient.image && <IngredientIcon image={ingredient.image} />}
             <span className={`${styles.ingredientName} text text_type_main-default pl-4 pr-4`}>{ingredient.name}</span>
             <div className={styles.price}>
                 <span className="text text_type_digits-default">{ingredient.count} x {ingredient.price}&nbsp;</span>
@@ -18,9 +45,11 @@ const ingredientListItem = function (ingredient) {
         )
 }
 
-export function OrderDetails (props) {
+export function OrderDetails (props:Props) {
 
     const {ingredients, order} = props
+
+    order.ingredients = order.ingredients.filter(i=>i!==null)
    
 
     const ingredientList = React.useMemo(()=>{
@@ -30,7 +59,8 @@ export function OrderDetails (props) {
         
         return uniqueIngredientIds.map(uid=>{
             const ingredient = ingredients.find(i=>i._id===uid)
-            return {_id: ingredient._id, image: ingredient.image_mobile, name: ingredient.name, price: ingredient.price, count: ingredientIds.filter(id=>id===uid).length}
+            if (!ingredient) return;
+            return {_id: ingredient._id, image: ingredient.image_mobile||'', name: ingredient.name, price: ingredient.price, count: ingredientIds.filter(id=>id===uid).length}
         });
         
         
@@ -40,7 +70,7 @@ export function OrderDetails (props) {
 
         const price = React.useMemo(()=>{
             if (!order || !order.ingredients || !ingredients) return 0;
-            return order.ingredients.reduce((a, v)=>a+ingredients.find(i=>i._id===v).price, 0)
+            return order.ingredients.reduce((a, v)=>a+(ingredients.find(i=>i._id===v)?.price||0), 0)
         },[order, ingredients])
         
     const timeText = React.useMemo(()=>{
@@ -70,7 +100,7 @@ export function OrderDetails (props) {
             <p className={`${styles.orderStatus} ${order.status==='done'?styles.completed:''} text text_type_main-default mb-15`}>{order.status==='done'?'Выполнен':'Готовится'}</p>
             <h1 className={`${styles.header} text text_type_main-medium mb-6`}>Состав:</h1>
             <ul className={`${styles.ingredients} mb-10`}>
-                {ingredientList.map(ingredient=>ingredientListItem(ingredient))}
+                {ingredientList?.map(ingredient=>ingredient && ingredientListItem(ingredient))}
             </ul>
             <p className={styles.footer}>
                 <span className={`text text_type_main-default text_color_inactive`}>{timeText}</span>
@@ -83,19 +113,4 @@ export function OrderDetails (props) {
         )}
         </>
     )
-}
-//   image: ingredient.image_mobile, name: ingredient.name, price: ingredient.price, count: ingredientIds.filter(id=>id===uid).length}
-OrderDetails.propTypes = {
-    ingredients: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        image: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-    }).isRequired).isRequired,
-    order: PropTypes.shape({
-        number: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        status: PropTypes.string,
-        price: PropTypes.number,
-    }).isRequired
 }

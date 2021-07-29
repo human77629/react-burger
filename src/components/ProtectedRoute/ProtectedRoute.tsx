@@ -1,9 +1,15 @@
 import React from 'react'
-import {Route, Redirect} from 'react-router-dom'
+import {Route, Redirect, RouteProps} from 'react-router-dom'
 import {userLogin} from '../../services/actions/user'
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
+import {useSelector} from '../../services/hooks'
 
-function ProtectedRoute ({children, ...rest}) {
+interface Props extends RouteProps {
+    children: React.ReactNode
+}
+
+function ProtectedRoute (props: Props) {
+    const {children, ...rest} = props;
     const [isUserLoaded, setIsUserLoaded] = React.useState(false)
     const dispatch = useDispatch()
 

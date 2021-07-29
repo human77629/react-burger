@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import { burgerReducer } from "./burger.js";
-import { userReducer } from "./user.js";
+import { burgerReducer } from "./burger";
+import { userReducer } from "./user";
 
 export const rootReducer = combineReducers({
     burger: burgerReducer,

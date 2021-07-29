@@ -1,15 +1,21 @@
 import React from "react";
-import PropTypes from "prop-types";
+
 import { useDrop } from "react-dnd";
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import {useSelector} from '../../services/hooks'
+
+
 import burgerConstructorStyles from './BurgerConstructor.module.css'
 import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { REMOVE_TOPPING, ADD_TOPPING, SET_BUN } from "../../services/actions/burger";
 import DraggableBurgerIngredient from "../DraggableBurgerIngredient/DraggableBurgerIngredient";
 
 
+interface Props {
+    handleOrderClick: () => void;
+}
 
-function BurgerConstructor (props) {
+function BurgerConstructor (props:Props) {
 
 
     const dispatch = useDispatch();
@@ -18,14 +24,15 @@ function BurgerConstructor (props) {
     const order = useSelector( store=>store.burger.selectedIngredients )
 
     
-    const onDropHandler = (itemId) => {
+    const onDropHandler = (itemId:{_id:string}) => {
         const ingredient = ingredients.find(ingredient=>ingredient._id===itemId._id)
+        if (!ingredient) return;
         dispatch({type: ingredient.type==='bun'?SET_BUN:ADD_TOPPING, id:ingredient._id});
     }
 
     const [{canDrop}, dropTarget] = useDrop({
         accept: 'newIngredient',
-        drop(itemId) {
+        drop(itemId:{_id:string}) {
             onDropHandler(itemId);
         },
         collect: monitor => ({
@@ -66,7 +73,7 @@ function BurgerConstructor (props) {
             )}                
             {toppings.map((component, k)=>component&&
                 (
-                    <DraggableBurgerIngredient key={k} component={component} index={k} handleClose={(e)=>{dispatch({type: REMOVE_TOPPING, index: k})}} />
+                    <DraggableBurgerIngredient key={k} component={component} index={k} handleClose={()=>{dispatch({type: REMOVE_TOPPING, index: k})}} />
                 )
             )}
             </div>
@@ -90,9 +97,5 @@ function BurgerConstructor (props) {
     )
 }
 
-
-BurgerConstructor.propTypes = {
-    handleOrderClick: PropTypes.func.isRequired,
-}
 
 export default BurgerConstructor;

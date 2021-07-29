@@ -6,7 +6,7 @@ import { getOrders, getIngredients, WS_CONNECTION_START } from '../services/acti
 import { useHistory, useLocation } from 'react-router-dom'
 import { OrderDetails } from '../components/OrderDetails/OrderDetails'
 import { VIEW_ORDER } from '../services/actions/burger'
-import Modal from '../components/Modal/Modal.jsx';
+import Modal from '../components/Modal/Modal';
 import { OrderFeed } from '../components/OrderFeed/OrderFeed'
 
 

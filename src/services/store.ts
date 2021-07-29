@@ -9,7 +9,7 @@ import {
   WS_CONNECTION_START,
   WS_CONNECTION_SUCCESS,
   WS_GET_ORDERS
-} from './actions/burger.js';
+} from './actions/burger';
 
 const wsUrl = 'wss://norma.nomoreparties.space/orders';
 
@@ -22,9 +22,12 @@ const wsActions = {
 };
 
 
-export const initStore = (initialState = {}) =>
+ const initStore = (initialState = {}) =>
   createStore(
     rootReducer,
     initialState,
     compose(applyMiddleware(thunkMiddleware,socketMiddleware(wsUrl, wsActions)))
   );
+
+  export const store = initStore()
+

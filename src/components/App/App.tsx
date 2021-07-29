@@ -2,22 +2,31 @@ import React from 'react';
 
 import { BurgerPage, LoginPage, SignupPage, PasswordRecoveryPage, PasswordResetPage, ProfilePage, IngredientPage, OrderPage, FeedPage } from '../../pages';
 
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.jsx'
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import {useHistory, useLocation} from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 
 import {Route, Switch} from 'react-router-dom';
 
 import Modal from '../Modal/Modal';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import {Location} from 'history'
+import {TRootState} from '../../services/types'
+
 
 import './App.css';
 
+interface LocationState {
+  background: Location<unknown>,
+  modalHeader: string,
+}
+
 function App() {
-  const location = useLocation();
+  const location = useLocation<LocationState>();
   const history = useHistory();
-  const background = history.action === 'REPLACE' && location.state && location.state.background; 
+  const background:Location<unknown> | undefined = history.action === 'REPLACE' && location.state?.background || undefined; 
+  
 
   const closeAllModals = () => {
     if (background) history.replace({pathname: background.pathname})
@@ -27,7 +36,7 @@ function App() {
 
 
   React.useEffect(()=>{
-    const escapeHandler = (event) => event.key === 'Escape' && closeAllModals();
+    const escapeHandler = (event:KeyboardEvent) => event.key === 'Escape' && closeAllModals();
     document.addEventListener('keydown', escapeHandler);
     return () => document.removeEventListener('keydown', escapeHandler);         
   }, [location])

@@ -1,13 +1,17 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import {useSelector} from 'react-redux';
+import {useSelector} from '../../services/hooks';
 import burgerIngredientsStyles from './BurgerIngredients.module.css'
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
-import BurgerIngredient from "../BurgerIngredient/BurgerIngredient.jsx";
+import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 
 
 
-function BurgerIngredients (props) {
+interface Props {
+    handleIngredientClick: () => void,
+}
+
+
+function BurgerIngredients (props:Props) {
 
     const order = useSelector( store=> store.burger.selectedIngredients )
     const ingredients = useSelector( store => store.burger.ingredients )
@@ -15,7 +19,7 @@ function BurgerIngredients (props) {
     const selectedIngredientCount = React.useMemo(()=>{
         const ingredientIds = [order.bunId, order.bunId, ...order.toppingIds]
         const uniqueIngredientIds = [...new Set(ingredientIds)]
-        const idsToCount = {}
+        const idsToCount:{[k:string]: number} = {}
         uniqueIngredientIds.forEach(uid=>{
             idsToCount[uid] = ingredientIds.filter(id=>id===uid).length;
         });
@@ -26,16 +30,18 @@ function BurgerIngredients (props) {
 
     const [currentTab, setCurrentTab] = React.useState('bun');
 
-    const selectTab = (t) => {
+    const selectTab = (t:string) => {
         setCurrentTab(t);
         const ref = ingredientTypes.find(type=>type.type===t)?.labelRef;
         if (ref) ref.current?.scrollIntoView();
     }
 
-    const scrollHandler = (e) => {
-        const container = e.target;
+    const scrollHandler = (e:React.UIEvent) => {
+        const container = e.target as HTMLElement;
+        
 
         const weightedCategories = ingredientTypes.map(category=> {
+            if (!category.labelRef?.current?.offsetTop) return {category: category, weight: 0};
             const relativeLabelOffset = category.labelRef.current.offsetTop - container.offsetTop;
             const resultingLabelDistance = Math.abs(relativeLabelOffset - container.scrollTop);
             return {category: category, weight: resultingLabelDistance}
@@ -48,9 +54,9 @@ function BurgerIngredients (props) {
 
     const ingredientTypes =
         [
-            {type: 'bun', title: 'Булки', labelRef: React.useRef(null)},
-            {type: 'sauce', title: 'Соусы', labelRef: React.useRef(null)},
-            {type: 'main', title: 'Начинки', labelRef: React.useRef(null)}
+            {type: 'bun', title: 'Булки', labelRef: React.useRef<HTMLInputElement>(null)},
+            {type: 'sauce', title: 'Соусы', labelRef: React.useRef<HTMLInputElement>(null)},
+            {type: 'main', title: 'Начинки', labelRef: React.useRef<HTMLInputElement>(null)}
         ]
 
     const tabs = () => (
@@ -88,9 +94,5 @@ function BurgerIngredients (props) {
     )
 }
 
-
-BurgerIngredients.propTypes = {
-    handleIngredientClick: PropTypes.func.isRequired,
-}
 
 export default BurgerIngredients;

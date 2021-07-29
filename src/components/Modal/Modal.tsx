@@ -1,15 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import PropTypes from 'prop-types';
 import modalStyles from './Modal.module.css';
-import ModalOverlay from "../ModalOverlay/ModalOverlay.jsx";
+import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
 const modalRoot = document.getElementById("modal-root");
 
 
+interface Props {
+    isOpen: boolean,
+    children: React.ReactNode,
+    closeCallback: () => void,
+    header?: string,
+}
 
-function Modal(props) {
+
+function Modal(props:Props) {
     return (modalRoot && ReactDOM.createPortal(
     (
         <>
@@ -29,13 +35,5 @@ function Modal(props) {
         modalRoot
     ))
 }
-
-Modal.propTypes = {
-    isOpen: PropTypes.bool.isRequired,
-    children: PropTypes.node,
-    closeCallback: PropTypes.func.isRequired,
-    header: PropTypes.string
-}
-
 
 export default Modal;

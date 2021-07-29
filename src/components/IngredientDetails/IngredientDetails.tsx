@@ -1,10 +1,23 @@
 import React from "react";
-import PropTypes from 'prop-types';
+
 import ingredientDetailsStyles from './IngredientDetails.module.css';
 
 
+type TIngredient = {
+    image_large:string,
+    name:string,
+    calories:number,
+    proteins:number,
+    fat:number,
+    carbohydrates:number,
+}
 
-function NutritionValue(props) {
+interface Props {
+    ingredient: TIngredient
+}
+
+
+function NutritionValue(props:{label:string, value:number}) {
     return (
         <li className={ingredientDetailsStyles.nutritionValue}>
             <span className='text text_type_main-default text_color_inactive'>{props.label}</span>
@@ -13,12 +26,8 @@ function NutritionValue(props) {
     )
 }
 
-NutritionValue.propTypes = {
-    label: PropTypes.string,
-    value: PropTypes.number
-}
 
-function IngredientDetails(props) {
+function IngredientDetails(props:Props) {
     return (
         <div className={ingredientDetailsStyles.container}>
 
@@ -36,15 +45,5 @@ function IngredientDetails(props) {
     );
 }
 
-IngredientDetails.propTypes = {
-    ingredient: PropTypes.shape({
-        image_large: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        calories: PropTypes.number.isRequired,
-        proteins: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        carbohydrates: PropTypes.number.isRequired,
-    }).isRequired
-}
 
 export default IngredientDetails;

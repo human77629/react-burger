@@ -1,7 +1,7 @@
 import React from 'react';
 import { Logo, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './LoginPage.module.css'
-import AppHeader from '../components/AppHeader/AppHeader.jsx'
+import AppHeader from '../components/AppHeader/AppHeader'
 import {Link, Redirect} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { confirmPasswordReset, userInfo } from '../services/actions/user';
