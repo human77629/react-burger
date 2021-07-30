@@ -24,6 +24,7 @@ import {
 
 const initialState:TBurgerState = {
     viewedIngredient: {
+        image_mobile: '',
         image_large: '',
         image: '',
         name: '',
@@ -34,6 +35,7 @@ const initialState:TBurgerState = {
         _id: '',
         type: '',
         price: 0,
+        __v: 0,
     },
 
     order: {
@@ -61,6 +63,13 @@ const initialState:TBurgerState = {
         price: 0,
         ingredients:[],
         createdAt:'',
+        updatedAt:'',
+        owner:{
+            name:'',
+            email:'',
+            createdAt:'',
+            updatedAt:'',
+        }
     },
 
     totalOrderCount: 0,
@@ -109,6 +118,7 @@ export type TBurgerState = {
 
 export type TIngredient = {
     image_large:string,
+    image_mobile:string,
     image:string,
     name:string,
     calories:number,
@@ -118,6 +128,7 @@ export type TIngredient = {
     _id:string,
     type:string,
     price:number,
+    __v:number,
 }
 
 export type TOrder = {
@@ -128,7 +139,22 @@ export type TOrder = {
     price?:number
     ingredients:string[],
     createdAt:string,
+    updatedAt:string,
+    owner: {
+        name:string,
+        email:string,
+        createdAt:string,
+        updatedAt:string,
+    }
 }
+
+/*
+                   "owner": {
+                     "name": "qweasdzxc",
+                     "email": "qweasdzxc@qweasdzxc.com",
+                     "createdAt": "2021-07-14T00:03:11.841Z",
+                     "updatedAt": "2021-07-14T19:34:29.885Z"
+                   },*/
 
 
 
