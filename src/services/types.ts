@@ -4,6 +4,11 @@ import {TBurgerActions} from './actions/burger'
 import {ThunkAction} from 'redux-thunk'
 import {Action, ActionCreator} from 'redux'
 
+import {TUserState} from './reducers/user'
+import {TBurgerState} from './reducers/burger'
+
+export type PureStateType = TUserState & TBurgerState;
+
 export type TRootState = ReturnType<typeof store.getState>;
 export type TApplicationActions = TBurgerActions;
 

@@ -71,7 +71,7 @@ const initialState:TBurgerState = {
     selectedIngredients: {bunId: '', toppingIds: []},
 }
 
-type TBurgerState = {
+export type TBurgerState = {
     viewedIngredient: TIngredient,
 
     order: {

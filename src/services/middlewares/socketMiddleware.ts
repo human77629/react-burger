@@ -1,6 +1,13 @@
-export const socketMiddleware = (wsUrl, wsActions) => {
-    return store => {
-        let socket = null;
+import {Middleware} from 'redux'
+import {PureStateType} from '../types'
+
+type TSocketMiddlewareGenerator =  (wsUrl:string, wsActions:{[key:string]:string}) => Middleware<{}, PureStateType>
+
+
+export const socketMiddleware:TSocketMiddlewareGenerator = (wsUrl:string, wsActions:{[key:string]:string}) =>  
+     store => { 
+        let socket:WebSocket | null = null;
+
 
         return next => action => {
             
@@ -43,5 +50,5 @@ export const socketMiddleware = (wsUrl, wsActions) => {
 
             next(action)
         }
-    }
+    
 }
