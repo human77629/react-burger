@@ -1,4 +1,4 @@
-import { getIngredientsRequest, makeOrderRequest, ensureToken, fakeGetOrdersRequest } from '../api.js'
+import { getIngredientsRequest, makeOrderRequest, ensureToken, fakeGetOrdersRequest } from '../api'
 import { TIngredient, TOrder } from '../reducers/burger.js';
 import {AppThunk, AppDispatch} from '../types'
 
@@ -155,6 +155,7 @@ export type TBurgerActions =
 
 
 
+  /*
 export const getOrders:AppThunk = () => {
   return function(dispatch:AppDispatch) {
     dispatch({
@@ -174,7 +175,7 @@ export const getOrders:AppThunk = () => {
     );
   };
 }
-
+*/
 
 export const getIngredients:AppThunk = () => {
   return function(dispatch:AppDispatch) {
@@ -200,13 +201,27 @@ export const getIngredients:AppThunk = () => {
   };
 }
 
+type TMakeOrderResponse = {
+  accessToken?:string,
+  refreshToken?:string,
+  name:string,
+  order:{
+    number:string,
+  }
+}
+
+type TMakeOrderRequest = {
+  token: string, 
+  ingredients: string[]
+}
+
 
 export const makeOrder:AppThunk = (params: {token:string, ingredients:string[]}) => {
   return function(dispatch:AppDispatch) {
     dispatch({
       type: MAKE_ORDER_REQUEST
     });
-    ensureToken(makeOrderRequest, params).then(res => {
+    ensureToken<TMakeOrderRequest,TMakeOrderResponse>(makeOrderRequest, params).then(res => {
       dispatch({
           type: MAKE_ORDER_SUCCESS,
           data: res

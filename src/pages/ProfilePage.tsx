@@ -4,7 +4,7 @@ import styles from './ProfilePage.module.css'
 import AppHeader from '../components/AppHeader/AppHeader'
 import { useDispatch, useSelector } from '../services/hooks';
 import { userInfo, userUpdate, userLogout } from '../services/actions/user';
-import { WS_CONNECTION_START, getIngredients, getOrders, VIEW_ORDER } from '../services/actions/burger';
+import { WS_CONNECTION_START, getIngredients, VIEW_ORDER } from '../services/actions/burger';
 import { OrderDetails } from '../components/OrderDetails/OrderDetails';
 import {useHistory, useLocation} from 'react-router-dom'
 import ProfileNavMenu from '../components/ProfileNavMenu/ProfileNavMenu';

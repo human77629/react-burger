@@ -1,4 +1,4 @@
-import { loginRequest, logoutRequest, signupRequest, getUserInfo, ensureToken, patchUserInfo, passwordResetRequest, passwordResetConfirmationRequest } from '../api.js'
+import { loginRequest, logoutRequest, signupRequest, getUserInfo, ensureToken, patchUserInfo, passwordResetRequest, passwordResetConfirmationRequest } from '../api'
 import {AppThunk, AppDispatch} from '../types'
 
 export const USER_SIGNUP_REQUEST:'USER_SIGNUP_REQUEST' = 'USER_SIGNUP_REQUEST';
@@ -245,13 +245,32 @@ export const passwordReset:AppThunk = (email:string) => {
 }
 
 
+type TUserUpdateRequest = {
+  token: string, 
+  user: {
+    name?:string, 
+    email?:string, 
+    password?:string,
+  }
+}
+
+type TUserUpdateResponse = {
+  accessToken:string, 
+  refreshToken:string, 
+  user: {
+    email:string, 
+    name:string,
+  }
+}
+
+
 export const userUpdate:AppThunk = (params) => {  
   return function(dispatch:AppDispatch) {
 
     dispatch({
       type: USER_UPDATE_REQUEST
     });
-    ensureToken(patchUserInfo, params).then(res => {
+    ensureToken<TUserUpdateRequest,TUserUpdateResponse>(patchUserInfo, params).then(res => {
       dispatch({
           type: USER_UPDATE_SUCCESS,
           user: res.user
@@ -270,12 +289,21 @@ export const userUpdate:AppThunk = (params) => {
 }
 
 
+type TUserInfoResponse = {
+  accessToken:string,
+  refreshToken:string,
+  user:{
+    email:string,
+    name:string
+  }
+}
+
 export const userInfo:AppThunk = (token:string) => {  
   return function(dispatch:AppDispatch) {
     dispatch({
       type: USER_INFO_REQUEST
     });
-    ensureToken(getUserInfo,{token: token}).then(res => {
+    ensureToken<{token:string},TUserInfoResponse>(getUserInfo,{token: token}).then(res => {
       dispatch({
           type: USER_INFO_SUCCESS,
           user: res.user
@@ -302,7 +330,7 @@ export const userLogout:AppThunk = () => {
       dispatch({
         type: USER_LOGOUT_REQUEST
       });
-      logoutRequest(localStorage.getItem('token')).then(res => {
+      logoutRequest(localStorage.getItem('token') || '').then(res => {
         if (res && res.ok) {
           return res.json();
         }

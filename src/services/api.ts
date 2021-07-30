@@ -10,7 +10,7 @@ const PASSWORD_RESET_URL = 'https://norma.nomoreparties.space/api/password-reset
 const PASSWORD_RESET_CONFIRM_URL = 'https://norma.nomoreparties.space/api/password-reset/reset'
 
 
-export const passwordResetConfirmationRequest = (password, token) => {
+export const passwordResetConfirmationRequest = (password:string, token:string) => {
   return fetch(PASSWORD_RESET_CONFIRM_URL, {
     method: 'POST',
     headers: {
@@ -23,13 +23,13 @@ export const passwordResetConfirmationRequest = (password, token) => {
   })
 }
 
-export const ensureToken = async (request, param) => {
+export const ensureToken = async <RequestType,ResponseType>(request:(param:RequestType)=>Promise<Response>, param:RequestType):Promise<ResponseType> => {
   const initialResponse = await request(param)
 
   if (!initialResponse) return Promise.reject('?')
   if (initialResponse.ok) return initialResponse.json()
   if (initialResponse.status===401 || initialResponse.status===403) {
-    const refreshResponse = await refreshTokenRequest(localStorage.getItem('token'))
+    const refreshResponse = await refreshTokenRequest(localStorage.getItem('token')||'')
     if (!refreshResponse) return Promise.reject('refresh error')
     if (!refreshResponse.ok) return Promise.reject(refreshResponse.status)
     const refreshObject = await refreshResponse.json()
@@ -45,18 +45,21 @@ export const ensureToken = async (request, param) => {
   return Promise.reject(initialResponse.status)
 }
 
-export const getUserInfo = ({token}) => {
+export const getUserInfo = (param: {token: string}) => {
   return fetch(USER_INFO_URL, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'authorization': token
+      'authorization': param.token
     },
   })
 }
 
-
-export const patchUserInfo = (params) => {
+export const patchUserInfo = (params: {token:string, user: {
+  name?: string,
+  email?: string,
+  password?: string,
+}}) => {
 
   const {token, user} = params
 
@@ -70,35 +73,35 @@ export const patchUserInfo = (params) => {
   })
 }
 
-export const signupRequest = ({email, password, username}) => {
+export const signupRequest = (param: {email:string, password:string, username:string}) => {
   return fetch(SIGNUP_API_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      email: email,
-      password: password,
-      name: username
+      email: param.email,
+      password: param.password,
+      name: param.username
     })    
   })
 }
 
-export const loginRequest = ({email, password}) => {
+export const loginRequest = (param: {email:string, password:string}) => {
   return fetch(LOGIN_API_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      email: email,
-      password: password,
+      email: param.email,
+      password: param.password,
     })    
   })
 }
 
 
-export const passwordResetRequest = (email) => {
+export const passwordResetRequest = (email:string) => {
   return fetch(PASSWORD_RESET_URL, {
     method: 'POST',
     headers: {
@@ -110,7 +113,7 @@ export const passwordResetRequest = (email) => {
   })
 }
 
-export const refreshTokenRequest = (token) => {
+export const refreshTokenRequest = (token:string) => {
   return fetch(TOKEN_API_URL, {
     method: 'POST',
     headers: {
@@ -122,7 +125,7 @@ export const refreshTokenRequest = (token) => {
   })
 }
 
-export const logoutRequest = (token) => {
+export const logoutRequest = (token:string) => {
   return fetch(LOGOUT_API_URL, {
     method: 'POST',
     headers: {
@@ -159,13 +162,13 @@ export const fakeGetOrdersRequest = async () => {
 }
 
 
-export const makeOrderRequest = async ({token, ingredients}) => {
+export const makeOrderRequest = async (param: {token:string, ingredients:string[]}) => {
   return await fetch(ORDER_API_URL, {
     method: 'POST', 
     headers: {
       'Content-Type': 'application/json',
-      'authorization': token
+      'authorization': param.token
     },
-    body: JSON.stringify({ingredients: ingredients})
+    body: JSON.stringify({ingredients: param.ingredients})
   })
 }
