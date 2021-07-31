@@ -1,4 +1,4 @@
-
+import React from 'react'
 import styles from './DraggableBurgerIngredient.module.css';
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag, useDrop} from 'react-dnd';
@@ -13,14 +13,33 @@ interface Props {
     index: number,
 }
 
+
+
+
 const DraggableBurgerIngredient:React.FC<Props> = (props:Props) => {
+
+    const DropPreview = () => {
+        
+        return (
+            <div className={`${styles.ingredientFix} ${styles.dropTransparency} pl-8`}>
+                <ConstructorElement text={hoveringItem.ingredient.name} thumbnail={hoveringItem.ingredient.image} price={hoveringItem.ingredient.price} handleClose={()=>{}}/>
+            </div>
+        )
+    }
 
     const dispatch = useDispatch();
 
-    const [, dragRef, previewRef] = useDrag({
+    const [{isDragging}, dragRef, previewRef] = useDrag({
         type: 'ingredient',
-        item: {index: props.index},      
+        item: {index: props.index, ingredient: props.component},      
+        collect: monitor => ({
+            isDragging: monitor.isDragging(),
+        })
     });
+
+
+
+    
 
     const onDropHandler = (itemId: {index:number}) => {
         dispatch({type: MOVE_TOPPING, currentIndex: itemId.index, targetIndex: props.index});
@@ -33,22 +52,31 @@ const DraggableBurgerIngredient:React.FC<Props> = (props:Props) => {
         },
         collect: monitor => ({
             isOver: monitor.isOver(),
-            hoveringItem: monitor.getItem()
+            hoveringItem: monitor.getItem(),
+        
         })
     });    
 
+
     return (
-        <li className={`${styles.component} pl-8`} ref={dropTarget}>
-            <div className={styles.dragIcon} ref={dragRef}>
-            <DragIcon type='primary' />
-            </div>
-            <div className={styles.ingredientFix} ref={previewRef}>
-            <ConstructorElement text={props.component.name} thumbnail={props.component.image} price={props.component.price} handleClose={props.handleClose}/>
-            </div>
+        <>
+        {true && (
+        <li className={`${styles.component}`} ref={dropTarget}>
+            {isOver && hoveringItem.index>props.index && (DropPreview())}
+                <div className={`${styles.componentInner} ${isDragging?styles.dragTransparency:''} pl-8`}>
+                    <div className={styles.dragIcon} ref={dragRef}>
+                        <DragIcon type='primary' />
+                    </div>
+                    <div className={styles.ingredientFix} ref={previewRef}>
+                    <ConstructorElement text={props.component.name} thumbnail={props.component.image} price={props.component.price} handleClose={props.handleClose}/>
+                    </div>    
+                    
+                </div>
+            {isOver && hoveringItem.index<props.index && (DropPreview())}
             
-            {isOver && hoveringItem.index>props.index && (<div className={styles.dragHoverEffectTop}></div>)}
-            {isOver && hoveringItem.index<props.index && (<div className={styles.dragHoverEffectBottom}></div>)}
         </li>
+        )}
+        </>
     )
 }
 

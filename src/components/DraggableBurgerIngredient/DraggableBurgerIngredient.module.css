@@ -1,5 +1,23 @@
 .component {
     display: flex;
+    flex-flow: column;
+    align-items: stretch;
+    position: relative;
+    justify-content: space-evenly;
+    gap: 16px;
+    
+}
+
+.componentInner {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    position: relative;
+    justify-content: space-evenly;
+}
+
+.componentInner {
+    display: flex;
     flex-flow: row;
     align-items: center;
     position: relative;
@@ -25,20 +43,30 @@
 }
 
 
+
 .dragHoverEffectTop {
     background: linear-gradient(rgba(67, 115, 247, 0.3),rgba(67, 115, 247, 0.0));
     position: absolute;
-    top: 0%;
+    top: 50%;
     left: 0%;
     right: 0%;
-    bottom: 0%;
+    bottom: -50%;
 }
 
 .dragHoverEffectBottom {
     background: linear-gradient(rgba(67, 115, 247, 0.0),rgba(67, 115, 247, 0.3));
     position: absolute;
-    top: 0%;
+    top: 50%;
     left: 0%;
     right: 0%;
     bottom: 0%;
+}
+
+.dragTransparency {
+    opacity: 30%;
+}
+
+
+.dropTransparency {
+    opacity: 70%;
 }

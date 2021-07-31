@@ -1,4 +1,4 @@
-import { getIngredientsRequest, makeOrderRequest, ensureToken, fakeGetOrdersRequest } from '../api'
+import { getIngredientsRequest, makeOrderRequest, ensureToken } from '../api'
 import { TIngredient, TOrder } from '../types'
 import { AppThunk, AppDispatch } from '../types'
 
