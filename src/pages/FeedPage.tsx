@@ -59,9 +59,8 @@ export function FeedPage() {
     }
 
    
-    if (!orders || !ingredients) return <AppHeader/>;
-    return (<>
-    <AppHeader/>
+    if (!orders || !ingredients) return <></>;
+    return (
     <main className={styles.container}>
         <header className={styles.header}>
             <h1 className={`${styles.headerText} text text_type_main-large mt-10 mb-10`}>Лента заказов</h1>
@@ -99,5 +98,5 @@ export function FeedPage() {
             </section>      
         </section>  
     </main>
-    </>)
+    )
 }

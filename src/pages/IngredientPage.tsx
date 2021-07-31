@@ -17,12 +17,11 @@ export function IngredientPage () {
     
     
     return (
-        <>
-        <AppHeader />
+
         <main className={`${styles.container}`}>
         <h1 className="text text_type_main-large mt-30 mb-10">Детали ингредиента</h1>
         {viewedIngredient && (<IngredientDetails ingredient={viewedIngredient} />)}
         </main>
-        </>
+
     )
 }

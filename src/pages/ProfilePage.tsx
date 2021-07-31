@@ -151,7 +151,7 @@ export function ProfilePage() {
 
     return (
         <>
-        <AppHeader />      
+   
         <main className={`mt-10`}>
             <section className={`${styles.sideSection} mt-20`}>
             <ProfileNavMenu />

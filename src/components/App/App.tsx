@@ -16,6 +16,7 @@ import {TRootState} from '../../services/types'
 
 
 import './App.css';
+import AppHeader from '../AppHeader/AppHeader';
 
 interface LocationState {
   background: Location<unknown>,
@@ -43,6 +44,7 @@ const App:React.FC = () => {
   
   return (
           <>
+          <AppHeader />
             {background && (
               <Switch>
                 <Modal isOpen={!!background} closeCallback={closeAllModals} header={location.state.modalHeader}>

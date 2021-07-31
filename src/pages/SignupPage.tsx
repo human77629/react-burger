@@ -34,8 +34,7 @@ export function SignupPage() {
     const user = useSelector(store=>store.user.user)
     if (user.name!=='') return (<Redirect to='/profile' />)    
     return (
-        <>
-        <AppHeader />
+
         <main className={styles.container}>
             <Logo />
             
@@ -81,6 +80,6 @@ export function SignupPage() {
                 <span className="text text_type_main-default text_color_inactive">Уже зарегистрированы? <Link to='/login'>Войти</Link></span>
             </section>
         </main>
-        </>
+
     )
 }

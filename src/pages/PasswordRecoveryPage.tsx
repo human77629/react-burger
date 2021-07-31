@@ -32,7 +32,6 @@ export function PasswordRecoveryPage() {
     if (user.name!=='') return (<Redirect to='/profile' />)
     return (
         <>
-        <AppHeader />
         {passwordResetStage === 'RESET_PAGE' && (
             <Redirect to='/reset-password' />
         )}

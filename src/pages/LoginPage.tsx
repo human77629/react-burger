@@ -45,7 +45,6 @@ export function LoginPage() {
     if (user.name!=='') return (<Redirect to={state?.from?.pathname || '/profile'} />)
     return (
         <>
-        <AppHeader />
         <main className={styles.container}>
             <Logo />
             

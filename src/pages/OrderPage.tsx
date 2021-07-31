@@ -23,11 +23,10 @@ export function OrderPage () {
     
 
     return (
-        <>
-        <AppHeader />
+
         <main className={styles.container}>
             {order && (<OrderDetails order={order} ingredients={ingredients} />)}
         </main>
-        </>
+
     )
 }

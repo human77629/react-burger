@@ -79,7 +79,6 @@ export function BurgerPage() {
   return (
           
         <DndProvider backend={HTML5Backend}>          
-          <AppHeader />
           <main>
               {!ingredientsRequest && !ingredientsFailed && (
                 <>
