@@ -26,7 +26,7 @@ import {
     TUserActions
 } from '../actions/user'
 
-const initialState:TUserState = {
+export const initialState:TUserState = {
     accessToken: '',
     refreshToken: '',
     user: {
