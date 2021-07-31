@@ -1,6 +1,6 @@
 import { getIngredientsRequest, makeOrderRequest, ensureToken, fakeGetOrdersRequest } from '../api'
-import { TIngredient, TOrder } from '../reducers/burger.js';
-import {AppThunk, AppDispatch} from '../types'
+import { TIngredient, TOrder } from '../types'
+import { AppThunk, AppDispatch } from '../types'
 
 import { USER_UPDATE_TOKEN } from './user';
 

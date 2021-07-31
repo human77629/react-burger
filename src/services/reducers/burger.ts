@@ -22,6 +22,8 @@ import {
     TBurgerActions,
 } from '../actions/burger'
 
+import {TIngredient, TOrder} from '../types'
+
 const initialState:TBurgerState = {
     viewedIngredient: {
         image_mobile: '',
@@ -116,37 +118,8 @@ export type TBurgerState = {
 }
 
 
-export type TIngredient = {
-    image_large:string,
-    image_mobile:string,
-    image:string,
-    name:string,
-    calories:number,
-    proteins:number,
-    fat:number,
-    carbohydrates:number,
-    _id:string,
-    type:string,
-    price:number,
-    __v:number,
-}
 
-export type TOrder = {
-    _id:string,
-    number:number,
-    name:string,
-    status:string,
-    price?:number
-    ingredients:string[],
-    createdAt:string,
-    updatedAt:string,
-    owner: {
-        name:string,
-        email:string,
-        createdAt:string,
-        updatedAt:string,
-    }
-}
+
 
 /*
                    "owner": {

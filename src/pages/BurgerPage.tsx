@@ -15,18 +15,8 @@ import { VIEW_INGREDIENT , getIngredients, makeOrder } from '../services/actions
 import { userInfo } from '../services/actions/user';
 
 import './BurgerPage.css';
+import {TIngredient} from '../services/types'
 
-
-
-type TIngredient = {
-  image_large:string,
-  name:string,
-  calories:number,
-  proteins:number,
-  fat:number,
-  carbohydrates:number,
-  _id:string,
-}
 
 export function BurgerPage() {
 

@@ -3,23 +3,14 @@ import { useDrag } from "react-dnd";
 
 import ingredientStyles from './BurgerIngredient.module.css'
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components'
+import {TIngredient} from '../../services/types'
 
-type TIngredient = {
-    image:string,
-    price:number,
-    name:string,
-    count:number,
-    _id:string,
-    image_large:string,  
-    calories:number,
-    proteins:number,
-    fat:number,
-    carbohydrates:number,      
-}
+
+type TIngredientWithCount = TIngredient & {count: number}
 
 
 interface Props {
-    ingredient: TIngredient,
+    ingredient: TIngredientWithCount,
     onClick: (ingredient:TIngredient)=>void,
 }
 

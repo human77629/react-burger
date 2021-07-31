@@ -1,23 +1,8 @@
 import React from 'react'
 import styles from './OrderFeed.module.css'
 import CardOrder from '../CardOrder/CardOrder'
+import { TIngredient, TOrder } from '../../services/types'
 
-type TOrder = {
-    _id:string,
-    number:number,
-    createdAt:string,
-    name:string,
-    status?:string,
-    ingredients:string[]
-}
-
-type TIngredient = {
-    _id:string,
-    name:string,
-    image:string,
-    type:string,
-    price:number
-}
 
 interface Props {
     orders: TOrder[],

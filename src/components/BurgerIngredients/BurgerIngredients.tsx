@@ -3,17 +3,8 @@ import {useSelector} from '../../services/hooks';
 import burgerIngredientsStyles from './BurgerIngredients.module.css'
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
+import {TIngredient} from '../../services/types'
 
-
-type TIngredient = {
-    image_large:string,
-    name:string,
-    calories:number,
-    proteins:number,
-    fat:number,
-    carbohydrates:number,
-    _id:string,
-}
 
 interface Props {
     handleIngredientClick: (ingredient: TIngredient) => void,

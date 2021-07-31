@@ -4,12 +4,8 @@ import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger
 import {useDrag, useDrop} from 'react-dnd';
 import {useDispatch} from '../../services/hooks';
 import { MOVE_TOPPING } from "../../services/actions/burger";
+import {TIngredient} from '../../services/types'
 
-type TIngredient = {
-    name:string,
-    image:string,
-    price:number,
-}
 
 interface Props {
     handleClose: () => void,

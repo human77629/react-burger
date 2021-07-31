@@ -2,26 +2,17 @@ import React from 'react'
 import styles from './OrderDetails.module.css'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientIcon from '../IngredientIcon/IngredientIcon'
+import { TIngredient, TOrder } from '../../services/types'
 
 
 
-
-type TIngredient = {
+type TIngredientListItem = {
     _id: string,
     image: string,
     name: string,
     price: number,
     count?: number,
     image_mobile?:string,
-}
-
-type TOrder = {
-    number:number,
-    name:string,
-    status?:string,
-    price?:number,
-    ingredients:string[],
-    createdAt:string,
 }
 
 interface Props {
@@ -31,7 +22,7 @@ interface Props {
 
 
 
-const ingredientListItem = function (ingredient:TIngredient) {
+const ingredientListItem = function (ingredient:TIngredientListItem) {
 
     return (
         <li key={ingredient._id} className={styles.ingredient}>
