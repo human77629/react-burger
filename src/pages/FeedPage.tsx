@@ -12,6 +12,28 @@ import { OrderFeed } from '../components/OrderFeed/OrderFeed'
 
 export function FeedPage() {
 
+
+    const ORDER_LIST_HEIGHT = 8
+    const ORDER_LIST_WIDTH = 20
+
+    const fillOrderList = (orderNumbers:string[]) => {
+        let maxLength = 0
+        let displayOrderCount = orderNumbers.length
+        for (let i=0; i<orderNumbers.length; i++) {
+            const orderNo = orderNumbers[i]
+            maxLength = orderNo.length>maxLength?orderNo.length:maxLength
+
+            const cols = Math.floor((ORDER_LIST_WIDTH+1)/(maxLength+1))
+            const maxOrders = cols*ORDER_LIST_HEIGHT
+            if (maxOrders<i) break;
+            displayOrderCount = i
+        }
+        return orderNumbers.slice(0, displayOrderCount)
+    }
+
+
+
+
     React.useEffect(()=>{
         dispatch(getIngredients())
         //dispatch(getOrders())
@@ -21,6 +43,13 @@ export function FeedPage() {
     const history = useHistory()
     const location = useLocation()
     const {orders, ingredients, viewedOrder, totalOrderCount, todayOrderCount} = useSelector(store=>store.burger)
+
+    const finishedOrders = React.useMemo(()=>
+        fillOrderList(orders.filter(order=>order.status==='done').map(order=>order.number.toString()))
+    ,[orders])    
+    const pendingOrders = React.useMemo(()=>
+        fillOrderList(orders.filter(order=>order.status!=='done').map(order=>order.number.toString()))
+    ,[orders])    
     
 
     const handleOpenOrderModal = function (orderId:string) {
@@ -45,16 +74,16 @@ export function FeedPage() {
                     <h2 className={`text text_type_main-medium mb-6`}>Готовы:</h2>
                     <ul className={`${styles.completedOrders}`}>
                         
-                        {orders.filter(order=>order.status==='done').slice(0,40).map(order=>(
-                            <span key={order._id} className={`${styles.complete} text text_type_digits-default`}>{order.number}</span>
+                        {finishedOrders.map(order=>(
+                            <span key={order} className={`${styles.complete} text text_type_digits-default`}>{order}</span>
                         ))}
                     </ul>
                     </section>
                     <section className={`${styles.boardBlock}`}>
                     <h2 className={`text text_type_main-medium mb-6`}>В работе:</h2>
                     <ul className={`${styles.pendingOrders}`}>
-                        {orders.filter(order=>order.status!=='done').slice(0,40).map(order=>(
-                            <span key={order._id} className={`text text_type_digits-default`}>{order.number}</span>
+                        {pendingOrders.map(order=>(
+                            <span key={order} className={`text text_type_digits-default`}>{order}</span>
                         ))}
                     </ul>
                     </section>
