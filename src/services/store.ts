@@ -2,6 +2,7 @@ import { applyMiddleware, createStore, compose } from 'redux';
 import { rootReducer } from './reducers';
 import { socketMiddleware } from './middlewares';
 import thunkMiddleware from 'redux-thunk';
+import {PureStateType} from './types';
 
 import {
   WS_CONNECTION_CLOSED,
@@ -26,7 +27,7 @@ const wsActions = {
   createStore(
     rootReducer,
     initialState,
-    compose(applyMiddleware(thunkMiddleware,socketMiddleware(wsUrl, wsActions)))
+    compose(applyMiddleware(thunkMiddleware,socketMiddleware<PureStateType>(wsUrl, wsActions)))
   );
 
   export const store = initStore()

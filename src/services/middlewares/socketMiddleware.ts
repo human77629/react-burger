@@ -1,7 +1,6 @@
 import {Middleware} from 'redux'
-import {PureStateType} from '../types'
 
-type TSocketMiddlewareGenerator =  (wsUrl:string, wsActions:{[key:string]:string}) => Middleware<{}, PureStateType>
+type TSocketMiddlewareGenerator =  <StateType>(wsUrl:string, wsActions:{[key:string]:string}) => Middleware<{}, StateType>
 
 
 export const socketMiddleware:TSocketMiddlewareGenerator = (wsUrl:string, wsActions:{[key:string]:string}) =>  
