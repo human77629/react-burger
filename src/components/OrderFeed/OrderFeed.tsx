@@ -28,7 +28,7 @@ interface Props {
 
 
 
-export function OrderFeed(props:Props) {
+export const OrderFeed:React.FC<Props> = (props:Props) => {
 
     const {orders, ingredients} = props
 

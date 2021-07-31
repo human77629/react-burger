@@ -1,9 +1,10 @@
+import React from 'react'
 import styles from './ProfileNavMenu.module.css'
 import {useHistory, useLocation} from 'react-router-dom'
 import { useDispatch } from '../../services/hooks'
 import { userLogout } from '../../services/actions/user'
 
-export default function ProfileNavMenu() {
+const ProfileNavMenu:React.FC = () => {
     const history = useHistory()
     const dispatch = useDispatch()
     const location = useLocation()
@@ -22,3 +23,5 @@ export default function ProfileNavMenu() {
         </div>
     )
 }
+
+export default ProfileNavMenu

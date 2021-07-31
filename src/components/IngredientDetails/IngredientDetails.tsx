@@ -27,7 +27,7 @@ function NutritionValue(props:{label:string, value:number}) {
 }
 
 
-function IngredientDetails(props:Props) {
+const IngredientDetails:React.FC<Props> = (props:Props) => {
     return (
         <div className={ingredientDetailsStyles.container}>
 

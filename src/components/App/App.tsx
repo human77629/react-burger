@@ -22,7 +22,7 @@ interface LocationState {
   modalHeader: string,
 }
 
-function App() {
+const App:React.FC = () => {
   const location = useLocation<LocationState>();
   const history = useHistory();
   const background:Location<unknown> | undefined = history.action === 'REPLACE' && location.state?.background || undefined; 

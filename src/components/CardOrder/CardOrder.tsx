@@ -17,7 +17,7 @@ interface Props {
     onClick: ()=>void,
 }
 
-function CardOrder (props:Props) {
+const CardOrder:React.FC<Props> =  (props:Props) => {
     const history = useHistory();
 
     const timeText = React.useMemo(()=>{

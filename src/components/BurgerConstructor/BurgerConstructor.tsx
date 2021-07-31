@@ -14,7 +14,7 @@ interface Props {
     handleOrderClick: () => void;
 }
 
-function BurgerConstructor (props:Props) {
+const BurgerConstructor:React.FC<Props> = (props:Props) => {
 
 
     const dispatch = useDispatch();

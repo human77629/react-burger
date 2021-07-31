@@ -20,7 +20,7 @@ interface Props {
 }
 
 
-function BurgerIngredients (props:Props) {
+const BurgerIngredients:React.FC<Props> = (props:Props) => {
 
     const order = useSelector( store=> store.burger.selectedIngredients )
     const ingredients = useSelector( store => store.burger.ingredients )

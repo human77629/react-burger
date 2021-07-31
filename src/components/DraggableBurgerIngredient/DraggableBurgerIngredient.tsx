@@ -17,7 +17,7 @@ interface Props {
     index: number,
 }
 
-function DraggableBurgerIngredient(props:Props) {
+const DraggableBurgerIngredient:React.FC<Props> = (props:Props) => {
 
     const dispatch = useDispatch();
 

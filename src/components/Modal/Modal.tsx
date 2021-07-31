@@ -15,7 +15,7 @@ interface Props {
 }
 
 
-function Modal(props:Props) {
+const Modal:React.FC<Props> = (props:Props) => {
     return (modalRoot && ReactDOM.createPortal(
     (
         <>

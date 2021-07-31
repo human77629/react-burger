@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './OrderStatus.module.css';
 import {useSelector} from '../../services/hooks';
 
-function OrderStatus() {
+const OrderStatus:React.FC = () => {
 
     const order = useSelector(store=>store.burger.order)
     const orderRequest = useSelector(store=>store.burger.orderRequest)

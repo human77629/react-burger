@@ -6,7 +6,7 @@ interface Props {
     count?:number,
 }
 
-function IngredientIcon (props:Props) {
+const IngredientIcon:React.FC<Props> =  (props:Props) => {
     return (
         <div className={styles.container}>
             <div className={styles.borderDiv}></div>

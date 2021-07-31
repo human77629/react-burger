@@ -9,7 +9,7 @@ interface Props {
     pathname?: string
 }
 
-function NavMenuItem (props:Props) {
+const NavMenuItem:React.FC<Props> =  (props:Props) => {
     const history = useHistory();
     const location = useLocation();
     const selected = React.useMemo(()=>{

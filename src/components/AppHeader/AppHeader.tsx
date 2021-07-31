@@ -4,7 +4,7 @@ import NavMenuItem from '../NavMenuItem/NavMenuItem'
 import headerStyles from './AppHeader.module.css'
 import {Link} from 'react-router-dom'
 
-function AppHeader () {
+const AppHeader:React.FC = () => {
     return (
         <header className={headerStyles.navPanel}>
             <nav className={`${headerStyles.navPanelContent} mt-4 mb-4`}>

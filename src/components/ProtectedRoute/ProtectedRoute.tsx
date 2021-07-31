@@ -7,7 +7,7 @@ interface Props extends RouteProps {
     children: React.ReactNode
 }
 
-function ProtectedRoute (props: Props) {
+const ProtectedRoute:React.FC<Props> = (props: Props) => {
     const {children, ...rest} = props;
     const [isUserLoaded, setIsUserLoaded] = React.useState(false)
     const dispatch = useDispatch()

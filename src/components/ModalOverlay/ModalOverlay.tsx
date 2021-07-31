@@ -6,7 +6,7 @@ interface Props {
     onClick: ()=>void,
 }
 
-function ModalOverlay(props:Props) {
+const ModalOverlay:React.FC<Props> = (props:Props) => {
     return (
         <div className={props.isOpen?ModalOverlayStyles.overlay:ModalOverlayStyles.overlayHidden} onClick={props.onClick}>
         </div>

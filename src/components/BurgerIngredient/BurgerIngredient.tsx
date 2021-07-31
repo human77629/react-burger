@@ -23,7 +23,7 @@ interface Props {
     onClick: (ingredient:TIngredient)=>void,
 }
 
-function BurgerIngredient (props:Props) {
+const BurgerIngredient:React.FC<Props> = (props:Props) => {
     const _id = props.ingredient._id;
     const [, dragRef] = useDrag({
         type: 'newIngredient',

@@ -45,7 +45,7 @@ const ingredientListItem = function (ingredient:TIngredient) {
         )
 }
 
-export function OrderDetails (props:Props) {
+export const OrderDetails:React.FC<Props> = (props:Props) => {
 
     const {ingredients, order} = props
 
