@@ -50,9 +50,10 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.6",
+    "@types/react-router-dom": "^5.1.8",
     "cypress": "^8.0.0",
     "fetch-mock": "^9.11.0",
     "redux-mock-store": "^1.5.4"
   },
-  "main": "src/index.jsx"
+  "main": "src/index"
 }
